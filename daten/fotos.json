@@ -100,22 +100,6 @@
     },
     {
       "kategorie": "astro",
-      "bild": "",
-      "titel": "Orionnebel (M42)",
-      "datum": "2026-01-20",
-      "ort": "Gartensternwarte",
-      "beschreibung": "Eine Sternentstehungsregion im Schwert des Orion.",
-      "teleskop": "",
-      "kamera": "",
-      "ha": null,
-      "oiii": null,
-      "duo": null,
-      "rgb": null,
-      "sonstiges": "",
-      "technik": "Refraktor 72/420 · 90 × 120 s"
-    },
-    {
-      "kategorie": "astro",
       "bild": "/bilder/SH2-129 14.08.2026.webp",
       "titel": "Der Riesenkalmar im Fliegenden Fledermausnebel",
       "datum": "2026-08-09",
