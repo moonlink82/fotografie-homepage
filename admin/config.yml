@@ -45,7 +45,7 @@ collections:
                   - { name: titel, label: Titel, widget: string, hint: "z. B. Herznebel (IC 1805)" }
                   - { name: datum, label: Aufnahmedatum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD, hint: "Bei mehreren Nächten: die letzte. Die neuesten Bilder erscheinen oben." }
                   - { name: ort, label: Ort, widget: string, required: false }
-                  - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+                  - { name: beschreibung, label: Beschreibung, widget: text, required: false, hint: "Eine kurze erste Zeile ohne Punkt wird als Zwischenüberschrift angezeigt (oder mit # beginnen). Leerzeile = neuer Absatz." }
                   - { name: teleskop, label: Teleskop / Objektiv, widget: string, required: false, hint: "z. B. Refraktor 72/420" }
                   - { name: kamera, label: Kamera, widget: string, required: false }
                   - name: ha
@@ -91,7 +91,7 @@ collections:
                   - { name: titel, label: Titel, widget: string }
                   - { name: datum, label: Aufnahmedatum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD, hint: "Die neuesten Bilder erscheinen automatisch oben." }
                   - { name: ort, label: Ort, widget: string, required: false }
-                  - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+                  - { name: beschreibung, label: Beschreibung, widget: text, required: false, hint: "Eine kurze erste Zeile ohne Punkt wird als Zwischenüberschrift angezeigt (oder mit # beginnen). Leerzeile = neuer Absatz." }
                   - { name: kamera, label: Kamera, widget: string, required: false }
                   - { name: objektiv, label: Objektiv, widget: string, required: false, hint: "z. B. 24–70 mm f/2.8" }
                   - { name: brennweite, label: Brennweite (mm), widget: number, value_type: int, required: false }
