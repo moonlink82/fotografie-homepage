@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://fotografie-homepage.moonlink.workers.dev/sitemap.xml
+Sitemap: https://lichtweite.photos/sitemap.xml
