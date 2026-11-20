@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo: DEIN-GITHUB-NAME/fotografie-homepage
+  repo: moonlink/fotografie-homepage
   branch: main
 
 media_folder: bilder
