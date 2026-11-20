@@ -1,6 +1,21 @@
 {
   "fotos": [
     {
+      "kategorie": "natur",
+      "bild": "/bilder/landscape_nature/IMG_8058-Pano-Bearbeitet.webp",
+      "titel": "Feuerhimmel",
+      "datum": "2026-10-05",
+      "ort": "Mochau",
+      "beschreibung": "Feuerhimmel – Panorama\n\nÜber einer weiten Feldlandschaft mit einem einzelnen Baum steht der Himmel in Flammen. Lange, fächerförmige Schleierwolken leuchten in Orange, Rot und Pink und laufen scheinbar auf einen Punkt am Horizont zu, dort, wo die Sonne gerade untergegangen ist. Darüber geht der Himmel langsam in das tiefe Blau der beginnenden Nacht über. Das Bild ist ein Panorama aus mehreren Einzelaufnahmen, die zusammengesetzt wurden, um die volle Weite dieses Himmels einzufangen.\n\nWissenswertes über das Abendrot\n\nWarum der Himmel rot wird: Steht die Sonne tief, legt ihr Licht einen sehr langen Weg durch die Atmosphäre zurück. Dabei wird das blaue Licht fast vollständig zur Seite gestreut. Übrig bleiben vor allem die gelben, orangen und roten Anteile.\nWolken in großer Höhe: Die feinen Schleierwolken sind Cirruswolken aus Eiskristallen in etwa 8 bis 12 Kilometern Höhe. Weil sie so hoch liegen, werden sie noch von der Sonne angestrahlt, wenn diese am Boden schon untergegangen ist. Das macht oft die schönsten Farben erst einige Minuten nach Sonnenuntergang möglich.\nDer Fächer-Effekt: Dass die Wolkenstreifen strahlenförmig auf einen Punkt zulaufen, ist eine perspektivische Täuschung. In Wirklichkeit verlaufen sie nahezu parallel, ähnlich wie Eisenbahnschienen, die in der Ferne zusammenzulaufen scheinen.\nNur ein kurzer Moment: Solche Farbspiele dauern oft nur wenige Minuten. Wer sie fotografieren will, muss zur richtigen Zeit am richtigen Ort sein und darf nicht zu früh einpacken.",
+      "kamera": "Canon 750",
+      "sonstiges": "Panorama aus 6 Hochkantbildern, Lightroom, Photoshop",
+      "objektiv": "Tamron 18-400mm",
+      "brennweite": 18,
+      "blende": "f6.3",
+      "verschlusszeit": "1/200",
+      "iso": 800
+    },
+    {
       "kategorie": "astro",
       "bild": "/bilder/M42_Mosaic_16.12.2025.webp",
       "titel": "Der Große Orion Nebel (M42)",
