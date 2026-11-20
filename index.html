@@ -576,7 +576,7 @@ const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite
 const has=v=>v!==undefined&&v!==null&&String(v).trim()!=='';
 function dauer(s){s=Math.round(s);if(s<60)return s+' s';const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?(m?`${h} h ${m} min`:`${h} h`):`${m} min`}
 const fmtS=s=>String(s).replace('.',',')+' s';
-const FILTER=[['ha','H-Alpha'],['oiii','OIII'],['rgb','RGB']];
+const FILTER=[['ha','H-Alpha'],['oiii','OIII'],['duo','Duo-Narrowband'],['rgb','RGB']];
 function belichtung(r){const rows=[];let tot=0;FILTER.forEach(([k,l])=>{const o=r[k]||{},a=num(o.anzahl),s=num(o.sekunden);if(a&&s){tot+=a*s;rows.push(`${l}: ${a} × ${fmtS(s)}${has(o.gain)?`, Gain ${String(o.gain).trim()}`:''} (${dauer(a*s)})`)}});return{rows,tot}}
 function metaRows(p){
   const r=p.raw||{},t=v=>has(v)?String(v).trim():'';
