@@ -111,6 +111,7 @@ collections:
           - { name: zusatz, label: "Zusatz im Logo", widget: string, required: false }
           - { name: email, label: "E-Mail-Adresse (Kontakt & Druckanfragen)", widget: string }
           - { name: instagram, label: "Instagram-Link", widget: string, required: false }
+          - { name: seo_beschreibung, label: "Kurzbeschreibung für Google (ca. 150 Zeichen)", widget: text, required: false, hint: "Erscheint in den Google-Suchergebnissen unter dem Titel. Wichtige Begriffe nennen, z. B. Astrofotografie, Region." }
           - { name: startseite_text, label: "Text auf der Startseite", widget: text, required: false }
           - { name: astro_text, label: "Einleitung Astro", widget: text, required: false }
           - { name: natur_text, label: "Einleitung Natur & Landschaft", widget: text, required: false }
