@@ -68,7 +68,6 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .intro{padding:clamp(4rem,9vw,7rem) 0;text-align:center}
 .quote{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3.2vw,2.5rem);line-height:1.3;max-width:30ch;margin:0 auto}
 .band{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding-bottom:clamp(4rem,9vw,7rem)}
-.band .btn{margin-top:2rem}
 .frame{background:#1b1d22;padding:clamp(1.5rem,4vw,3.5rem);box-shadow:inset 0 0 80px rgba(0,0,0,.5)}
 .frame img{width:100%;border:clamp(8px,1.4vw,16px) solid #f2efe8;box-shadow:0 25px 50px rgba(0,0,0,.55)}
 @media(max-width:860px){.band{grid-template-columns:1fr}}
@@ -130,16 +129,28 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .lb-actions{display:flex;gap:.5rem;flex-wrap:wrap}
 .lb-actions .btn{padding:.75rem 1.2rem}
 .lb.zoom .lb-bar{display:none}
-.lb-info{position:absolute;top:0;right:0;bottom:0;z-index:4;width:min(420px,100%);background:#0e0f13;border-left:1px solid var(--line);padding:4.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.1rem;overflow:auto;transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.lb-info{position:absolute;top:0;right:0;bottom:0;z-index:4;width:min(1040px,94vw);background:#0e0f13;border-left:1px solid var(--line);padding:4.5rem clamp(1.4rem,4vw,3.5rem) 2.5rem;overflow:auto;transform:translateX(102%);transition:transform .4s cubic-bezier(.2,.7,.2,1);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);grid-template-rows:auto auto 1fr auto;column-gap:clamp(2rem,4vw,3.5rem);align-content:start}
 .lb.info .lb-info{transform:none}
-.lb-info h2{font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1.1}
-.lb-info p{color:var(--muted);font-size:.95rem}
+.lb-info.notext{width:min(480px,100%);grid-template-columns:1fr}
+.lb-info.notext .lbi-text{display:none}
 .lb-info .ic{position:absolute;top:.8rem;right:1rem}
-.lb-desc{display:flex;flex-direction:column;gap:.75rem}
-.lb-desc h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2;color:var(--text);margin:0}
-.lb-desc h3:not(:first-child){margin-top:.6rem}
-.lb-desc p{color:var(--muted);font-size:.95rem;line-height:1.65}
-.spec{display:flex;flex-direction:column;gap:1.5rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.lbi-head{grid-column:1/-1;padding-bottom:1.6rem;margin-bottom:1.8rem;border-bottom:1px solid var(--line)}
+.lbi-head .kicker{margin-bottom:.5rem}
+.lbi-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.2vw,2.8rem);line-height:1.1}
+.lbi-sub{color:var(--muted);font-size:.9rem;margin-top:.6rem}
+.lbi-text{min-width:0}
+.lb-desc{max-width:64ch}
+.lb-desc h3{font-family:var(--serif);font-weight:500;font-size:1.45rem;line-height:1.25;color:var(--text);margin:0 0 .7rem}
+.lb-desc h3:not(:first-child){margin-top:2rem}
+.lb-desc p{color:#d6d2ca;font-size:1.04rem;line-height:1.8;margin:0 0 1.1rem}
+.lbi-side{min-width:0}
+.lbi-side .spec{border-top:0;padding-top:0}
+.print-note{margin-top:2rem;padding:1rem 1.1rem;border:1px solid var(--line);background:#121419;color:var(--muted);font-size:.86rem;line-height:1.6}
+.print-note a{color:var(--gold);border-bottom:1px solid rgba(214,168,92,.4)}
+.print-note a:hover{border-color:var(--gold)}
+.lb-info .hint{grid-column:1/-1;margin-top:2.5rem;font-size:.75rem;color:#6d727b}
+@media(max-width:900px){.lb-info{width:100%;grid-template-columns:1fr;padding:4rem 1.3rem 2rem}.lbi-side{margin-top:1rem;padding-top:1.6rem;border-top:1px solid var(--line)}.lb-desc p{font-size:1rem}}
+.spec{display:flex;flex-direction:column;gap:1.6rem}
 .spec h4{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.7rem}
 .kv{display:grid;grid-template-columns:5.8rem 1fr;gap:.5rem 1rem;font-size:.9rem}
 .kv dt{color:var(--muted);font-size:.8rem;padding-top:.1rem}
@@ -162,63 +173,6 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .hint{font-size:.75rem;color:#6d727b;margin-top:auto}
 @media(max-width:700px){.lb-nav{width:42px;height:42px;font-size:1rem}.lb-prev{left:.4rem}.lb-next{right:.4rem}.ic .lbl{display:none}.ic{padding:0;width:42px}.lb-actions .btn{padding:.65rem .9rem;font-size:.72rem}}
 
-/* Drucke */
-.order{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:start;padding-bottom:5rem}
-@media(max-width:920px){.order{grid-template-columns:1fr}}
-.step{display:flex;align-items:center;gap:.75rem;font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:2.2rem 0 1rem}
-.step span{flex:none;width:28px;height:28px;border:1px solid var(--gold);color:var(--gold);border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:.76rem;font-weight:500}
-.step.top{margin-top:0}
-.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-top:1rem}
-.pick .p{position:relative;aspect-ratio:1;overflow:hidden;outline:2px solid transparent;outline-offset:2px;transition:outline-color .2s}
-.pick .p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .3s}
-.pick .p:hover img,.pick .p.on img{opacity:1}
-.pick .p.on{outline-color:var(--gold)}
-.pick .p.on::after{content:"✓";position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#111;display:grid;place-items:center;font-size:.78rem;font-weight:600}
-.pick .p small{position:absolute;left:0;right:0;bottom:0;padding:1.2rem .5rem .4rem;font-size:.7rem;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card{position:sticky;top:92px;background:var(--bg2);border:1px solid var(--line);padding:clamp(1.2rem,3vw,2rem)}
-@media(max-width:920px){.card{position:static}}
-.sel{display:flex;gap:1rem;align-items:center;padding-bottom:1.3rem;border-bottom:1px solid var(--line)}
-.sel img,.sel .empty{flex:none;width:84px;height:84px;object-fit:cover}
-.sel .empty{border:1px dashed #3a3d44;display:grid;place-items:center;color:var(--muted);font-size:.68rem;text-align:center;padding:.4rem}
-.sel b{display:block;font-family:var(--serif);font-weight:500;font-size:1.3rem;line-height:1.2}
-.sel small{color:var(--muted);font-size:.8rem}
-.opts{display:flex;flex-wrap:wrap;gap:.5rem}
-.opt{border:1px solid var(--line);padding:.55rem .9rem;font-size:.85rem;color:var(--muted);transition:.2s;text-align:left}
-.opt:hover{color:var(--text);border-color:#4a4d55}
-.opt.on{border-color:var(--gold);color:var(--text);background:rgba(214,168,92,.08)}
-.mats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.mats .opt b{display:block;font-weight:500;color:var(--text);font-size:.88rem}
-.mats .opt small{font-size:.74rem;line-height:1.35;display:block;margin-top:.15rem}
-.tip{font-size:.8rem;color:var(--muted);margin-top:.8rem}
-.row{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid var(--line)}
-.qty{display:flex;align-items:center;border:1px solid var(--line)}
-.qty button{width:38px;height:38px;font-size:1.1rem;color:var(--muted)}
-.qty button:hover{color:var(--text)}
-.qty span{min-width:30px;text-align:center}
-.price{text-align:right}
-.price strong{font-family:var(--serif);font-size:2.1rem;font-weight:500;line-height:1}
-.price small{display:block;color:var(--muted);font-size:.72rem}
-.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
-.field label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.field input,.field textarea{background:var(--bg);border:1px solid var(--line);color:var(--text);padding:.75rem .85rem;font:inherit;font-size:.95rem;font-weight:300;outline:none;transition:border-color .2s;resize:vertical}
-.field input:focus,.field textarea:focus{border-color:var(--gold)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-@media(max-width:480px){.grid2,.mats{grid-template-columns:1fr}}
-.err{color:#ec8b84;font-size:.85rem;min-height:1.3em;margin-bottom:.4rem}
-.fine{font-size:.76rem;color:var(--muted);margin-top:.9rem}
-.info3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line)}
-.info3 b{display:block;font-family:var(--serif);font-weight:500;font-size:1.2rem;margin-bottom:.3rem}
-.info3 p{color:var(--muted);font-size:.88rem}
-@media(max-width:700px){.info3{grid-template-columns:1fr}}
-
-.modal{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.78);display:none;place-items:center;padding:1rem}
-.modal.on{display:grid;animation:fade .3s}
-.modal-box{background:var(--bg2);border:1px solid var(--line);max-width:580px;width:100%;padding:clamp(1.3rem,4vw,2.2rem);max-height:92vh;overflow:auto}
-.modal-box h2{font-family:var(--serif);font-weight:400;font-size:2rem}
-.modal-box p{color:var(--muted);font-size:.92rem;margin-top:.5rem}
-.modal pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);padding:1rem;font-family:ui-monospace,Menlo,monospace;font-size:.78rem;color:#d6d1c6;margin:1.2rem 0;max-height:38vh;overflow:auto}
-.actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
-
 /* Über mich / Impressum */
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding:clamp(3rem,7vw,6rem) clamp(1rem,4vw,3rem) 5rem}
 .about-img img{width:100%;aspect-ratio:4/5;object-fit:cover}
@@ -240,6 +194,8 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .ftr .wrap{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap}
 .ftr nav{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
 .ftr nav a:hover{color:var(--text)}
+.ftr-note{width:100%;color:var(--muted);font-size:.85rem}
+.ftr-note a{color:var(--gold)}
 .ftr small{color:#666a72;font-size:.78rem;width:100%}
 </style>
 </head>
@@ -250,7 +206,6 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <nav class="nav">
     <a href="#astro">Astro</a>
     <a href="#natur">Natur &amp; Landschaft</a>
-    <a href="#drucke">Drucke</a>
     <a href="#ueber">Über mich</a>
   </nav>
 </header>
@@ -263,65 +218,11 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <p class="kicker">Willkommen</p>
       <p class="quote" id="quoteText"></p>
     </div>
-    <div class="wrap band">
-      <div>
-        <p class="kicker">Fine-Art-Drucke</p>
-        <h2 class="sec">Ein Stück Nachthimmel für die Wand</h2>
-        <p class="lead">Jedes Motiv gibt es als hochwertigen Druck: auf Fotopapier, Fine-Art-Baryt, Alu-Dibond, Acrylglas oder Leinwand, von 20 × 30 bis 80 × 120 cm.</p>
-        <a class="btn" href="#drucke">Druck bestellen</a>
-      </div>
-      <div class="frame"><img id="bandImg" alt=""></div>
-    </div>
   </section>
 
   <!-- KATEGORIEN -->
   <section class="view" data-view="astro"><div class="wrap catwrap"></div></section>
   <section class="view" data-view="natur"><div class="wrap catwrap"></div></section>
-
-  <!-- DRUCKE -->
-  <section class="view" data-view="drucke">
-    <div class="wrap">
-      <header class="phead">
-        <p class="kicker">Fine-Art-Drucke</p>
-        <h1>Drucke bestellen</h1>
-        <p class="lead">Wähle ein Motiv, Format und Material. Jeder Druck wird einzeln auf Bestellung gefertigt und vor dem Versand von mir geprüft.</p>
-      </header>
-      <div class="order">
-        <div>
-          <h3 class="step top"><span>1</span>Motiv wählen</h3>
-          <div class="chips" id="oTabs"></div>
-          <div class="pick" id="oPick"></div>
-          <div class="info3">
-            <div><b>Handgeprüft</b><p>Jeder Druck wird vor dem Versand kontrolliert und auf Wunsch signiert.</p></div>
-            <div><b>Sicher verpackt</b><p>Versand in stabiler Verpackung, gerahmte Formate mit Kantenschutz.</p></div>
-            <div><b>Andere Formate?</b><p>Sondergrößen und Panoramen gerne auf Anfrage, einfach in die Nachricht schreiben.</p></div>
-          </div>
-        </div>
-        <form class="card" id="oForm" novalidate>
-          <div class="sel" id="oSel"></div>
-          <h3 class="step"><span>2</span>Format</h3>
-          <div class="opts" id="oFormat"></div>
-          <h3 class="step"><span>3</span>Material</h3>
-          <div class="mats" id="oMat"></div>
-          <p class="tip" id="oTip"></p>
-          <div class="row">
-            <div class="qty"><button type="button" id="qMinus" aria-label="Weniger">−</button><span id="qVal">1</span><button type="button" id="qPlus" aria-label="Mehr">+</button></div>
-            <div class="price"><strong id="oPrice">–</strong><small>Beispielpreis, zzgl. Versand</small></div>
-          </div>
-          <h3 class="step"><span>4</span>Deine Angaben</h3>
-          <div class="grid2">
-            <div class="field"><label for="fName">Name</label><input id="fName" autocomplete="name"></div>
-            <div class="field"><label for="fMail">E-Mail</label><input id="fMail" type="email" autocomplete="email"></div>
-          </div>
-          <div class="field"><label for="fAddr">Lieferadresse</label><textarea id="fAddr" rows="3" autocomplete="street-address"></textarea></div>
-          <div class="field"><label for="fMsg">Nachricht (optional)</label><textarea id="fMsg" rows="2" placeholder="z. B. Signatur, Widmung, Sonderformat"></textarea></div>
-          <p class="err" id="oErr"></p>
-          <button class="btn full" type="submit">Bestellanfrage erstellen</button>
-          <p class="fine">Unverbindliche Anfrage. Du erhältst eine Bestätigung mit Zahlungsinformationen per E-Mail.</p>
-        </form>
-      </div>
-    </div>
-  </section>
 
   <!-- ÜBER MICH -->
   <section class="view" data-view="ueber">
@@ -334,7 +235,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
         <h3>Ausrüstung</h3>
         <ul class="gear" id="gearList"></ul>
         <div class="actions">
-          <a class="btn" href="#drucke">Drucke bestellen</a>
+          <a class="btn" id="mailBtn" href="#">E-Mail schreiben</a>
           <a class="btn ghost" id="igLink" href="#">Instagram</a>
         </div>
         <p style="color:var(--muted);font-size:.9rem">Kontakt: <span id="mailText"></span></p>
@@ -362,8 +263,9 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <div class="wrap">
     <a class="logo" href="#start" id="logo2"></a>
     <nav>
-      <a href="#astro">Astro</a><a href="#natur">Natur &amp; Landschaft</a><a href="#drucke">Drucke</a><a href="#ueber">Über mich</a><a id="igLink2" href="#">Instagram</a><a href="#impressum">Impressum &amp; Datenschutz</a>
+      <a href="#astro">Astro</a><a href="#natur">Natur &amp; Landschaft</a><a href="#ueber">Über mich</a><a id="igLink2" href="#">Instagram</a><a href="#impressum">Impressum &amp; Datenschutz</a>
     </nav>
+    <p class="ftr-note" id="ftrNote"></p>
     <small id="copy"></small>
   </div>
 </footer>
@@ -389,34 +291,22 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
     </div>
     <div class="lb-actions">
       <button class="ic" id="lbInfoBtn" title="Details (I)">ⓘ <span class="lbl">Details</span></button>
-      <button class="btn" id="lbOrder">Als Druck bestellen</button>
     </div>
   </div>
   <aside class="lb-info" id="lbInfo">
     <button class="ic round" id="lbInfoClose" aria-label="Details schließen">×</button>
-    <p class="kicker" id="lbCat2" style="margin:0"></p>
-    <h2 id="lbTitle2"></h2>
-    <div id="lbText" class="lb-desc"></div>
-    <div class="spec" id="lbMeta"></div>
-    <button class="btn" id="lbOrder2">Als Druck bestellen</button>
-    <p class="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · Esc = schließen</p>
-  </aside>
-</div>
-
-<!-- Bestellbestätigung -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <p class="kicker" style="margin:0">Fast geschafft</p>
-    <h2>Deine Bestellanfrage</h2>
-    <p>Schick die Anfrage per E-Mail ab. Erst dann kommt sie bei mir an.</p>
-    <pre id="mText"></pre>
-    <div class="actions">
-      <a class="btn" id="mMail" href="#">Per E-Mail senden</a>
-      <button class="btn ghost" id="mCopy" type="button">Text kopieren</button>
-      <button class="btn ghost" id="mClose" type="button">Zurück</button>
+    <header class="lbi-head">
+      <p class="kicker" id="lbCat2"></p>
+      <h2 id="lbTitle2"></h2>
+      <p class="lbi-sub" id="lbSub2"></p>
+    </header>
+    <div class="lbi-text"><div id="lbText" class="lb-desc"></div></div>
+    <div class="lbi-side">
+      <div class="spec" id="lbMeta"></div>
+      <p class="print-note" id="lbPrint"></p>
     </div>
-    <p>Falls sich kein E-Mail-Programm öffnet: Text kopieren und an <b id="mAddr" style="color:var(--text)"></b> senden.</p>
-  </div>
+    <p class="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen</p>
+  </aside>
 </div>
 
 <script>
@@ -425,7 +315,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
    daten/einstellungen.json und werden in der Verwaltung
    unter /admin gepflegt. Hier muss nichts geändert werden.
    ========================================================= */
-let CONFIG = {}, PHOTOS = [], FORMATS = [], MATERIALS = [];
+let CONFIG = {}, PHOTOS = [];
 const CATS = {
   astro: { title:'Astro', kicker:'Nachthimmel', lead:'' },
   natur: { title:'Natur & Landschaft', kicker:'Draußen', lead:'' },
@@ -467,9 +357,6 @@ async function load(){
       return {id:'f'+i,kat:k,titel:p.titel,datum:normDate(p.datum),ort:p.ort||'',technik:p.technik||'',raw:p,text:p.beschreibung||'',src:p.bild||'',ph,hoch:!!ph.hoch};
     });
     PHOTOS.sort((a,b)=>b.datum.localeCompare(a.datum));
-    FORMATS=(e.formate||[]).map((x,i)=>({id:String(i),label:x.bezeichnung,price:+x.preis||0}));
-    MATERIALS=(e.materialien||[]).map((x,i)=>({id:String(i),label:x.bezeichnung,desc:x.beschreibung||'',f:+x.faktor||1}));
-    order.format=FORMATS[1]?'1':'0'; order.mat='0';
     CATS.astro.lead=e.astro_text||''; CATS.natur.lead=e.natur_text||'';
     applySettings();
     route();
@@ -561,7 +448,10 @@ function src(p){
 }
 
 /* ---------- Grundgerüst ---------- */
+const mailto=subj=>`mailto:${CONFIG.email}?subject=${encodeURIComponent(subj)}`;
 function applySettings(){
+  $('#mailBtn').href=mailto('Anfrage über die Homepage');
+  $('#ftrNote').innerHTML=CONFIG.email?`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an <a href="${mailto('Druckanfrage')}">${esc(CONFIG.email)}</a>.`:'';
   const logoHtml=`${esc(CONFIG.name)} <span>${esc(CONFIG.zusatz)}</span>`;
   $('#logo').innerHTML=logoHtml;$('#logo2').innerHTML=logoHtml;
   ['#igLink','#igLink2'].forEach(s=>$(s).href=CONFIG.instagram||'#');
@@ -580,7 +470,6 @@ const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p
 
 function renderStart(){
   $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${L.length} Bilder · zuletzt ${fmt(L[0].datum)}`:'Bald mehr'}</p><span class="go">Ansehen <i>→</i></span></div></a>`}).join('');
-  const bp=byCat('astro')[1]||PHOTOS[0];if(bp)$('#bandImg').src=src(bp);
 }
 
 function renderCat(k){
@@ -663,6 +552,10 @@ function showLB(){
   const tot=p.kat==='astro'?belichtung(p.raw||{}).tot:0;
   $('#lbSub').textContent=[p.ort,fmt(p.datum),tot?'Belichtung '+dauer(tot):''].filter(Boolean).join(' · ');
   $('#lbText').innerHTML=textHtml(p.text);
+  $('#lbInfo').classList.toggle('notext',!String(p.text||'').trim());
+  $('#lbSub2').textContent=$('#lbSub').textContent;
+  $('#lbPrint').innerHTML=CONFIG.email?`${esc(CONFIG.druck_hinweis||'Dieses Motiv ist auch als hochwertiger Druck erhältlich.')} <a href="${mailto('Druckanfrage: '+p.titel)}">Anfrage per E-Mail</a>`:'';
+  $('#lbPrint').style.display=CONFIG.email?'':'none';
   $('#lbMeta').innerHTML=metaHtml(p);
   $('#lbCount').textContent=lbList.length>1?`${lbI+1} / ${lbList.length}`:'';
   const multi=lbList.length>1;$('#lbPrev').style.display=$('#lbNext').style.display=multi?'':'none';
@@ -703,8 +596,6 @@ const toggleInfo=()=>{lb.classList.toggle('info');$('#lbInfoBtn').classList.togg
 $('#lbInfoBtn').onclick=toggleInfo;$('#lbInfoClose').onclick=toggleInfo;
 
 $('#lbPrev').onclick=()=>step(-1);$('#lbNext').onclick=()=>step(1);$('#lbClose').onclick=closeLB;
-const toOrder=()=>{order.photo=lbList[lbI];closeLB();if(location.hash==='#drucke')route();else location.hash='drucke'};
-$('#lbOrder').onclick=toOrder;$('#lbOrder2').onclick=toOrder;
 
 /* Wischen auf dem Handy */
 let tx=0,ty=0;
@@ -713,51 +604,12 @@ lb.addEventListener('touchend',e=>{if(lb.classList.contains('zoom')||e.touches.l
 
 document.addEventListener('click',e=>{const t=e.target.closest('.tile[data-id]');if(t){const box=t.closest('[data-ids]');openLB(t.dataset.id,box?box.dataset.ids.split(','):[t.dataset.id])}});
 document.addEventListener('keydown',e=>{
-  if($('#modal').classList.contains('on')){if(e.key==='Escape')$('#modal').classList.remove('on');return}
   if(lb.classList.contains('on')){wake();const k=e.key;if(k==='Escape'){if(lb.classList.contains('zoom'))unzoom();else if(lb.classList.contains('info'))toggleInfo();else closeLB()}if(k==='ArrowLeft')step(-1);if(k==='ArrowRight')step(1);if(k==='f'||k==='F')toggleFs();if(k==='i'||k==='I')toggleInfo();return}
   const t=e.target.closest&&e.target.closest('[role=button]');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click()}
 });
 
-/* ---------- Drucke ---------- */
-const order={photo:null,format:'30x45',mat:'papier',qty:1,filter:'alle'};
-function total(){const f=FORMATS.find(x=>x.id===order.format),m=MATERIALS.find(x=>x.id===order.mat);if(!f||!m)return 0;return Math.round(f.price*m.f)*order.qty}
-function renderOrder(){
-  $('#oTabs').innerHTML=[['alle','Alle'],...Object.entries(CATS).map(([k,C])=>[k,C.title])].map(([k,l])=>`<button type="button" class="chip${order.filter===k?' on':''}" data-f="${k}">${esc(l)}</button>`).join('');
-  $('#oTabs').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{order.filter=b.dataset.f;renderOrder()});
-  const L=order.filter==='alle'?PHOTOS:byCat(order.filter);
-  $('#oPick').innerHTML=L.map(p=>`<div class="p${order.photo===p.id?' on':''}" role="button" tabindex="0" data-p="${p.id}" aria-label="${esc(p.titel)} wählen"><img src="${src(p)}" alt="" loading="lazy"><small>${esc(p.titel)}</small></div>`).join('');
-  $('#oPick').querySelectorAll('.p').forEach(b=>b.onclick=()=>{order.photo=b.dataset.p;renderOrder();if(innerWidth<920)$('#oForm').scrollIntoView({behavior:'smooth'})});
-  const p=order.photo&&get(order.photo);
-  $('#oSel').innerHTML=p?`<img src="${src(p)}" alt=""><div><small>Gewähltes Motiv</small><b>${esc(p.titel)}</b><small>${esc(CATS[p.kat].title)} · ${esc(p.ort)}</small></div>`:`<div class="empty">Noch kein Motiv</div><div><b>Motiv wählen</b><small>Klicke links auf ein Bild.</small></div>`;
-  $('#oFormat').innerHTML=FORMATS.map(f=>`<button type="button" class="opt${order.format===f.id?' on':''}" data-v="${f.id}">${f.label}</button>`).join('');
-  $('#oMat').innerHTML=MATERIALS.map(m=>`<button type="button" class="opt${order.mat===m.id?' on':''}" data-v="${m.id}"><b>${m.label}</b><small>${m.desc}</small></button>`).join('');
-  $('#oFormat').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{order.format=b.dataset.v;renderOrder()});
-  $('#oMat').querySelectorAll('.opt').forEach(b=>b.onclick=()=>{order.mat=b.dataset.v;renderOrder()});
-  $('#oTip').textContent=p&&p.kat==='astro'?'Tipp: Astrofotos wirken auf Alu-Dibond oder Acrylglas besonders tief und brillant.':'';
-  $('#qVal').textContent=order.qty;$('#oPrice').textContent=eur(total());
-}
-$('#qMinus').onclick=()=>{order.qty=Math.max(1,order.qty-1);renderOrder()};
-$('#qPlus').onclick=()=>{order.qty=Math.min(20,order.qty+1);renderOrder()};
-let orderText='';
-$('#oForm').onsubmit=e=>{
-  e.preventDefault();const err=$('#oErr'),name=$('#fName').value.trim(),mail=$('#fMail').value.trim(),addr=$('#fAddr').value.trim(),msg=$('#fMsg').value.trim();
-  if(!order.photo){err.textContent='Bitte wähle zuerst ein Motiv aus.';return}
-  if(!name){err.textContent='Bitte gib deinen Namen an.';$('#fName').focus();return}
-  if(!/^\S+@\S+\.\S+$/.test(mail)){err.textContent='Bitte gib eine gültige E-Mail-Adresse an.';$('#fMail').focus();return}
-  if(!addr){err.textContent='Bitte gib eine Lieferadresse an.';$('#fAddr').focus();return}
-  err.textContent='';
-  const p=get(order.photo),f=FORMATS.find(x=>x.id===order.format),m=MATERIALS.find(x=>x.id===order.mat);
-  orderText=`Bestellanfrage – ${CONFIG.name} ${CONFIG.suffix}\n\nMotiv: ${p.titel} (${CATS[p.kat].title})\nFormat: ${f.label}\nMaterial: ${m.label}\nAnzahl: ${order.qty}\nPreis: ${eur(total())} (zzgl. Versand)\n\nName: ${name}\nE-Mail: ${mail}\nLieferadresse:\n${addr}${msg?`\n\nNachricht:\n${msg}`:''}`;
-  $('#mText').textContent=orderText;$('#mAddr').textContent=CONFIG.email;
-  $('#mMail').href=`mailto:${CONFIG.email}?subject=${encodeURIComponent('Bestellanfrage: '+p.titel)}&body=${encodeURIComponent(orderText)}`;
-  $('#mCopy').textContent='Text kopieren';$('#modal').classList.add('on');
-};
-$('#mCopy').onclick=async()=>{try{await navigator.clipboard.writeText(orderText);$('#mCopy').textContent='Kopiert ✓'}catch(_){const s=getSelection(),rg=document.createRange();rg.selectNodeContents($('#mText'));s.removeAllRanges();s.addRange(rg);$('#mCopy').textContent='Markiert, Strg+C drücken'}};
-$('#mClose').onclick=()=>$('#modal').classList.remove('on');
-$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('on')};
-
 /* ---------- Navigation ---------- */
-const VIEWS=['start','astro','natur','drucke','ueber','impressum'];
+const VIEWS=['start','astro','natur','ueber','impressum'];
 function route(){
   let h=location.hash.slice(1);if(!VIEWS.includes(h))h='start';
   closeLB();
@@ -765,7 +617,6 @@ function route(){
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+h));
   if(h==='start')renderStart();
   if(CATS[h])renderCat(h);
-  if(h==='drucke')renderOrder();
   if(h==='ueber'){const ap=byCat('natur')[0]||PHOTOS[0];const u=CONFIG.ueber_bild||(ap&&src(ap));if(u)$('#aboutImg').src=u}
   scrollTo(0,0);
 }
