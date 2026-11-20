@@ -11,8 +11,17 @@
       "kamera": "ZWO ASI 2600 MC Duo Air",
       "ha": null,
       "oiii": null,
-      "rgb": null,
-      "sonstiges": "",
+      "duo": {
+        "anzahl": 73,
+        "sekunden": 300,
+        "gain": 200
+      },
+      "rgb": {
+        "anzahl": 200,
+        "sekunden": 120,
+        "gain": -25
+      },
+      "sonstiges": "Montierung EQ6-R, Pixinsight, Photoshop",
       "technik": "14 mm · f/1.8 · 12 × 15 s · ISO 3200"
     },
     {
@@ -26,6 +35,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "Refraktor 72/420 · 120 × 180 s · gestackt"
@@ -41,6 +51,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "20 mm · f/2 · 4 s · ISO 1600"
@@ -56,6 +67,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "Refraktor 72/420 · 90 × 120 s"
@@ -71,6 +83,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "24 mm · f/1.4 · Panorama aus 6 Bildern"
@@ -86,6 +99,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "Refraktor 72/420 · Dualband-Filter · 6 h"
@@ -101,6 +115,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "14 mm · f/2 · 15 s · ISO 6400"
@@ -116,6 +131,7 @@
       "kamera": "",
       "ha": null,
       "oiii": null,
+      "duo": null,
       "rgb": null,
       "sonstiges": "",
       "technik": "Refraktor 72/420 · H-Alpha · 8 h"
