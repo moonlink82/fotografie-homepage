@@ -64,6 +64,14 @@ collections:
                       - { name: anzahl, label: Anzahl Aufnahmen, widget: number, value_type: int, required: false }
                       - { name: sekunden, label: Sekunden pro Aufnahme, widget: number, value_type: float, required: false }
                       - { name: gain, label: Gain, widget: number, value_type: int, required: false }
+                  - name: duo
+                    label: "Duo-Narrowband"
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: anzahl, label: Anzahl Aufnahmen, widget: number, value_type: int, required: false }
+                      - { name: sekunden, label: Sekunden pro Aufnahme, widget: number, value_type: float, required: false }
+                      - { name: gain, label: Gain, widget: number, value_type: int, required: false }
                   - name: rgb
                     label: "RGB"
                     widget: object
