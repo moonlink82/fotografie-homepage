@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fotografie-Homepage</title>
+<meta name="description" content="Astrofotografie, Natur- und Landschaftsfotografie: Galerie mit Milchstraße, Nebeln, Galaxien und stillen Landschaften. Alle Motive auch als Druck erhältlich.">
+<meta name="theme-color" content="#0b0c0f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Astro-, Natur- & Landschaftsfotografie">
+<meta property="og:description" content="Galerie mit Milchstraße, Nebeln, Galaxien und stillen Landschaften.">
+<meta property="og:locale" content="de_DE">
 <style>
 @font-face{font-family:'Inter';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/inter-light.woff) format('woff')}
 @font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-regular.woff) format('woff')}
@@ -121,6 +127,16 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .lb-nav:hover{background:rgba(40,43,50,.8)}
 .lb-prev{left:1rem}.lb-next{right:1rem}
 .lb.zoom .lb-nav{display:none}
+.info-btn{height:46px;padding:0 1.25rem 0 .55rem;gap:.6rem;background:var(--gold);border-color:var(--gold);color:#15120c;font-weight:500;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.info-btn:hover{background:#e6bb73;border-color:#e6bb73}
+.info-btn .i{width:30px;height:30px;border-radius:50%;background:#15120c;color:var(--gold);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-weight:600;font-size:1rem;text-transform:none;letter-spacing:0}
+.info-btn.on{background:transparent;color:var(--gold)}
+.info-btn.on .i{background:var(--gold);color:#15120c}
+.info-btn.nudge{animation:nudge 1.6s ease-out 2}
+@keyframes nudge{0%{box-shadow:0 0 0 0 rgba(214,168,92,.55)}70%{box-shadow:0 0 0 14px rgba(214,168,92,0)}100%{box-shadow:0 0 0 0 rgba(214,168,92,0)}}
+@media(max-width:700px){.info-btn{height:42px;padding:0 .9rem 0 .45rem;font-size:.7rem}.info-btn .i{width:26px;height:26px}}
+@media(max-width:760px){.latest .tile:not(:first-child) .cap{padding:2rem .7rem .65rem}.latest .tile:not(:first-child) .cap b{font-size:1rem;overflow-wrap:anywhere;hyphens:auto}.latest .tile:not(:first-child) .cap small{font-size:.68rem}}
+@media(max-width:600px){.masonry{columns:2;column-gap:8px}.masonry .tile{margin-bottom:8px}}
 .lb-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;padding:4rem clamp(1rem,3vw,2rem) clamp(1rem,2.5vw,1.6rem);background:linear-gradient(transparent,rgba(0,0,0,.72));pointer-events:none}
 .lb-bar>*{pointer-events:auto}
 .lb-bar h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1}
@@ -171,7 +187,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .meta dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .meta dd{font-size:.92rem;white-space:pre-line;line-height:1.55}
 .hint{font-size:.75rem;color:#6d727b;margin-top:auto}
-@media(max-width:700px){.lb-nav{width:42px;height:42px;font-size:1rem}.lb-prev{left:.4rem}.lb-next{right:.4rem}.ic .lbl{display:none}.ic{padding:0;width:42px}.lb-actions .btn{padding:.65rem .9rem;font-size:.72rem}}
+@media(max-width:700px){.lb-nav{width:42px;height:42px;font-size:1rem}.lb-prev{left:.4rem}.lb-next{right:.4rem}.ic .lbl{display:none}.ic:not(.info-btn){padding:0;width:42px}.lb-actions .btn{padding:.65rem .9rem;font-size:.72rem}}
 
 /* Über mich / Impressum */
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding:clamp(3rem,7vw,6rem) clamp(1rem,4vw,3rem) 5rem}
@@ -290,7 +306,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <small id="lbSub"></small>
     </div>
     <div class="lb-actions">
-      <button class="ic" id="lbInfoBtn" title="Details (I)">ⓘ <span class="lbl">Details</span></button>
+      <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)"><span class="i">i</span> <span class="lbl2">Details &amp; Aufnahmedaten</span></button>
     </div>
   </div>
   <aside class="lb-info" id="lbInfo">
@@ -450,6 +466,8 @@ function src(p){
 /* ---------- Grundgerüst ---------- */
 const mailto=subj=>`mailto:${CONFIG.email}?subject=${encodeURIComponent(subj)}`;
 function applySettings(){
+  try{const ld={'@context':'https://schema.org','@type':'WebSite',name:[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' '),description:CONFIG.seo_beschreibung||'',inLanguage:'de',url:location.origin+'/'};
+    const el=document.createElement('script');el.type='application/ld+json';el.textContent=JSON.stringify(ld);document.head.appendChild(el)}catch(_){}
   $('#mailBtn').href=mailto('Anfrage über die Homepage');
   $('#ftrNote').innerHTML=CONFIG.email?`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an <a href="${mailto('Druckanfrage')}">${esc(CONFIG.email)}</a>.`:'';
   const logoHtml=`${esc(CONFIG.name)} <span>${esc(CONFIG.zusatz)}</span>`;
@@ -542,7 +560,8 @@ function textHtml(t,auto=true){
 let lbList=[],lbI=0,idleT=null;
 const lb=$('#lb'),stage=$('#lbStage'),lbImg=$('#lbImg');
 const canHover=matchMedia('(hover:hover)').matches;
-function openLB(id,ids){lbList=ids;lbI=Math.max(0,ids.indexOf(id));showLB();lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';wake()}
+let nudged=false;
+function openLB(id,ids){if(!nudged){nudged=true;const b=$('#lbInfoBtn');b.classList.add('nudge');setTimeout(()=>b.classList.remove('nudge'),3400)}lbList=ids;lbI=Math.max(0,ids.indexOf(id));showLB();lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';wake()}
 function closeLB(){if(!lb.classList.contains('on'))return;lb.classList.remove('on','zoom','info','idle');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
 function showLB(){
   unzoom();const p=get(lbList[lbI]);
@@ -610,11 +629,19 @@ document.addEventListener('keydown',e=>{
 
 /* ---------- Navigation ---------- */
 const VIEWS=['start','astro','natur','ueber','impressum'];
+function setMeta(h){
+  const site=[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' ');
+  const t={start:'Astro-, Natur- & Landschaftsfotografie',astro:'Astrofotografie',natur:'Natur- & Landschaftsfotografie',ueber:'Über mich',impressum:'Impressum & Datenschutz'}[h]||'';
+  document.title=h==='start'?`${site} – ${t}`:`${t} – ${site}`;
+  const d=h==='astro'?CATS.astro.lead:h==='natur'?CATS.natur.lead:CONFIG.seo_beschreibung;
+  if(d)document.querySelector('meta[name=description]').setAttribute('content',d);
+}
 function route(){
   let h=location.hash.slice(1);if(!VIEWS.includes(h))h='start';
   closeLB();
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.dataset.view===h));
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+h));
+  if(CONFIG.name)setMeta(h);
   if(h==='start')renderStart();
   if(CATS[h])renderCat(h);
   if(h==='ueber'){const ap=byCat('natur')[0]||PHOTOS[0];const u=CONFIG.ueber_bild||(ap&&src(ap));if(u)$('#aboutImg').src=u}
