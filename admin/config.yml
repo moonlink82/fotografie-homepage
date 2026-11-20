@@ -109,7 +109,7 @@ collections:
         fields:
           - { name: name, label: "Name / Marke (Logo)", widget: string }
           - { name: zusatz, label: "Zusatz im Logo", widget: string, required: false }
-          - { name: email, label: "E-Mail für Bestellanfragen", widget: string }
+          - { name: email, label: "E-Mail-Adresse (Kontakt & Druckanfragen)", widget: string }
           - { name: instagram, label: "Instagram-Link", widget: string, required: false }
           - { name: startseite_text, label: "Text auf der Startseite", widget: text, required: false }
           - { name: astro_text, label: "Einleitung Astro", widget: text, required: false }
@@ -123,22 +123,6 @@ collections:
             widget: list
             required: false
             field: { name: eintrag, label: Eintrag, widget: string }
-          - name: formate
-            label: Druckformate
-            label_singular: Format
-            widget: list
-            summary: "{{bezeichnung}} – {{preis}} €"
-            fields:
-              - { name: bezeichnung, label: "Bezeichnung", widget: string, hint: "z. B. 40 × 60 cm" }
-              - { name: preis, label: "Grundpreis in € (Fotopapier)", widget: number, value_type: int }
-          - name: materialien
-            label: Materialien
-            label_singular: Material
-            widget: list
-            summary: "{{bezeichnung}} (× {{faktor}})"
-            fields:
-              - { name: bezeichnung, label: "Bezeichnung", widget: string }
-              - { name: beschreibung, label: "Kurzbeschreibung", widget: string, required: false }
-              - { name: faktor, label: "Preisfaktor (1 = Grundpreis, 1.8 = 80 % teurer)", widget: number, value_type: float, step: 0.05 }
+          - { name: druck_hinweis, label: "Hinweis auf Drucke (in der Bildansicht)", widget: text, required: false, hint: "Erscheint in den Details jedes Bildes, darunter steht automatisch ein Link „Anfrage per E-Mail“." }
           - { name: impressum, label: "Impressum (Name, Anschrift)", widget: text }
           - { name: datenschutz, label: "Datenschutzerklärung", widget: text }
