@@ -137,6 +137,9 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 @media(max-width:700px){.info-btn{height:42px;padding:0 .9rem 0 .45rem;font-size:.7rem}.info-btn .i{width:26px;height:26px}}
 @media(max-width:760px){.latest .tile:not(:first-child) .cap{padding:2rem .7rem .65rem}.latest .tile:not(:first-child) .cap b{font-size:1rem;overflow-wrap:anywhere;hyphens:auto}.latest .tile:not(:first-child) .cap small{font-size:.68rem}}
 @media(max-width:600px){.masonry{columns:2;column-gap:8px}.masonry .tile{margin-bottom:8px}}
+.tile img,.lb-stage img,.pick img,.panel img,.about-img img{-webkit-touch-callout:none;-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
+.toast{position:fixed;left:50%;bottom:2rem;z-index:200;transform:translate(-50%,20px);background:#1b1d22;border:1px solid var(--line);color:var(--text);padding:.75rem 1.2rem;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
 .lb-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;padding:4rem clamp(1rem,3vw,2rem) clamp(1rem,2.5vw,1.6rem);background:linear-gradient(transparent,rgba(0,0,0,.72));pointer-events:none}
 .lb-bar>*{pointer-events:auto}
 .lb-bar h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1}
@@ -324,6 +327,8 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
     <p class="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen</p>
   </aside>
 </div>
+
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 /* =========================================================
@@ -626,6 +631,12 @@ document.addEventListener('keydown',e=>{
   if(lb.classList.contains('on')){wake();const k=e.key;if(k==='Escape'){if(lb.classList.contains('zoom'))unzoom();else if(lb.classList.contains('info'))toggleInfo();else closeLB()}if(k==='ArrowLeft')step(-1);if(k==='ArrowRight')step(1);if(k==='f'||k==='F')toggleFs();if(k==='i'||k==='I')toggleInfo();return}
   const t=e.target.closest&&e.target.closest('[role=button]');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click()}
 });
+
+/* ---------- Bildschutz (erschwert Speichern per Rechtsklick/Ziehen) ---------- */
+let toastT;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600)}
+document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG'){e.preventDefault();toast('Die Bilder sind urheberrechtlich geschützt.')}});
+document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault()});
 
 /* ---------- Navigation ---------- */
 const VIEWS=['start','astro','natur','ueber','impressum'];
