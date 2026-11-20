@@ -2,7 +2,22 @@
   "fotos": [
     {
       "kategorie": "natur",
-      "bild": "/bilder/landscape_nature/IMG_8058-Pano-Bearbeitet-2.webp",
+      "bild": "/bilder/landscape_nature/396A8833-Bearbeitet.webp",
+      "titel": "Rotfuchs auf den Elbwiesen",
+      "datum": "2026-11-01",
+      "ort": "Wartenburg",
+      "beschreibung": "Rotfuchs auf den Elbwiesen bei Wartenburg\n\nMitten in den herbstlichen Elbwiesen bei Wartenburg sitzt ein Rotfuchs im Gras und schaut direkt in die Kamera. Sein leuchtend rotbraunes Fell, die weiße Brust und die schwarz umrandeten Ohren heben sich deutlich von den gelb-grünen Halmen ab. Für einen Moment war er neugierig genug, um sitzen zu bleiben, dann ging er wieder seiner Wege. Die weiten Auenwiesen an der Elbe sind ein idealer Lebensraum für ihn: Hier findet er reichlich Mäuse und dank Hecken und Gehölzen genug Deckung.\n\nWissenswertes über den Rotfuchs\n\nÜberall zu Hause: Der Rotfuchs ist das am weitesten verbreitete wildlebende Raubtier der Welt. Er lebt in Wäldern und auf Feldern, in den Bergen und inzwischen sogar mitten in Großstädten.\nFeines Gehör: Mit seinen großen Ohren hört er Mäuse, die sich im hohen Gras oder sogar unter einer Schneedecke bewegen.\nDer Mäusesprung: Hat er eine Maus geortet, springt er in hohem Bogen und landet mit den Vorderpfoten direkt auf seiner Beute. Forscher vermuten, dass er sich dabei sogar am Magnetfeld der Erde orientiert.\nLeichter als gedacht: Trotz seines buschigen Fells wiegt ein ausgewachsener Fuchs meist nur 5 bis 8 Kilogramm.\nVielseitige Rute: Der lange, buschige Schwanz hilft ihm beim Gleichgewicht und dient im Winter als wärmende Decke, wenn er sich zusammenrollt.",
+      "kamera": "Canon R7",
+      "sonstiges": "Lightroom, Photoshop, Topaz Photo",
+      "objektiv": "Sigma 150-600",
+      "brennweite": 600,
+      "blende": "f6.3",
+      "verschlusszeit": "1/800",
+      "iso": 800
+    },
+    {
+      "kategorie": "natur",
+      "bild": "/bilder/landscape_nature/IMG_8058-Pano-Bearbeitet-2-1.webp",
       "titel": "Feuerhimmel",
       "datum": "2026-10-05",
       "ort": "Mochau",
