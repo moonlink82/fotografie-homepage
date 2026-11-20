@@ -127,11 +127,32 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .lb-actions{display:flex;gap:.5rem;flex-wrap:wrap}
 .lb-actions .btn{padding:.75rem 1.2rem}
 .lb.zoom .lb-bar{display:none}
-.lb-info{position:absolute;top:0;right:0;bottom:0;z-index:4;width:min(380px,100%);background:#0e0f13;border-left:1px solid var(--line);padding:4.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.1rem;overflow:auto;transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.lb-info{position:absolute;top:0;right:0;bottom:0;z-index:4;width:min(420px,100%);background:#0e0f13;border-left:1px solid var(--line);padding:4.5rem 2rem 2rem;display:flex;flex-direction:column;gap:1.1rem;overflow:auto;transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
 .lb.info .lb-info{transform:none}
 .lb-info h2{font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1.1}
 .lb-info p{color:var(--muted);font-size:.95rem}
 .lb-info .ic{position:absolute;top:.8rem;right:1rem}
+.lb-desc{display:flex;flex-direction:column;gap:.75rem}
+.lb-desc h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;line-height:1.2;color:var(--text);margin:0}
+.lb-desc h3:not(:first-child){margin-top:.6rem}
+.lb-desc p{color:var(--muted);font-size:.95rem;line-height:1.65}
+.spec{display:flex;flex-direction:column;gap:1.5rem;border-top:1px solid var(--line);padding-top:1.4rem}
+.spec h4{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.7rem}
+.kv{display:grid;grid-template-columns:5.8rem 1fr;gap:.5rem 1rem;font-size:.9rem}
+.kv dt{color:var(--muted);font-size:.8rem;padding-top:.1rem}
+.kv dd{color:var(--text);line-height:1.45}
+.expo{width:100%;border-collapse:collapse;font-size:.86rem;font-variant-numeric:tabular-nums}
+.expo th{font-weight:400;color:var(--muted);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:0 .5rem .5rem 0;border-bottom:1px solid var(--line)}
+.expo td{padding:.55rem .5rem .55rem 0;border-bottom:1px solid #1c1f25;white-space:nowrap;color:var(--text)}
+.expo td:first-child{color:#c9c6bf}
+.expo .r{text-align:right;padding-right:0}
+.expo th.r{padding-right:0}
+.expo tfoot td{border-bottom:0;padding-top:.8rem;color:var(--muted);font-size:.8rem;letter-spacing:.06em;vertical-align:baseline}
+.expo tfoot .tot{font-family:var(--serif);font-size:1.45rem;color:var(--gold);letter-spacing:0}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem}
+.tiles div{background:#15171c;border:1px solid var(--line);padding:.65rem .8rem}
+.tiles span{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.tiles b{font-weight:500;font-size:1.05rem}
 .meta{display:grid;gap:.8rem;border-top:1px solid var(--line);padding-top:1.2rem}
 .meta dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .meta dd{font-size:.92rem;white-space:pre-line;line-height:1.55}
@@ -369,8 +390,8 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
     <button class="ic round" id="lbInfoClose" aria-label="Details schließen">×</button>
     <p class="kicker" id="lbCat2" style="margin:0"></p>
     <h2 id="lbTitle2"></h2>
-    <p id="lbText"></p>
-    <dl class="meta" id="lbMeta"></dl>
+    <div id="lbText" class="lb-desc"></div>
+    <div class="spec" id="lbMeta"></div>
     <button class="btn" id="lbOrder2">Als Druck bestellen</button>
     <p class="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · Esc = schließen</p>
   </aside>
@@ -576,27 +597,50 @@ const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite
 const has=v=>v!==undefined&&v!==null&&String(v).trim()!=='';
 function dauer(s){s=Math.round(s);if(s<60)return s+' s';const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?(m?`${h} h ${m} min`:`${h} h`):`${m} min`}
 const fmtS=s=>String(s).replace('.',',')+' s';
-const FILTER=[['ha','H-Alpha'],['oiii','OIII'],['duo','Duo-Narrowband'],['rgb','RGB']];
+const FILTER=[['ha','H-Alpha','H-Alpha'],['oiii','OIII','OIII'],['duo','Duo-Narrowband','Duo-NB'],['rgb','RGB','RGB']];
 function belichtung(r){const rows=[];let tot=0;FILTER.forEach(([k,l])=>{const o=r[k]||{},a=num(o.anzahl),s=num(o.sekunden);if(a&&s){tot+=a*s;rows.push(`${l}: ${a} × ${fmtS(s)}${has(o.gain)?`, Gain ${String(o.gain).trim()}`:''} (${dauer(a*s)})`)}});return{rows,tot}}
-function metaRows(p){
+function metaHtml(p){
   const r=p.raw||{},t=v=>has(v)?String(v).trim():'';
-  const rows=[['Aufgenommen',fmt(p.datum)],['Ort',p.ort]];
+  const kv=rows=>{rows=rows.filter(x=>has(x[1]));return rows.length?`<dl class="kv">${rows.map(([a,b])=>`<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl>`:''};
+  const sec=(h,body)=>body?`<section><h4>${h}</h4>${body}</section>`:'';
+  const FIELDS=['teleskop','kamera','objektiv','brennweite','blende','verschlusszeit','iso','sonstiges','ha','oiii','duo','rgb'];
+  const structured=FIELDS.some(k=>{const v=r[k];return v&&typeof v==='object'?has(v.anzahl)||has(v.sekunden):has(v)});
+  const legacy=structured?'':t(r.technik);
+  let html=sec('Aufnahme',kv([['Datum',fmt(p.datum)],['Ort',p.ort]]));
   if(p.kat==='astro'){
-    rows.push(['Teleskop',t(r.teleskop)],['Kamera',t(r.kamera)]);
-    const b=belichtung(r);
-    if(b.rows.length)rows.push(['Belichtung',b.rows.join('\n')+(b.rows.length>1?`\nGesamt: ${dauer(b.tot)}`:'')]);
-    if(has(r.gain))rows.push(['Gain',t(r.gain)]);
+    html+=sec('Ausrüstung',kv([['Teleskop',t(r.teleskop)],['Kamera',t(r.kamera)],['Sonstiges',t(r.sonstiges)],['Technik',legacy]]));
+    const list=FILTER.map(([k,l,s])=>{const o=r[k]||{},a=num(o.anzahl),sec=num(o.sekunden);return a&&sec?{l,s,a,sec,g:t(o.gain)}:null}).filter(Boolean);
+    if(list.length){
+      const tot=list.reduce((x,f)=>x+f.a*f.sec,0);
+      html+=sec('Belichtung',`<table class="expo"><thead><tr><th>Filter</th><th>Aufnahmen</th><th class="r">Gain</th><th class="r">Zeit</th></tr></thead><tbody>${
+        list.map(f=>`<tr><td title="${esc(f.l)}">${esc(f.s)}</td><td>${f.a} × ${fmtS(f.sec)}</td><td class="r">${f.g?esc(f.g.replace(/^-/,'−')):'–'}</td><td class="r">${dauer(f.a*f.sec)}</td></tr>`).join('')
+      }</tbody>${list.length>1?`<tfoot><tr><td colspan="3">Gesamt</td><td class="r tot">${dauer(tot)}</td></tr></tfoot>`:''}</table>`);
+    }
   }else{
-    rows.push(['Kamera',t(r.kamera)],['Objektiv',t(r.objektiv)]);
-    const e=[];
-    if(num(r.brennweite))e.push(num(r.brennweite)+' mm');
-    if(has(r.blende)){const b=t(r.blende);e.push(/^f/i.test(b)?b:'f/'+b)}
-    if(has(r.verschlusszeit)){const v=t(r.verschlusszeit);e.push(/s$/i.test(v)?v:v+' s')}
-    if(num(r.iso))e.push('ISO '+num(r.iso));
-    if(e.length)rows.push(['Einstellungen',e.join(' · ')]);
+    html+=sec('Ausrüstung',kv([['Kamera',t(r.kamera)],['Objektiv',t(r.objektiv)],['Sonstiges',t(r.sonstiges)],['Technik',legacy]]));
+    const tiles=[];
+    if(num(r.brennweite))tiles.push(['Brennweite',num(r.brennweite)+' mm']);
+    if(has(r.blende)){const b=t(r.blende);tiles.push(['Blende',/^f/i.test(b)?b:'f/'+b])}
+    if(has(r.verschlusszeit)){const v=t(r.verschlusszeit);tiles.push(['Belichtungszeit',/s$/i.test(v)?v:v+' s'])}
+    if(num(r.iso))tiles.push(['ISO',String(num(r.iso))]);
+    if(tiles.length)html+=sec('Einstellungen',`<div class="tiles">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${esc(b)}</b></div>`).join('')}</div>`);
   }
-  rows.push(['Sonstiges',t(r.sonstiges)],['Technik',t(r.technik)]);
-  return rows.filter(x=>has(x[1]));
+  return html;
+}
+
+/* Beschreibung: Leerzeile = neuer Absatz, kurze Zeile ohne Satzzeichen
+   (oder Zeile mit # am Anfang) = Zwischenüberschrift */
+function textHtml(t){
+  const lines=String(t||'').replace(/\r/g,'').split('\n').map(l=>l.trim());
+  const out=[];let para=[];
+  const flush=()=>{if(para.length){out.push(`<p>${para.map(esc).join('<br>')}</p>`);para=[]}};
+  lines.forEach((l,i)=>{
+    if(!l){flush();return}
+    const rest=lines.slice(i+1).some(Boolean);
+    const isHead=/^#+\s*/.test(l)||(rest&&!para.length&&l.length<=80&&!/[.!?:,;]$/.test(l));
+    if(isHead){flush();out.push(`<h3>${esc(l.replace(/^#+\s*/,''))}</h3>`)}else para.push(l);
+  });
+  flush();return out.join('');
 }
 
 /* ---------- Lightbox ---------- */
@@ -612,8 +656,8 @@ function showLB(){
   $('#lbTitle').textContent=p.titel;$('#lbTitle2').textContent=p.titel;
   const tot=p.kat==='astro'?belichtung(p.raw||{}).tot:0;
   $('#lbSub').textContent=[p.ort,fmt(p.datum),tot?'Belichtung '+dauer(tot):''].filter(Boolean).join(' · ');
-  $('#lbText').textContent=p.text||'';
-  $('#lbMeta').innerHTML=metaRows(p).map(([a,b])=>`<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('');
+  $('#lbText').innerHTML=textHtml(p.text);
+  $('#lbMeta').innerHTML=metaHtml(p);
   $('#lbCount').textContent=lbList.length>1?`${lbI+1} / ${lbList.length}`:'';
   const multi=lbList.length>1;$('#lbPrev').style.display=$('#lbNext').style.display=multi?'':'none';
   if(multi){[1,-1].forEach(d=>{const n=get(lbList[(lbI+d+lbList.length)%lbList.length]);if(n)new Image().src=src(n)})}
