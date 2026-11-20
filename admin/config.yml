@@ -1,5 +1,4 @@
 # Verwaltung der Fotografie-Homepage (Sveltia CMS)
-# Nur die Zeile "repo" musst du anpassen: DEIN-GITHUB-NAME/NAME-DES-REPOSITORYS
 
 backend:
   name: github
@@ -10,7 +9,7 @@ media_folder: bilder
 public_folder: /bilder
 
 # Hochgeladene Fotos werden automatisch verkleinert (max. 2560 px)
-# und als WebP gespeichert – schnell im Web, scharf genug für jeden Bildschirm.
+# und als WebP gespeichert.
 media_libraries:
   all:
     transformations:
@@ -33,43 +32,65 @@ collections:
             label_singular: Foto
             widget: list
             add_to_top: true
-            summary: "{{fields.titel}} · {{fields.datum}}"
-            fields:
-              - name: bild
-                label: Bild
-                widget: image
-                required: false
-                hint: Ohne Bild wird ein Platzhalter angezeigt.
-              - name: titel
-                label: Titel
-                widget: string
-              - name: kategorie
-                label: Kategorie
-                widget: select
-                default: astro
-                options:
-                  - { label: "Astro", value: astro }
-                  - { label: "Natur & Landschaft", value: natur }
-              - name: datum
-                label: Aufnahmedatum
-                widget: datetime
-                time_format: false
-                date_format: DD.MM.YYYY
-                format: YYYY-MM-DD
-                hint: Die neuesten Bilder erscheinen automatisch oben.
-              - name: ort
-                label: Ort
-                widget: string
-                required: false
-              - name: technik
-                label: Technik / Kameradaten
-                widget: string
-                required: false
-                hint: "z. B. 14 mm · f/1.8 · 15 s · ISO 3200"
-              - name: beschreibung
-                label: Beschreibung
-                widget: text
-                required: false
+            collapsed: true
+            typeKey: kategorie
+            types:
+
+              # ---------------- ASTROFOTO ----------------
+              - name: astro
+                label: Astrofoto
+                summary: "{{titel}} – {{datum}}"
+                fields:
+                  - { name: bild, label: Bild, widget: image, required: false, hint: "Ohne Bild wird ein Platzhalter angezeigt." }
+                  - { name: titel, label: Titel, widget: string, hint: "z. B. Herznebel (IC 1805)" }
+                  - { name: datum, label: Aufnahmedatum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD, hint: "Bei mehreren Nächten: die letzte. Die neuesten Bilder erscheinen oben." }
+                  - { name: ort, label: Ort, widget: string, required: false }
+                  - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+                  - { name: teleskop, label: Teleskop / Objektiv, widget: string, required: false, hint: "z. B. Refraktor 72/420" }
+                  - { name: kamera, label: Kamera, widget: string, required: false }
+                  - name: ha
+                    label: "H-Alpha"
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: anzahl, label: Anzahl Aufnahmen, widget: number, value_type: int, required: false }
+                      - { name: sekunden, label: Sekunden pro Aufnahme, widget: number, value_type: float, required: false }
+                      - { name: gain, label: Gain, widget: number, value_type: int, required: false }
+                  - name: oiii
+                    label: "OIII"
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: anzahl, label: Anzahl Aufnahmen, widget: number, value_type: int, required: false }
+                      - { name: sekunden, label: Sekunden pro Aufnahme, widget: number, value_type: float, required: false }
+                      - { name: gain, label: Gain, widget: number, value_type: int, required: false }
+                  - name: rgb
+                    label: "RGB"
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: anzahl, label: Anzahl Aufnahmen, widget: number, value_type: int, required: false }
+                      - { name: sekunden, label: Sekunden pro Aufnahme, widget: number, value_type: float, required: false }
+                      - { name: gain, label: Gain, widget: number, value_type: int, required: false }
+                  - { name: sonstiges, label: Sonstiges, widget: string, required: false, hint: "z. B. Montierung, Filter, Software" }
+
+              # ---------------- NATUR & LANDSCHAFT ----------------
+              - name: natur
+                label: Natur- & Landschaftsfoto
+                summary: "{{titel}} – {{datum}}"
+                fields:
+                  - { name: bild, label: Bild, widget: image, required: false, hint: "Ohne Bild wird ein Platzhalter angezeigt." }
+                  - { name: titel, label: Titel, widget: string }
+                  - { name: datum, label: Aufnahmedatum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD, hint: "Die neuesten Bilder erscheinen automatisch oben." }
+                  - { name: ort, label: Ort, widget: string, required: false }
+                  - { name: beschreibung, label: Beschreibung, widget: text, required: false }
+                  - { name: kamera, label: Kamera, widget: string, required: false }
+                  - { name: objektiv, label: Objektiv, widget: string, required: false, hint: "z. B. 24–70 mm f/2.8" }
+                  - { name: brennweite, label: Brennweite (mm), widget: number, value_type: int, required: false }
+                  - { name: blende, label: Blende, widget: string, required: false, hint: "z. B. 8 oder f/8" }
+                  - { name: verschlusszeit, label: Verschlusszeit, widget: string, required: false, hint: "z. B. 1/250 oder 30 (Sekunden)" }
+                  - { name: iso, label: ISO, widget: number, value_type: int, required: false }
+                  - { name: sonstiges, label: Sonstiges, widget: string, required: false, hint: "z. B. ND-Filter, Panorama aus 6 Bildern" }
 
   - name: einstellungen
     label: Einstellungen
@@ -98,7 +119,7 @@ collections:
             label: Druckformate
             label_singular: Format
             widget: list
-            summary: "{{fields.bezeichnung}} – {{fields.preis}} €"
+            summary: "{{bezeichnung}} – {{preis}} €"
             fields:
               - { name: bezeichnung, label: "Bezeichnung", widget: string, hint: "z. B. 40 × 60 cm" }
               - { name: preis, label: "Grundpreis in € (Fotopapier)", widget: number, value_type: int }
@@ -106,7 +127,7 @@ collections:
             label: Materialien
             label_singular: Material
             widget: list
-            summary: "{{fields.bezeichnung}} (× {{fields.faktor}})"
+            summary: "{{bezeichnung}} (× {{faktor}})"
             fields:
               - { name: bezeichnung, label: "Bezeichnung", widget: string }
               - { name: beschreibung, label: "Kurzbeschreibung", widget: string, required: false }
