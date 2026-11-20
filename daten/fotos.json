@@ -1,0 +1,148 @@
+{
+  "fotos": [
+    {
+      "bild": "",
+      "titel": "Milchstraßenbogen am Bergsee",
+      "kategorie": "astro",
+      "datum": "2026-08-14",
+      "ort": "Allgäu",
+      "technik": "14 mm · f/1.8 · 12 × 15 s · ISO 3200",
+      "beschreibung": "Neumondnacht im August, das galaktische Zentrum stand kurz über dem Grat."
+    },
+    {
+      "bild": "",
+      "titel": "Andromeda-Galaxie (M31)",
+      "kategorie": "astro",
+      "datum": "2026-10-03",
+      "ort": "Gartensternwarte",
+      "technik": "Refraktor 72/420 · 120 × 180 s · gestackt",
+      "beschreibung": "Unsere Nachbargalaxie in 2,5 Millionen Lichtjahren Entfernung."
+    },
+    {
+      "bild": "",
+      "titel": "Polarlicht über dem Meer",
+      "kategorie": "astro",
+      "datum": "2026-05-11",
+      "ort": "Nordseeküste",
+      "technik": "20 mm · f/2 · 4 s · ISO 1600",
+      "beschreibung": "Ein seltener Sonnensturm machte das Polarlicht bis nach Norddeutschland sichtbar."
+    },
+    {
+      "bild": "",
+      "titel": "Orionnebel (M42)",
+      "kategorie": "astro",
+      "datum": "2026-01-20",
+      "ort": "Gartensternwarte",
+      "technik": "Refraktor 72/420 · 90 × 120 s",
+      "beschreibung": "Eine Sternentstehungsregion im Schwert des Orion."
+    },
+    {
+      "bild": "",
+      "titel": "Galaktisches Zentrum",
+      "kategorie": "astro",
+      "datum": "2026-07-02",
+      "ort": "Rhön",
+      "technik": "24 mm · f/1.4 · Panorama aus 6 Bildern",
+      "beschreibung": "Der hellste Teil der Milchstraße, steil über den Bäumen."
+    },
+    {
+      "bild": "",
+      "titel": "Nordamerikanebel (NGC 7000)",
+      "kategorie": "astro",
+      "datum": "2025-09-12",
+      "ort": "Gartensternwarte",
+      "technik": "Refraktor 72/420 · Dualband-Filter · 6 h",
+      "beschreibung": "Ein Emissionsnebel im Sternbild Schwan."
+    },
+    {
+      "bild": "",
+      "titel": "Milchstraße über Kiefern",
+      "kategorie": "astro",
+      "datum": "2025-08-22",
+      "ort": "Schwarzwald",
+      "technik": "14 mm · f/2 · 15 s · ISO 6400",
+      "beschreibung": "Kurz nach Mitternacht am Waldrand."
+    },
+    {
+      "bild": "",
+      "titel": "Herznebel (IC 1805)",
+      "kategorie": "astro",
+      "datum": "2025-11-05",
+      "ort": "Gartensternwarte",
+      "technik": "Refraktor 72/420 · H-Alpha · 8 h",
+      "beschreibung": "Leuchtendes Wasserstoffgas in rund 7.500 Lichtjahren Entfernung."
+    },
+    {
+      "bild": "",
+      "titel": "Morgennebel im Tal",
+      "kategorie": "natur",
+      "datum": "2026-10-21",
+      "ort": "Sächsische Schweiz",
+      "technik": "70–200 mm · 1/250 s · f/8",
+      "beschreibung": "Die ersten Sonnenstrahlen über einem Meer aus Nebel."
+    },
+    {
+      "bild": "",
+      "titel": "Alpenglühen",
+      "kategorie": "natur",
+      "datum": "2026-09-08",
+      "ort": "Berchtesgadener Land",
+      "technik": "24–70 mm · 1/60 s · f/11",
+      "beschreibung": "Die Gipfel leuchten noch, während das Tal schon im Schatten liegt."
+    },
+    {
+      "bild": "",
+      "titel": "Blaue Stunde am See",
+      "kategorie": "natur",
+      "datum": "2026-06-15",
+      "ort": "Oberbayern",
+      "technik": "16–35 mm · 30 s · f/11 · ND-Filter",
+      "beschreibung": "Windstille, der See wird zum Spiegel."
+    },
+    {
+      "bild": "",
+      "titel": "Herbstwald im Dunst",
+      "kategorie": "natur",
+      "datum": "2025-10-18",
+      "ort": "Pfälzerwald",
+      "technik": "100–400 mm · 1/125 s · f/8",
+      "beschreibung": "Staffelungen aus Hügeln und Bäumen im weichen Gegenlicht."
+    },
+    {
+      "bild": "",
+      "titel": "Bergkette im Abendlicht",
+      "kategorie": "natur",
+      "datum": "2026-07-28",
+      "ort": "Tirol",
+      "technik": "70–200 mm · 1/500 s · f/8",
+      "beschreibung": "Bergrücken hintereinander bis zum Horizont."
+    },
+    {
+      "bild": "",
+      "titel": "Stille am Moor",
+      "kategorie": "natur",
+      "datum": "2025-11-30",
+      "ort": "Emsland",
+      "technik": "24–70 mm · 1/30 s · f/9",
+      "beschreibung": "Ein grauer Novembermorgen, still und weit."
+    },
+    {
+      "bild": "",
+      "titel": "Gipfelblick",
+      "kategorie": "natur",
+      "datum": "2026-08-03",
+      "ort": "Wallis",
+      "technik": "16–35 mm · 1/320 s · f/10",
+      "beschreibung": "Klare Sicht nach einer Gewitternacht."
+    },
+    {
+      "bild": "",
+      "titel": "Sonnenaufgang über den Hügeln",
+      "kategorie": "natur",
+      "datum": "2025-05-02",
+      "ort": "Eifel",
+      "technik": "100–400 mm · 1/1000 s · f/8",
+      "beschreibung": "Der Moment, in dem die Sonne über den Horizont steigt."
+    }
+  ]
+}

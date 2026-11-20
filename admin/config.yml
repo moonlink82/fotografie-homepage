@@ -1,0 +1,115 @@
+# Verwaltung der Fotografie-Homepage (Sveltia CMS)
+# Nur die Zeile "repo" musst du anpassen: DEIN-GITHUB-NAME/NAME-DES-REPOSITORYS
+
+backend:
+  name: github
+  repo: DEIN-GITHUB-NAME/fotografie-homepage
+  branch: main
+
+media_folder: bilder
+public_folder: /bilder
+
+# Hochgeladene Fotos werden automatisch verkleinert (max. 2560 px)
+# und als WebP gespeichert – schnell im Web, scharf genug für jeden Bildschirm.
+media_libraries:
+  all:
+    transformations:
+      raster_image:
+        format: webp
+        quality: 88
+        width: 2560
+        height: 2560
+
+collections:
+  - name: fotos
+    label: Fotos
+    files:
+      - name: fotos
+        label: Alle Fotos
+        file: daten/fotos.json
+        fields:
+          - name: fotos
+            label: Fotos
+            label_singular: Foto
+            widget: list
+            add_to_top: true
+            summary: "{{fields.titel}} · {{fields.datum}}"
+            fields:
+              - name: bild
+                label: Bild
+                widget: image
+                required: false
+                hint: Ohne Bild wird ein Platzhalter angezeigt.
+              - name: titel
+                label: Titel
+                widget: string
+              - name: kategorie
+                label: Kategorie
+                widget: select
+                default: astro
+                options:
+                  - { label: "Astro", value: astro }
+                  - { label: "Natur & Landschaft", value: natur }
+              - name: datum
+                label: Aufnahmedatum
+                widget: datetime
+                time_format: false
+                date_format: DD.MM.YYYY
+                format: YYYY-MM-DD
+                hint: Die neuesten Bilder erscheinen automatisch oben.
+              - name: ort
+                label: Ort
+                widget: string
+                required: false
+              - name: technik
+                label: Technik / Kameradaten
+                widget: string
+                required: false
+                hint: "z. B. 14 mm · f/1.8 · 15 s · ISO 3200"
+              - name: beschreibung
+                label: Beschreibung
+                widget: text
+                required: false
+
+  - name: einstellungen
+    label: Einstellungen
+    files:
+      - name: einstellungen
+        label: Seiteninhalte & Preise
+        file: daten/einstellungen.json
+        fields:
+          - { name: name, label: "Name / Marke (Logo)", widget: string }
+          - { name: zusatz, label: "Zusatz im Logo", widget: string, required: false }
+          - { name: email, label: "E-Mail für Bestellanfragen", widget: string }
+          - { name: instagram, label: "Instagram-Link", widget: string, required: false }
+          - { name: startseite_text, label: "Text auf der Startseite", widget: text, required: false }
+          - { name: astro_text, label: "Einleitung Astro", widget: text, required: false }
+          - { name: natur_text, label: "Einleitung Natur & Landschaft", widget: text, required: false }
+          - { name: ueber_titel, label: "Über mich – Überschrift", widget: string, required: false }
+          - { name: ueber_text, label: "Über mich – Text (Leerzeile = neuer Absatz)", widget: text, required: false }
+          - { name: ueber_bild, label: "Über mich – Porträtfoto", widget: image, required: false }
+          - name: ausruestung
+            label: Ausrüstung
+            label_singular: Eintrag
+            widget: list
+            required: false
+            field: { name: eintrag, label: Eintrag, widget: string }
+          - name: formate
+            label: Druckformate
+            label_singular: Format
+            widget: list
+            summary: "{{fields.bezeichnung}} – {{fields.preis}} €"
+            fields:
+              - { name: bezeichnung, label: "Bezeichnung", widget: string, hint: "z. B. 40 × 60 cm" }
+              - { name: preis, label: "Grundpreis in € (Fotopapier)", widget: number, value_type: int }
+          - name: materialien
+            label: Materialien
+            label_singular: Material
+            widget: list
+            summary: "{{fields.bezeichnung}} (× {{fields.faktor}})"
+            fields:
+              - { name: bezeichnung, label: "Bezeichnung", widget: string }
+              - { name: beschreibung, label: "Kurzbeschreibung", widget: string, required: false }
+              - { name: faktor, label: "Preisfaktor (1 = Grundpreis, 1.8 = 80 % teurer)", widget: number, value_type: float, step: 0.05 }
+          - { name: impressum, label: "Impressum (Name, Anschrift)", widget: text }
+          - { name: datenschutz, label: "Datenschutzerklärung", widget: text }

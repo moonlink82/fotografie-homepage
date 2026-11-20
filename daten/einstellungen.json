@@ -1,0 +1,68 @@
+{
+  "name": "Lichtweiten",
+  "zusatz": "Fotografie",
+  "email": "kontakt@example.de",
+  "instagram": "https://www.instagram.com/",
+  "startseite_text": "Zwischen Abendrot und Morgengrauen: Bilder vom Nachthimmel, von stillen Landschaften und dem Licht dazwischen.",
+  "astro_text": "Milchstraße, Galaxien, Nebel und Polarlichter, fotografiert an dunklen Orten fernab der Städte.",
+  "natur_text": "Berge, Wälder, Seen und das besondere Licht am Rand des Tages, zur blauen und goldenen Stunde, bei Nebel und Stille.",
+  "ueber_titel": "Hinter der Kamera",
+  "ueber_text": "Hier stellst du dich vor: wie du zur Fotografie gekommen bist, was dich nachts unter den Sternenhimmel und morgens in den Nebel zieht, und wo deine Lieblingsorte sind.\n\nEin zweiter Absatz kann erzählen, wie ein Bild entsteht: Planung nach Mondphase und Wetter, lange Belichtungen, Stacking und die Bearbeitung danach.",
+  "ueber_bild": "",
+  "ausruestung": [
+    "Kamera und Objektive",
+    "Teleskop und Nachführung",
+    "Stativ, Filter, Software"
+  ],
+  "formate": [
+    {
+      "bezeichnung": "20 × 30 cm",
+      "preis": 29
+    },
+    {
+      "bezeichnung": "30 × 45 cm",
+      "preis": 49
+    },
+    {
+      "bezeichnung": "40 × 60 cm",
+      "preis": 79
+    },
+    {
+      "bezeichnung": "60 × 90 cm",
+      "preis": 139
+    },
+    {
+      "bezeichnung": "80 × 120 cm",
+      "preis": 219
+    }
+  ],
+  "materialien": [
+    {
+      "bezeichnung": "Fotopapier matt",
+      "beschreibung": "Klassisch und blendfrei",
+      "faktor": 1
+    },
+    {
+      "bezeichnung": "Fine-Art Baryt",
+      "beschreibung": "Museumsqualität, tiefe Schwärzen",
+      "faktor": 1.35
+    },
+    {
+      "bezeichnung": "Alu-Dibond",
+      "beschreibung": "Auf Aluminium, randlos, mit Aufhängung",
+      "faktor": 1.8
+    },
+    {
+      "bezeichnung": "Acrylglas",
+      "beschreibung": "Brillante Farben, starke Tiefenwirkung",
+      "faktor": 2.3
+    },
+    {
+      "bezeichnung": "Leinwand",
+      "beschreibung": "Auf Keilrahmen gespannt",
+      "faktor": 1.5
+    }
+  ],
+  "impressum": "[Vor- und Nachname]\n[Straße Hausnummer]\n[PLZ Ort]",
+  "datenschutz": "[Hier deine Datenschutzerklärung einfügen, z. B. erstellt mit einem Datenschutz-Generator. Wichtig: Hosting-Anbieter, Server-Logs, Google Fonts und die Verarbeitung der Daten aus Bestellanfragen erwähnen.]"
+}
