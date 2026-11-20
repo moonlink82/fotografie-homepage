@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fotografie-Homepage</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0c0f;--bg2:#121419;--line:#23262d;--text:#ebe8e2;--muted:#9097a1;--gold:#d6a85c;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+@font-face{font-family:'Inter';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/inter-light.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-regular.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/inter-medium.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/inter-semibold.woff) format('woff')}
+@font-face{font-family:'Lora';font-weight:400 700;font-style:normal;font-display:swap;src:url(fonts/lora.woff) format('woff')}
+@font-face{font-family:'Lora';font-weight:400 700;font-style:italic;font-display:swap;src:url(fonts/lora-italic.woff) format('woff')}
+:root{--bg:#0b0c0f;--bg2:#121419;--line:#23262d;--text:#ebe8e2;--muted:#9097a1;--gold:#d6a85c;--serif:'Lora',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -228,6 +231,9 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .legal{max-width:760px;padding-bottom:5rem}
 .legal h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:2rem 0 .5rem}
 .legal p{color:#c9c6bf}
+.rich h3{font-family:var(--serif);font-weight:500;font-size:1.3rem;margin:2rem 0 .5rem}
+.rich h3:first-child{margin-top:0}
+.rich p{margin-bottom:.8rem;line-height:1.7;overflow-wrap:anywhere}
 .ph{color:var(--gold)}
 
 .ftr{border-top:1px solid var(--line);padding:2.5rem 0}
@@ -347,7 +353,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <h2>Urheberrecht</h2>
       <p>Alle Fotografien auf dieser Website sind urheberrechtlich geschützt. Jede Verwendung ohne schriftliche Zustimmung ist untersagt.</p>
       <h2>Datenschutzerklärung</h2>
-      <p id="dsText" style="white-space:pre-line"></p>
+      <div id="dsText" class="rich"></div>
     </div>
   </section>
 </main>
@@ -566,7 +572,7 @@ function applySettings(){
   $('#aboutText').innerHTML=String(CONFIG.ueber_text||'').split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
   $('#gearList').innerHTML=(CONFIG.ausruestung||[]).filter(Boolean).map(g=>`<li>${esc(g)}</li>`).join('');
   $('#impText').textContent=CONFIG.impressum||'';
-  $('#dsText').textContent=CONFIG.datenschutz||'';
+  $('#dsText').innerHTML=textHtml(CONFIG.datenschutz,false);
 }
 addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>10),{passive:true});
 
@@ -630,14 +636,14 @@ function metaHtml(p){
 
 /* Beschreibung: Leerzeile = neuer Absatz, kurze Zeile ohne Satzzeichen
    (oder Zeile mit # am Anfang) = Zwischenüberschrift */
-function textHtml(t){
+function textHtml(t,auto=true){
   const lines=String(t||'').replace(/\r/g,'').split('\n').map(l=>l.trim());
   const out=[];let para=[];
   const flush=()=>{if(para.length){out.push(`<p>${para.map(esc).join('<br>')}</p>`);para=[]}};
   lines.forEach((l,i)=>{
     if(!l){flush();return}
     const rest=lines.slice(i+1).some(Boolean);
-    const isHead=/^#+\s*/.test(l)||(rest&&!para.length&&l.length<=80&&!/[.!?:,;]$/.test(l));
+    const isHead=/^#+\s*/.test(l)||(auto&&rest&&!para.length&&l.length<=80&&!/[.!?:,;]$/.test(l));
     if(isHead){flush();out.push(`<h3>${esc(l.replace(/^#+\s*/,''))}</h3>`)}else para.push(l);
   });
   flush();return out.join('');
