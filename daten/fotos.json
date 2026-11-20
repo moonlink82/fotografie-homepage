@@ -46,14 +46,26 @@
       "titel": "Der Springende-Delphin-Nebel",
       "datum": "2026-10-13",
       "ort": "Wittenberg",
-      "beschreibung": "Sh2-188 – der „Shrimp-Nebel“ in der Kassiopeia\n\nSh2-188, auch als Shrimp-Nebel, Firefox-Nebel oder Simeis 22 bekannt, ist ein planetarischer Nebel im Sternbild Kassiopeia. Er entstand, als ein sonnenähnlicher Stern am Ende seines Lebens seine äußeren Hüllen abstieß. Was von dem Stern übrig ist, ist ein heißer Weißer Zwerg, dessen starke UV-Strahlung das ausgestoßene Gas zum Leuchten bringt. Das Rot im Bild stammt von Wasserstoff, die bläulich-weißen Bereiche von Sauerstoff. \nWikipedia\nlesbeninger\n\nAuffällig ist die einseitige Form: Der Nebel leuchtet nur an einer Kante als heller Bogen, der Rest ist fast unsichtbar. Der Grund ist, dass sich der Zentralstern mit großer Geschwindigkeit durch das interstellare Gas bewegt. Wo der Sternwind auf dieses Gas trifft, wird Materie zu einer Bugstoßwelle zusammengedrückt, und es entsteht der helle Bogen. \nlesbeninger\n\nWissenswertes über Sh2-188\n\nTempo: Laut Simulationen muss der Zentralstern mit etwa 125 km/s relativ zum interstellaren Medium durch den Raum rasen, um diese Form zu erzeugen. Das sind rund 450.000 km/h. \nconstellation-guide\nGröße: Sh2-188 ist einer der größten bekannten planetarischen Nebel, mit einer Ausdehnung von 2,8 Parsec, also gut 9 Lichtjahren. \narxiv\nEntfernung: Die Schätzungen gehen weit auseinander. Eine Studie kommt auf 850 Parsec mit großer Unsicherheit, das sind rund 2.800 Lichtjahre. Andere Quellen nennen deutlich kleinere Werte. \narxiv\nEigentlich ein Ring: Würde sich der Zentralstern nicht durch das interstellare Gas bewegen, hätte Sh2-188 am Himmel wahrscheinlich eine ringförmige Gestalt. \narxiv\nVerwechslung: Zunächst hielt man ihn für einen Supernova-Überrest, später dann für einen planetarischen Nebel. \nWikipedia",
-      "teleskop": "",
-      "kamera": "",
-      "ha": null,
-      "oiii": null,
+      "beschreibung": "Sh2-188 – der „Springende-Delphin-Nebel“ in der Kassiopeia\n\nSh2-188, auch als Shrimp-Nebel, Firefox-Nebel oder Simeis 22 bekannt, ist ein planetarischer Nebel im Sternbild Kassiopeia. Er entstand, als ein sonnenähnlicher Stern am Ende seines Lebens seine äußeren Hüllen abstieß. Was von dem Stern übrig ist, ist ein heißer Weißer Zwerg, dessen starke UV-Strahlung das ausgestoßene Gas zum Leuchten bringt. Das Rot im Bild stammt von Wasserstoff, die bläulich-weißen Bereiche von Sauerstoff. \nWikipedia\nlesbeninger\n\nAuffällig ist die einseitige Form: Der Nebel leuchtet nur an einer Kante als heller Bogen, der Rest ist fast unsichtbar. Der Grund ist, dass sich der Zentralstern mit großer Geschwindigkeit durch das interstellare Gas bewegt. Wo der Sternwind auf dieses Gas trifft, wird Materie zu einer Bugstoßwelle zusammengedrückt, und es entsteht der helle Bogen. \nlesbeninger\n\nWissenswertes über Sh2-188\n\nTempo: Laut Simulationen muss der Zentralstern mit etwa 125 km/s relativ zum interstellaren Medium durch den Raum rasen, um diese Form zu erzeugen. Das sind rund 450.000 km/h. \nconstellation-guide\nGröße: Sh2-188 ist einer der größten bekannten planetarischen Nebel, mit einer Ausdehnung von 2,8 Parsec, also gut 9 Lichtjahren. \narxiv\nEntfernung: Die Schätzungen gehen weit auseinander. Eine Studie kommt auf 850 Parsec mit großer Unsicherheit, das sind rund 2.800 Lichtjahre. Andere Quellen nennen deutlich kleinere Werte. \narxiv\nEigentlich ein Ring: Würde sich der Zentralstern nicht durch das interstellare Gas bewegen, hätte Sh2-188 am Himmel wahrscheinlich eine ringförmige Gestalt. \narxiv\nVerwechslung: Zunächst hielt man ihn für einen Supernova-Überrest, später dann für einen planetarischen Nebel. \nWikipedia",
+      "teleskop": "SkyWatcher 200pds, 1000mm, Öffnungverhältnis f/5",
+      "kamera": "ZWO ASI 2600 MC Duo Air",
+      "ha": {
+        "anzahl": 58,
+        "sekunden": 900,
+        "gain": 200
+      },
+      "oiii": {
+        "anzahl": 48,
+        "sekunden": 900,
+        "gain": 200
+      },
       "duo": null,
-      "rgb": null,
-      "sonstiges": "",
+      "rgb": {
+        "anzahl": 55,
+        "sekunden": 33,
+        "gain": 101
+      },
+      "sonstiges": "EQ6-R, Pixinsight, Photoshop",
       "technik": "20 mm · f/2 · 4 s · ISO 1600"
     },
     {
