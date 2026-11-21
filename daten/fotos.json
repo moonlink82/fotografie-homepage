@@ -2,6 +2,21 @@
   "fotos": [
     {
       "kategorie": "natur",
+      "bild": "/bilder/IMG_5750-Bearbeitet.webp",
+      "titel": "Spiegel am Strand",
+      "datum": "2026-10-15",
+      "ort": "Türkei",
+      "beschreibung": "Spiegel am Strand – Türkei\n\nEin Boot liegt still am Strand, nur noch als dunkle Silhouette vor dem glühenden Horizont zu erkennen. Die Sonne ist hinter den fernen Bergen verschwunden, der Himmel geht in einem sanften Verlauf von Orange über Rosa bis in ein tiefes Blau über. Im Vordergrund hat sich Meerwasser am Strand gesammelt und einen Spiegel gebildet, der Himmel und Boot fast vollkommen klar wiedergibt. Es ist einer dieser ruhigen Momente im Urlaub, in denen alles stillzustehen scheint und man einfach nur schaut.\n\nWissenswertes zum Bild\n\nDie blaue Stunde: Nach Sonnenuntergang und vor Sonnenaufgang wird der Himmel nicht mehr direkt von der Sonne beleuchtet, sondern nur noch von gestreutem Licht. Dabei überwiegen die blauen Anteile, während am Horizont noch die warmen Farben leuchten. Dieser Farbverlauf hält oft nur 20 bis 30 Minuten.\nDer Spiegel am Strand: Wellen spülen Meerwasser auf den Strand, das in flachen Mulden stehen bleibt. Bei Windstille ist die Oberfläche völlig glatt und verdoppelt Himmel und Boot. Fotografiert man knapp über dem Wasser, wirkt diese kleine Wasserfläche fast wie ein ganzer See.\nSilhouetten: Weil der Himmel um ein Vielfaches heller ist als das Boot, wird es ganz dunkel abgebildet. So bleiben nur seine Umrisse übrig, und das Bild wirkt besonders klar und ruhig.",
+      "kamera": "Canon EOS 750D",
+      "sonstiges": "",
+      "objektiv": "TAMRON 18-400mm F/3.5-6.3 Di II VC HLD B028",
+      "brennweite": 18,
+      "blende": "f/4,5",
+      "verschlusszeit": "1/50",
+      "iso": 1600
+    },
+    {
+      "kategorie": "natur",
       "bild": "/bilder/396A8945-Bearbeitet.webp",
       "titel": "Blaumeise in den Weidenkätzchen",
       "datum": "2026-02-23",
