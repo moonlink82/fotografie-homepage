@@ -13,12 +13,12 @@
 <meta property="og:url" content="https://lichtweite.photos/">
 <link rel="canonical" href="https://lichtweite.photos/">
 <style>
-@font-face{font-family:'Inter';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/inter-light.woff) format('woff')}
-@font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-regular.woff) format('woff')}
-@font-face{font-family:'Inter';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/inter-medium.woff) format('woff')}
-@font-face{font-family:'Inter';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/inter-semibold.woff) format('woff')}
-@font-face{font-family:'Lora';font-weight:400 700;font-style:normal;font-display:swap;src:url(fonts/lora.woff) format('woff')}
-@font-face{font-family:'Lora';font-weight:400 700;font-style:italic;font-display:swap;src:url(fonts/lora-italic.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/inter-light.woff) format('woff'),url(fonts/fonts/inter-light.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-regular.woff) format('woff'),url(fonts/fonts/inter-regular.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/inter-medium.woff) format('woff'),url(fonts/fonts/inter-medium.woff) format('woff')}
+@font-face{font-family:'Inter';font-weight:600;font-style:normal;font-display:swap;src:url(fonts/inter-semibold.woff) format('woff'),url(fonts/fonts/inter-semibold.woff) format('woff')}
+@font-face{font-family:'Lora';font-weight:400 700;font-style:normal;font-display:swap;src:url(fonts/lora.woff) format('woff'),url(fonts/fonts/lora.woff) format('woff')}
+@font-face{font-family:'Lora';font-weight:400 700;font-style:italic;font-display:swap;src:url(fonts/lora-italic.woff) format('woff'),url(fonts/fonts/lora-italic.woff) format('woff')}
 :root{--bg:#0b0c0f;--bg2:#121419;--line:#23262d;--text:#ebe8e2;--muted:#9097a1;--gold:#d6a85c;--serif:'Lora',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -142,6 +142,16 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .tile img,.lb-stage img,.pick img,.panel img,.about-img img{-webkit-touch-callout:none;-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
 .toast{position:fixed;left:50%;bottom:2rem;z-index:200;transform:translate(-50%,20px);background:#1b1d22;border:1px solid var(--line);color:var(--text);padding:.75rem 1.2rem;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+.like-btn{height:46px;padding:0 1rem;gap:.5rem;font-size:.9rem;font-variant-numeric:tabular-nums}
+.like-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .25s}
+.like-btn.liked{color:#ff6b7f;border-color:rgba(255,107,127,.55)}
+.like-btn.liked svg{fill:currentColor}
+.like-btn.pop svg{animation:pop .45s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+.lk{color:#ff8b9a;margin-left:.35rem}
+@media(max-width:700px){.lb-actions .like-btn{width:auto;padding:0 .9rem;height:42px}}
+@media(max-width:760px){.lb-actions{flex-wrap:nowrap}.lb-actions .like-btn{flex:none}}
+@media (orientation:landscape) and (max-height:520px){.lb-actions .like-btn{height:44px;padding:0 .8rem;border-radius:99px;background:rgba(20,22,27,.7)}}
 .lb-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;padding:4rem clamp(1rem,3vw,2rem) clamp(1rem,2.5vw,1.6rem);background:linear-gradient(transparent,rgba(0,0,0,.72));pointer-events:none}
 .lb-bar>*{pointer-events:auto}
 .lb-bar h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1}
@@ -192,7 +202,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .meta dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .meta dd{font-size:.92rem;white-space:pre-line;line-height:1.55}
 .hint{font-size:.75rem;color:#6d727b;margin-top:auto}
-@media(max-width:700px){.lb-nav{width:42px;height:42px;font-size:1rem}.lb-prev{left:.4rem}.lb-next{right:.4rem}.ic .lbl{display:none}.ic:not(.info-btn){padding:0;width:42px}.lb-actions .btn{padding:.65rem .9rem;font-size:.72rem}}
+@media(max-width:700px){.lb-nav{width:42px;height:42px;font-size:1rem}.lb-prev{left:.4rem}.lb-next{right:.4rem}.ic .lbl{display:none}.ic:not(.info-btn):not(.like-btn){padding:0;width:42px}.lb-actions .btn{padding:.65rem .9rem;font-size:.72rem}}
 
 /* Über mich / Impressum */
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding:clamp(3rem,7vw,6rem) clamp(1rem,4vw,3rem) 5rem}
@@ -264,7 +274,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   .lb-nav{display:none}
   .lb-bar{position:relative;flex:none;background:#0e0f13;border-top:1px solid var(--line);padding:1rem 1rem calc(1.1rem + env(safe-area-inset-bottom));pointer-events:auto;flex-direction:column;align-items:stretch;gap:.9rem}
   .lb-bar h2{font-size:1.4rem}
-  .lb-actions .info-btn{width:100%;justify-content:center}
+  .lb-actions .info-btn{flex:1;justify-content:center}
   .lb.idle .lb-ui{opacity:1;pointer-events:auto}
   .lb.idle{cursor:auto}
 }
@@ -278,7 +288,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   .lb-top>*{pointer-events:auto}
   .lb-count,#lbZoom{display:none}
   .ic .lbl{display:none}
-  .ic:not(.info-btn){padding:0;width:40px;height:40px}
+  .ic:not(.info-btn):not(.like-btn){padding:0;width:40px;height:40px}
   .lb-nav{display:none}
   .lb-bar{position:absolute;left:auto;right:0;bottom:0;background:none;border:0;padding:.6rem;flex-direction:row;pointer-events:none}
   .lb-bar>div:first-child{display:none}
@@ -382,6 +392,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <small id="lbSub"></small>
     </div>
     <div class="lb-actions">
+      <button class="ic like-btn" id="lbLike" type="button" aria-pressed="false" title="Gefällt mir" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 8 3.3 4.5 6.9 4.5c2 0 3.7 1.1 4.6 2.7h1c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.6 3.5 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/></svg><span id="lbLikeN">0</span></button>
       <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)"><span class="i">i</span> <span class="lbl2">Details &amp; Aufnahmedaten</span></button>
     </div>
   </div>
@@ -453,6 +464,7 @@ async function load(){
     PHOTOS.sort((a,b)=>b.datum.localeCompare(a.datum));
     CATS.astro.lead=e.astro_text||''; CATS.natur.lead=e.natur_text||'';
     applySettings();
+    await loadLikes();
     route();
   }catch(err){
     console.error(err);
@@ -562,7 +574,33 @@ function applySettings(){
 }
 addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>10),{passive:true});
 
-const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p.id}" aria-label="${esc(p.titel)} öffnen">${isNew?'<span class="new">Neu</span>':''}<img src="${src(p)}" alt="${esc(p.titel)}" loading="lazy"><span class="cap"><b>${esc(p.titel)}</b><small>${esc(p.ort)} · ${fmt(p.datum)}</small></span></div>`;
+/* ---------- Likes ---------- */
+let LIKES={},likesOn=false,liked=new Set();
+try{liked=new Set(JSON.parse(localStorage.getItem('lw-liked')||'[]'))}catch(_){}
+const saveLiked=()=>{try{localStorage.setItem('lw-liked',JSON.stringify([...liked]))}catch(_){}};
+function likeId(p){const k=(p.raw&&p.raw.bild)||(p.titel+'|'+p.datum);let h=0x811c9dc5;for(const c of k){h^=c.codePointAt(0);h=Math.imul(h,0x01000193)>>>0}return 'b'+h.toString(36)}
+const likeBadge=p=>likesOn&&LIKES[likeId(p)]?`<span class="lk">♥ ${LIKES[likeId(p)]}</span>`:'';
+async function loadLikes(){
+  try{const r=await fetch('/api/likes',{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();if(typeof j!=='object'||!j)throw 0;LIKES=j;likesOn=true}catch(_){likesOn=false}
+}
+function showLike(p){
+  const b=$('#lbLike');b.hidden=!likesOn;if(!likesOn)return;
+  const id=likeId(p),on=liked.has(id);
+  b.classList.toggle('liked',on);b.setAttribute('aria-pressed',on);b.title=on?'Gefällt mir nicht mehr':'Gefällt mir';
+  $('#lbLikeN').textContent=LIKES[id]||0;
+}
+async function toggleLike(){
+  const p=get(lbList[lbI]);if(!p||!likesOn)return;
+  const id=likeId(p),on=liked.has(id),d=on?-1:1,b=$('#lbLike');
+  if(on)liked.delete(id);else liked.add(id);saveLiked();
+  LIKES[id]=Math.max(0,(LIKES[id]||0)+d);showLike(p);
+  if(!on){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
+  try{const r=await fetch('/api/likes',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id,d})});
+    if(!r.ok)throw 0;const j=await r.json();LIKES[id]=j.n;showLike(p)}
+  catch(_){if(on)liked.add(id);else liked.delete(id);saveLiked();LIKES[id]=Math.max(0,(LIKES[id]||0)-d);showLike(p);toast('Das hat gerade nicht geklappt. Bitte später noch einmal versuchen.')}
+}
+
+const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p.id}" aria-label="${esc(p.titel)} öffnen">${isNew?'<span class="new">Neu</span>':''}<img src="${src(p)}" alt="${esc(p.titel)}" loading="lazy"><span class="cap"><b>${esc(p.titel)}</b><small>${esc(p.ort)} · ${fmt(p.datum)}${likeBadge(p)}</small></span></div>`;
 
 function renderStart(){
   $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${L.length} Bilder · zuletzt ${fmt(L[0].datum)}`:'Bald mehr'}</p><span class="go">Ansehen <i>→</i></span></div></a>`}).join('');
@@ -653,6 +691,7 @@ function showLB(){
   $('#lbSub2').textContent=$('#lbSub').textContent;
   $('#lbPrint').innerHTML=CONFIG.email?`${esc(CONFIG.druck_hinweis||'Dieses Motiv ist auch als hochwertiger Druck erhältlich.')} <a href="${mailto('Druckanfrage: '+p.titel)}">Anfrage per E-Mail</a>`:'';
   $('#lbPrint').style.display=CONFIG.email?'':'none';
+  showLike(p);
   $('#lbMeta').innerHTML=metaHtml(p);
   $('#lbCount').textContent=lbList.length>1?`${lbI+1} / ${lbList.length}`:'';
   const multi=lbList.length>1;$('#lbPrev').style.display=$('#lbNext').style.display=multi?'':'none';
@@ -692,6 +731,7 @@ document.addEventListener('fullscreenchange',()=>fsBtn.classList.toggle('on',!!d
 const toggleInfo=()=>{lb.classList.toggle('info');$('#lbInfoBtn').classList.toggle('on',lb.classList.contains('info'));wake()};
 $('#lbInfoBtn').onclick=toggleInfo;$('#lbInfoClose').onclick=toggleInfo;
 
+$('#lbLike').onclick=toggleLike;
 $('#lbPrev').onclick=()=>step(-1);$('#lbNext').onclick=()=>step(1);$('#lbClose').onclick=closeLB;
 
 /* Wischen auf dem Handy */
