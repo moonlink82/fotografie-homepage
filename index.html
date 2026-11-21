@@ -218,6 +218,44 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .ftr-note{width:100%;color:var(--muted);font-size:.85rem}
 .ftr-note a{color:var(--gold)}
 .ftr small{color:#666a72;font-size:.78rem;width:100%}
+
+/* ===== Einfaches Layout für Handys ===== */
+@media(max-width:760px){
+  /* Startseite: Bild oben, Text darunter */
+  .split{display:flex;flex-direction:column;gap:2.6rem;padding:1.6rem 1rem 0;min-height:0;background:none}
+  .panel{display:block;min-height:0;padding:0;isolation:auto;overflow:visible}
+  .panel img{position:static;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transform:none;filter:none;z-index:auto}
+  .panel::after{display:none}
+  .panel:hover img{transform:none;filter:none}
+  .panel>div{padding-top:1rem}
+  .panel h2{font-size:2.2rem}
+  .intro{padding:3.5rem 0}
+  /* Neueste Bilder: untereinander, Titel unter dem Bild */
+  .latest{display:flex;flex-direction:column;gap:1.8rem;height:auto}
+  .latest .tile,.latest .tile:first-child{aspect-ratio:auto;background:none;overflow:visible}
+  .latest .tile img{position:static;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+  .latest .tile:hover img{transform:none}
+  .latest .tile .cap,.latest .tile:not(:first-child) .cap{position:static;opacity:1;transform:none;background:none;padding:.7rem 0 0}
+  .latest .tile .cap b,.latest .tile:not(:first-child) .cap b{font-size:1.25rem;overflow-wrap:normal}
+  .latest .tile .cap small,.latest .tile:not(:first-child) .cap small{font-size:.8rem;color:var(--muted)}
+  .new{top:.7rem;left:.7rem}
+  /* Galerie: gleichmäßiges Raster */
+  .masonry{columns:auto;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .masonry .tile{margin:0;aspect-ratio:1}
+  .masonry .tile img{height:100%}
+  .masonry .cap{display:none}
+  .sechead{margin-top:3rem}
+  /* Bildansicht: Leisten über und unter dem Bild statt darauf */
+  .lb.on{display:flex;flex-direction:column}
+  .lb-top{order:-1;position:relative;flex:none;background:#050608;padding:.6rem .8rem;pointer-events:auto}
+  .lb-stage{position:relative;inset:auto;flex:1;min-height:0;padding:.4rem}
+  .lb-nav{display:none}
+  .lb-bar{position:relative;flex:none;background:#0e0f13;border-top:1px solid var(--line);padding:1rem 1rem calc(1.1rem + env(safe-area-inset-bottom));pointer-events:auto;flex-direction:column;align-items:stretch;gap:.9rem}
+  .lb-bar h2{font-size:1.4rem}
+  .lb-actions .info-btn{width:100%;justify-content:center}
+  .lb.idle .lb-ui{opacity:1;pointer-events:auto}
+  .lb.idle{cursor:auto}
+}
 </style>
 </head>
 <body>
@@ -605,7 +643,7 @@ addEventListener('pointerup',()=>{drag=null;stage.classList.remove('drag')});
 stage.addEventListener('click',e=>{
   if(lb.classList.contains('zoom')){if(!moved)unzoom();moved=false;return}
   if(e.target!==lbImg){closeLB();return}
-  if(!canHover){lb.classList.toggle('idle');return}
+  if(!canHover)return;
   const r=lbImg.getBoundingClientRect();zoomAt((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
 });
 $('#lbZoom').onclick=()=>lb.classList.contains('zoom')?unzoom():zoomAt(.5,.5);
