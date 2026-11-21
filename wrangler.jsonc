@@ -17,7 +17,7 @@
       "binding": "DB",
       "database_name": "lichtweite-likes",
       // HIER die Database ID aus dem Cloudflare-Dashboard einfügen:
-      "database_id": "HIER-DATABASE-ID-EINFUEGEN"
+      "database_id": "c8a1d763-3b1c-4c66-887f-75da3fdb1ed1"
     }
   ]
 }
