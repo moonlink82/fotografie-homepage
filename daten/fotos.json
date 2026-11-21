@@ -2,6 +2,21 @@
   "fotos": [
     {
       "kategorie": "natur",
+      "bild": "/bilder/IMG_6740-Bearbeitet.webp",
+      "titel": "Sonnenuntergang über der Kirche von Wartenburg",
+      "datum": "2026-03-19",
+      "ort": "Wartenburg",
+      "beschreibung": "Sonnenuntergang über der Kirche von Wartenburg\n\nDie Sonne steht als glühende Scheibe genau über der Turmspitze der Kirche von Wartenburg. Der ganze Himmel leuchtet in tiefem Orange, schmale Wolkenbänder ziehen quer durchs Bild. Turm, Kirchendach und die kahlen Bäume davor sind nur noch als dunkle Silhouetten zu erkennen. Damit die Sonne so exakt über der Spitze sitzt, braucht es den richtigen Standort, ein langes Teleobjektiv und genau den passenden Moment, denn nur wenige Minuten später ist sie schon weitergewandert.\n\nEin Dorf mit Geschichte\n\nWartenburg liegt an der Elbe, etwa 12 Kilometer südöstlich von Lutherstadt Wittenberg, und wurde bereits 1176 als „Wardenberch“ erstmals urkundlich erwähnt. Bekannt wurde der Ort durch die Befreiungskriege gegen Napoleon. Am 3. Oktober 1813 überquerten preußische Truppen unter General Ludwig Yorck hier auf Pontonbrücken die Elbe und besiegten die französischen Truppen in den sumpfigen Elbauen. Dieser Erfolg ebnete den Weg zur Völkerschlacht bei Leipzig wenige Tage später. Zum Dank wurde Yorck in den Grafenstand erhoben und trug fortan den Namen „Graf Yorck von Wartenburg“. So ist der Name des kleinen Elbdorfs bis heute in die Geschichtsbücher eingegangen.\n\nWissenswertes zum Bild\n\nDie welsche Haube: Der Kirchturm trägt eine geschwungene Turmhaube mit offener Laterne und aufgesetzter Zwiebel. Solche „welschen Hauben“ sind typisch für die Barockzeit und prägen bis heute viele Kirchtürme in Mitteldeutschland.\nDie riesige Sonne: Durch das Teleobjektiv wirkt die Sonne im Verhältnis zum Kirchturm gewaltig groß. Der Fotograf steht weit vom Turm entfernt, wodurch Turm und Sonne optisch eng zusammenrücken.\nWarum sie so orange ist: Kurz vor dem Untergang muss das Sonnenlicht einen sehr langen Weg durch die Atmosphäre zurücklegen. Dabei werden die blauen Anteile herausgestreut, und es bleibt ein warmes Orange übrig.",
+      "kamera": "Canon EOS 750D",
+      "sonstiges": "",
+      "objektiv": "TAMRON 18-400mm F/3.5-6.3 Di II VC HLD B028",
+      "brennweite": 246,
+      "blende": "f/9",
+      "verschlusszeit": "1/2000",
+      "iso": 200
+    },
+    {
+      "kategorie": "natur",
       "bild": "/bilder/IMG_6572-Bearbeitet-Bearbeitet.webp",
       "titel": "Weidenkätzchen mit Wassertropfen",
       "datum": "2026-02-07",
