@@ -92,7 +92,7 @@ collections:
                   - { name: datum, label: Aufnahmedatum, widget: datetime, time_format: false, date_format: DD.MM.YYYY, format: YYYY-MM-DD, hint: "Die neuesten Bilder erscheinen automatisch oben." }
                   - { name: ort, label: Ort, widget: string, required: false }
                   - { name: beschreibung, label: Beschreibung, widget: text, required: false, hint: "Eine kurze erste Zeile ohne Punkt wird als Zwischenüberschrift angezeigt (oder mit # beginnen). Leerzeile = neuer Absatz." }
-                  - { name: kamera, label: Kamera, widget: string, required: false }
+                  - { name: kamera, label: Kamera, widget: string, required: false, hint: "Kameradaten aus dem Foto auslesen: lichtweite.photos/admin/exif.html" }
                   - { name: objektiv, label: Objektiv, widget: string, required: false, hint: "z. B. 24–70 mm f/2.8" }
                   - { name: brennweite, label: Brennweite (mm), widget: number, value_type: int, required: false }
                   - { name: blende, label: Blende, widget: string, required: false, hint: "z. B. 8 oder f/8" }

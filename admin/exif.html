@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kameradaten auslesen – Verwaltung</title>
+<style>
+:root{--bg:#0b0c0f;--bg2:#121419;--line:#262931;--text:#ebe8e2;--muted:#9097a1;--gold:#d6a85c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;padding:clamp(1rem,4vw,3rem)}
+.wrap{max-width:760px;margin:0 auto}
+a{color:var(--gold)}
+h1{font-weight:500;font-size:1.7rem;margin-bottom:.4rem}
+.lead{color:var(--muted);margin-bottom:1.6rem;font-size:.95rem}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;font-size:.9rem}
+.drop{display:block;border:2px dashed #3a3d44;border-radius:10px;padding:2.4rem 1rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;color:var(--muted)}
+.drop:hover,.drop.over{border-color:var(--gold);background:rgba(214,168,92,.06);color:var(--text)}
+.drop b{display:block;color:var(--text);font-size:1.1rem;font-weight:500;margin-bottom:.3rem}
+.drop input{display:none}
+.result{margin-top:1.8rem;display:none}
+.result.on{display:block}
+.head{display:flex;gap:1rem;align-items:center;margin-bottom:1.2rem}
+.head img{width:110px;height:80px;object-fit:cover;border-radius:4px;background:var(--bg2)}
+.head .name{font-weight:500;word-break:break-all}
+.head small{color:var(--muted)}
+.rows{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.row{display:grid;grid-template-columns:9.5rem 1fr auto;gap:1rem;align-items:center;padding:.8rem 1rem;border-bottom:1px solid var(--line);background:var(--bg2)}
+.row:last-child{border-bottom:0}
+.row span{color:var(--muted);font-size:.85rem}
+.row b{font-weight:500;font-variant-numeric:tabular-nums;word-break:break-word}
+.row.empty b{color:#5d626b;font-weight:400}
+button{font:inherit;cursor:pointer;border:1px solid #3a3d44;background:transparent;color:var(--text);border-radius:6px;padding:.4rem .8rem;font-size:.8rem;transition:.2s;white-space:nowrap}
+button:hover{border-color:var(--gold);color:var(--gold)}
+button.ok{border-color:#5fae7a;color:#7fcf98}
+.note{margin-top:1.2rem;font-size:.85rem;color:var(--muted);padding:.9rem 1rem;border-left:3px solid var(--gold);background:var(--bg2);border-radius:0 6px 6px 0}
+.warn{border-left-color:#e08a5a}
+@media(max-width:560px){.row{grid-template-columns:1fr auto}.row span{grid-column:1/-1;margin-bottom:-.6rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a href="./">← Zurück zur Verwaltung</a>
+    <span style="color:var(--muted)">Das Foto wird nur in deinem Browser gelesen, nicht hochgeladen.</span>
+  </div>
+  <h1>Kameradaten auslesen</h1>
+  <p class="lead">Zieh ein Foto hierher, am besten das JPEG aus der Kamera oder aus Lightroom. Die Werte kannst du dann einzeln kopieren und in die Eingabemaske einfügen.</p>
+
+  <label class="drop" id="drop">
+    <b>Foto hierher ziehen</b>
+    oder klicken zum Auswählen (JPEG, TIFF, DNG, NEF, CR2, ARW …)
+    <input type="file" id="file" accept="image/*,.dng,.nef,.cr2,.arw,.orf,.rw2,.pef,.tif,.tiff">
+  </label>
+
+  <div class="result" id="result">
+    <div class="head"><img id="thumb" alt=""><div><div class="name" id="fname"></div><small id="fsize"></small></div></div>
+    <div class="rows" id="rows"></div>
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+
+/* ---------- EXIF-Leser (JPEG und TIFF-basierte RAW-Dateien) ---------- */
+function readExif(buf){
+  const v=new DataView(buf);let tiff=-1;
+  if(v.byteLength>4&&v.getUint16(0)===0xFFD8){
+    let o=2;
+    while(o+4<v.byteLength){
+      if(v.getUint8(o)!==0xFF)break;
+      const m=v.getUint8(o+1),len=v.getUint16(o+2);
+      if(m===0xE1&&v.getUint32(o+4)===0x45786966&&v.getUint16(o+8)===0){tiff=o+10;break}
+      if(m===0xDA)break;
+      o+=2+len;
+    }
+  }else{
+    const bo=v.getUint16(0);if(bo===0x4949||bo===0x4D4D)tiff=0;
+  }
+  if(tiff<0)return null;
+  const le=v.getUint16(tiff)===0x4949;
+  const u16=o=>v.getUint16(o,le),u32=o=>v.getUint32(o,le),s32=o=>v.getInt32(o,le);
+  if(u16(tiff+2)!==42)return null;
+  const SZ={1:1,2:1,3:2,4:4,5:8,7:1,9:4,10:8};
+  function ifd(off){
+    const out={};if(!off||tiff+off+2>v.byteLength)return out;
+    const p=tiff+off,n=u16(p);
+    for(let i=0;i<n;i++){
+      const e=p+2+i*12;if(e+12>v.byteLength)break;
+      const tag=u16(e),type=u16(e+2),cnt=u32(e+4),size=(SZ[type]||1)*cnt;
+      const vo=size<=4?e+8:tiff+u32(e+8);
+      if(vo+size>v.byteLength)continue;
+      let val;
+      if(type===2){let s='';for(let k=0;k<cnt;k++){const c=v.getUint8(vo+k);if(!c)break;s+=String.fromCharCode(c)}val=s.trim()}
+      else if(type===3)val=u16(vo);
+      else if(type===4)val=u32(vo);
+      else if(type===9)val=s32(vo);
+      else if(type===5){const a=u32(vo),b=u32(vo+4);val=b?a/b:0}
+      else if(type===10){const a=s32(vo),b=s32(vo+4);val=b?a/b:0}
+      else val=null;
+      out[tag]=val;
+    }
+    return out;
+  }
+  const i0=ifd(u32(tiff+4));
+  const ex=i0[0x8769]?ifd(i0[0x8769]):{};
+  // ASCII-Felder mit UTF-8 (Umlaute) korrekt dekodieren
+  return {i0,ex};
+}
+
+/* ---------- Formatierung ---------- */
+const MAKES={'NIKON CORPORATION':'Nikon','NIKON':'Nikon','Canon':'Canon','SONY':'Sony','FUJIFILM':'Fujifilm','OLYMPUS CORPORATION':'Olympus','OLYMPUS IMAGING CORP.':'Olympus','OM Digital Solutions':'OM System','Panasonic':'Panasonic','PENTAX':'Pentax','RICOH IMAGING COMPANY, LTD.':'Pentax','LEICA CAMERA AG':'Leica','Hasselblad':'Hasselblad','SIGMA':'Sigma'};
+function kamera(make,model){
+  make=(make||'').trim();model=(model||'').trim().replace(/_2$/,'II').replace(/_3$/,'III');
+  const m=MAKES[make]||(make?make.charAt(0)+make.slice(1).toLowerCase():'');
+  if(!model)return m;
+  const w=(make.split(/\s+/)[0]||'').toLowerCase();
+  if(w&&model.toLowerCase().startsWith(w))return (m+' '+model.slice(w.length).trim()).trim();
+  return (m?m+' ':'')+model;
+}
+const num=x=>typeof x==='number'&&isFinite(x)&&x>0;
+function zeit(t){if(!num(t))return'';if(t>=1){const r=Math.round(t*10)/10;return String(r).replace('.',',')}return '1/'+Math.round(1/t)}
+function blende(f){if(!num(f))return'';return 'f/'+(Math.round(f*10)/10).toString().replace('.',',')}
+function datum(s){const m=String(s||'').match(/^(\d{4}):(\d{2}):(\d{2})/);return m?`${m[3]}.${m[2]}.${m[1]}`:''}
+
+/* ---------- Anzeige ---------- */
+function row(label,val,hint){
+  const d=document.createElement('div');d.className='row'+(val?'':' empty');
+  d.innerHTML=`<span></span><b></b>`;
+  d.querySelector('span').textContent=label;
+  d.querySelector('b').textContent=val||'nicht vorhanden';
+  if(val){
+    const b=document.createElement('button');b.textContent='Kopieren';b.type='button';
+    b.onclick=async()=>{
+      try{await navigator.clipboard.writeText(val);b.textContent='Kopiert ✓';b.classList.add('ok')}
+      catch(_){const r=document.createRange();r.selectNodeContents(d.querySelector('b'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Markiert – Strg+C'}
+      setTimeout(()=>{b.textContent='Kopieren';b.classList.remove('ok')},1800);
+    };
+    d.appendChild(b);
+  }else d.appendChild(document.createElement('i'));
+  if(hint)d.title=hint;
+  return d;
+}
+
+async function handle(file){
+  if(!file)return;
+  $('#result').classList.add('on');
+  $('#fname').textContent=file.name;
+  $('#fsize').textContent=(file.size/1048576).toFixed(1).replace('.',',')+' MB';
+  const isJpg=/jpe?g$/i.test(file.name)||file.type==='image/jpeg';
+  $('#thumb').style.display=isJpg||/png|webp/i.test(file.type)?'':'none';
+  if(isJpg)$('#thumb').src=URL.createObjectURL(file);
+  const buf=await file.slice(0,Math.min(file.size,8*1048576)).arrayBuffer();
+  let d=null;try{d=readExif(buf)}catch(e){d=null}
+  const rows=$('#rows');rows.innerHTML='';
+  const note=$('#note');note.className='note';
+  if(!d){
+    note.classList.add('warn');
+    note.textContent='In dieser Datei wurden keine Kameradaten gefunden. Das ist normal bei gestackten Astrofotos oder wenn beim Export die Metadaten entfernt wurden. Nimm sonst das Original-JPEG aus der Kamera.';
+    return;
+  }
+  const {i0,ex}=d;
+  const fl=ex[0x920A];
+  const vals=[
+    ['Kamera',kamera(i0[0x010F],i0[0x0110])],
+    ['Objektiv',(ex[0xA434]||'').trim()],
+    ['Brennweite (mm)',num(fl)?String(Math.round(fl)):''],
+    ['Blende',blende(ex[0x829D])],
+    ['Verschlusszeit',zeit(ex[0x829A])],
+    ['ISO',num(ex[0x8827])?String(ex[0x8827]):''],
+    ['Aufnahmedatum',datum(ex[0x9003]||i0[0x0132])]
+  ];
+  vals.forEach(([l,v])=>rows.appendChild(row(l,v)));
+  const found=vals.filter(x=>x[1]).length;
+  note.textContent=found
+    ?'Tipp: Bei der Verschlusszeit bedeutet eine Zahl ohne Bruch Sekunden, z. B. „30“. Die Felder „Ort“, „Titel“ und „Beschreibung“ trägst du selbst ein.'
+    :'Die Datei enthält kaum Kameradaten, vermutlich wurden sie beim Export entfernt.';
+}
+
+const drop=$('#drop'),inp=$('#file');
+inp.onchange=()=>handle(inp.files[0]);
+['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>handle(e.dataTransfer.files[0]));
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])handle(e.dataTransfer.files[0])});
+</script>
+</body>
+</html>
