@@ -1,6 +1,29 @@
 {
   "fotos": [
     {
+      "kategorie": "astro",
+      "bild": "/bilder/Sh2-232_150p_23.03.2026.webp",
+      "titel": "Nebelfamilie im Fuhrmann",
+      "datum": "2026-03-23",
+      "ort": "Mochau",
+      "beschreibung": "Kürbiskopfnebel – Sh2-232 und Nachbarn im Fuhrmann\n\nWegen seiner runden Form und seiner orangeroten Farbe wird dieser Nebel auch „Kürbiskopfnebel“ oder „Halloween-Nebel“ genannt. Die dunklen Staubbänder im Gas erinnern an das geschnitzte Gesicht eines Halloween-Kürbisses. Passenderweise steht das Sternbild Fuhrmann genau im Herbst wieder gut sichtbar am Abendhimmel.\n\nDas Bild zeigt gleich vier rote Wasserstoffnebel. Die große, zarte Wolke in der Mitte ist Sh2-232. Rechts daneben leuchtet der deutlich hellere und kompaktere Sh2-235, noch weiter rechts folgen Sh2-231 und als kleiner runder Fleck Sh2-233. Alle vier gehören zu einer gemeinsamen riesigen Molekülwolke, in der neue Sterne entstehen. Heiße, junge Sterne bringen den Wasserstoff mit ihrer Strahlung zum Leuchten.\n\nWissenswertes über die Nebelgruppe\n\nEntfernung: Die Nebel liegen rund 5.900 Lichtjahre von uns entfernt. Sie befinden sich im Perseus-Arm, einem der Spiralarme unserer Milchstraße, der weiter außen liegt als unser eigener.\nGigantische Ausmaße: Allein Sh2-232 ist rund 160 Lichtjahre groß. Unser ganzes Sonnensystem wäre darin nicht einmal als winziger Punkt zu erkennen.\nSternentstehung in Etappen: Die vier Nebel zeigen verschiedene Entwicklungsstadien. In manchen Bereichen beginnen Sterne gerade erst zu entstehen, in anderen haben junge Sterne ihre Umgebung schon weitgehend freigeblasen.\nDer hellste der Gruppe: Sh2-235 ist der auffälligste Nebel der Gruppe. Er wird von einem einzelnen, sehr heißen und massereichen Stern zum Leuchten gebracht.\nKaum sichtbar: Mit bloßem Auge oder im Teleskop sind diese Nebel praktisch nicht zu sehen. Erst lange Belichtungen machen das rote Leuchten des Wasserstoffs sichtbar.",
+      "teleskop": "Skywatcher 150p",
+      "kamera": "ZWO ASI 2600 MC Duo Air",
+      "ha": null,
+      "oiii": null,
+      "duo": {
+        "anzahl": 59,
+        "sekunden": 900,
+        "gain": 200
+      },
+      "rgb": {
+        "anzahl": 20,
+        "sekunden": 600,
+        "gain": 101
+      },
+      "sonstiges": "Motierung EQ6-R, Pixinsight, Photoshop"
+    },
+    {
       "kategorie": "natur",
       "bild": "/bilder/IMG_6740-Bearbeitet.webp",
       "titel": "Sonnenuntergang über der Kirche von Wartenburg",
