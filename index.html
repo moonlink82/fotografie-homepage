@@ -38,6 +38,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav a{color:var(--muted);padding:.3rem 0;border-bottom:1px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
 .nav a:hover,.nav a.active{color:var(--text)}
 .nav a.active{border-color:var(--gold)}
+.lang{display:inline-flex;align-items:center;gap:.15rem;margin-left:.4rem;padding-left:clamp(.9rem,2.5vw,2.2rem);border-left:1px solid var(--line)}
+.lang button{color:var(--muted);font-size:.72rem;letter-spacing:.14em;padding:.3rem .35rem;border-bottom:1px solid transparent;transition:color .2s}
+.lang button:hover{color:var(--text)}
+.lang button.on{color:var(--gold);border-color:var(--gold)}
+@media(max-width:680px){.lang{position:absolute;top:1.05rem;right:1rem;margin:0;padding-left:0;border-left:0}}
 @media(max-width:680px){.hdr{flex-direction:column;align-items:flex-start;gap:.35rem;padding-bottom:.6rem}.nav{width:100%}}
 
 /* Views */
@@ -306,9 +311,10 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 <header class="hdr" id="hdr">
   <a class="logo" href="#start" id="logo"></a>
   <nav class="nav">
-    <a href="#astro">Astro</a>
-    <a href="#natur">Natur &amp; Landschaft</a>
-    <a href="#ueber">Über mich</a>
+    <a href="#astro" data-i18n="navAstro">Astro</a>
+    <a href="#natur" data-i18n="navNatur">Natur &amp; Landschaft</a>
+    <a href="#ueber" data-i18n="navAbout">Über mich</a>
+    <span class="lang" role="group" aria-label="Sprache / Language"><button type="button" data-lang="de">DE</button><button type="button" data-lang="en">EN</button></span>
   </nav>
 </header>
 
@@ -317,7 +323,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <section class="view" data-view="start">
     <div class="split" id="split"></div>
     <div class="wrap intro">
-      <p class="kicker">Willkommen</p>
+      <p class="kicker" data-i18n="welcome">Willkommen</p>
       <p class="quote" id="quoteText"></p>
     </div>
   </section>
@@ -329,18 +335,18 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <!-- ÜBER MICH -->
   <section class="view" data-view="ueber">
     <div class="about" style="max-width:1320px;margin:0 auto">
-      <div class="about-img"><img id="aboutImg" alt="Porträt"></div>
+      <div class="about-img"><img id="aboutImg" alt="Porträt" data-i18n-alt="portrait"></div>
       <div>
-        <p class="kicker">Über mich</p>
+        <p class="kicker" data-i18n="navAbout">Über mich</p>
         <h1 id="aboutTitle"></h1>
         <div id="aboutText"></div>
-        <h3>Ausrüstung</h3>
+        <h3 data-i18n="gear">Ausrüstung</h3>
         <ul class="gear" id="gearList"></ul>
         <div class="actions">
-          <a class="btn" id="mailBtn" href="#">E-Mail schreiben</a>
+          <a class="btn" id="mailBtn" href="#" data-i18n="writeMail">E-Mail schreiben</a>
           <a class="btn ghost" id="igLink" href="#">Instagram</a>
         </div>
-        <p style="color:var(--muted);font-size:.9rem">Kontakt: <span id="mailText"></span></p>
+        <p style="color:var(--muted);font-size:.9rem"><span data-i18n="contact">Kontakt</span>: <span id="mailText"></span></p>
       </div>
     </div>
   </section>
@@ -348,7 +354,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <!-- IMPRESSUM -->
   <section class="view" data-view="impressum">
     <div class="wrap legal">
-      <header class="phead"><p class="kicker">Rechtliches</p><h1>Impressum &amp; Datenschutz</h1></header>
+      <header class="phead"><p class="kicker" data-i18n="legalKicker">Rechtliches</p><h1>Impressum &amp; Datenschutz</h1><p class="lead" id="legalNote" data-i18n="legalNote"></p></header>
       <h2>Angaben gemäß § 5 DDG</h2>
       <p id="impText" style="white-space:pre-line"></p>
       <h2>Kontakt</h2>
@@ -365,7 +371,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   <div class="wrap">
     <a class="logo" href="#start" id="logo2"></a>
     <nav>
-      <a href="#astro">Astro</a><a href="#natur">Natur &amp; Landschaft</a><a href="#ueber">Über mich</a><a id="igLink2" href="#">Instagram</a><a href="#impressum">Impressum &amp; Datenschutz</a>
+      <a href="#astro" data-i18n="navAstro">Astro</a><a href="#natur" data-i18n="navNatur">Natur &amp; Landschaft</a><a href="#ueber" data-i18n="navAbout">Über mich</a><a id="igLink2" href="#">Instagram</a><a href="#impressum" data-i18n="navLegal">Impressum &amp; Datenschutz</a>
     </nav>
     <p class="ftr-note" id="ftrNote"></p>
     <small id="copy"></small>
@@ -373,18 +379,18 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 </footer>
 
 <!-- Lightbox -->
-<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Bildansicht">
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Bildansicht" data-i18n-aria="dialog">
   <div class="lb-stage" id="lbStage"><img id="lbImg" alt="" draggable="false"></div>
   <div class="lb-top lb-ui">
     <span class="lb-count" id="lbCount"></span>
     <div class="lb-tools">
-      <button class="ic" id="lbZoom" title="In Originalgröße ansehen (Klick ins Bild)">⤢ <span class="lbl">100 %</span></button>
-      <button class="ic" id="lbFs" title="Vollbild (F)">⛶ <span class="lbl">Vollbild</span></button>
-      <button class="ic round" id="lbClose" aria-label="Schließen" title="Schließen (Esc)">×</button>
+      <button class="ic" id="lbZoom" title="In Originalgröße ansehen (Klick ins Bild)" data-i18n-title="zoomTitle">⤢ <span class="lbl">100 %</span></button>
+      <button class="ic" id="lbFs" title="Vollbild (F)" data-i18n-title="fsTitle">⛶ <span class="lbl" data-i18n="fs">Vollbild</span></button>
+      <button class="ic round" id="lbClose" aria-label="Schließen" title="Schließen (Esc)" data-i18n-aria="close" data-i18n-title="closeTitle">×</button>
     </div>
   </div>
-  <button class="lb-nav lb-prev lb-ui" id="lbPrev" aria-label="Vorheriges Bild">←</button>
-  <button class="lb-nav lb-next lb-ui" id="lbNext" aria-label="Nächstes Bild">→</button>
+  <button class="lb-nav lb-prev lb-ui" id="lbPrev" aria-label="Vorheriges Bild" data-i18n-aria="prev">←</button>
+  <button class="lb-nav lb-next lb-ui" id="lbNext" aria-label="Nächstes Bild" data-i18n-aria="next">→</button>
   <div class="lb-bar lb-ui">
     <div>
       <p class="kicker" id="lbCat"></p>
@@ -393,11 +399,11 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
     </div>
     <div class="lb-actions">
       <button class="ic like-btn" id="lbLike" type="button" aria-pressed="false" title="Gefällt mir" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 8 3.3 4.5 6.9 4.5c2 0 3.7 1.1 4.6 2.7h1c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.6 3.5 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/></svg><span id="lbLikeN">0</span></button>
-      <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)"><span class="i">i</span> <span class="lbl2">Details &amp; Aufnahmedaten</span></button>
+      <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)" data-i18n-title="detailsTitle"><span class="i">i</span> <span class="lbl2" data-i18n="details">Details &amp; Aufnahmedaten</span></button>
     </div>
   </div>
   <aside class="lb-info" id="lbInfo">
-    <button class="ic round" id="lbInfoClose" aria-label="Details schließen">×</button>
+    <button class="ic round" id="lbInfoClose" aria-label="Details schließen" data-i18n-aria="closeDetails">×</button>
     <header class="lbi-head">
       <p class="kicker" id="lbCat2"></p>
       <h2 id="lbTitle2"></h2>
@@ -408,13 +414,72 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <div class="spec" id="lbMeta"></div>
       <p class="print-note" id="lbPrint"></p>
     </div>
-    <p class="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen</p>
+    <p class="hint" data-i18n="hint">Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen</p>
   </aside>
 </div>
 
 <div class="toast" id="toast" role="status"></div>
 
 <script>
+
+/* =========================================================
+   SPRACHE / LANGUAGE – Texte der Oberfläche auf Deutsch und Englisch
+   ========================================================= */
+const T={
+ de:{navAstro:'Astro',navNatur:'Natur & Landschaft',navAbout:'Über mich',navLegal:'Impressum & Datenschutz',welcome:'Willkommen',
+  astroTitle:'Astro',astroKicker:'Nachthimmel',naturTitle:'Natur & Landschaft',naturKicker:'Draußen',
+  images:n=>`${n} Bilder`,latestOn:d=>`zuletzt ${d}`,soon:'Bald mehr',view:'Ansehen',latest:'Neueste Bilder',recentlyAdded:'zuletzt hinzugefügt',
+  gallery:'Galerie',all:'Alle',newBadge:'Neu',emptyCat:'Hier erscheinen bald die ersten Bilder.',open:t=>`${t} öffnen`,
+  portrait:'Porträt',gear:'Ausrüstung',writeMail:'E-Mail schreiben',contact:'Kontakt',aboutFallback:'Über mich',legalKicker:'Rechtliches',legalNote:'',
+  ftrNote:a=>`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an ${a}.`,copyright:'Alle Bilder urheberrechtlich geschützt.',
+  dialog:'Bildansicht',zoomTitle:'In Originalgröße ansehen (Klick ins Bild)',fs:'Vollbild',fsTitle:'Vollbild (F)',close:'Schließen',closeTitle:'Schließen (Esc)',
+  prev:'Vorheriges Bild',next:'Nächstes Bild',details:'Details & Aufnahmedaten',detailsTitle:'Beschreibung und Aufnahmedaten (I)',closeDetails:'Details schließen',
+  hint:'Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen',
+  secShot:'Aufnahme',date:'Datum',place:'Ort',secGear:'Ausrüstung',telescope:'Teleskop',camera:'Kamera',misc:'Sonstiges',lens:'Objektiv',
+  secExpo:'Belichtung',filter:'Filter',frames:'Aufnahmen',gain:'Gain',time:'Zeit',total:'Gesamt',secSettings:'Einstellungen',
+  focal:'Brennweite',aperture:'Blende',shutter:'Belichtungszeit',iso:'ISO',expoShort:'Belichtung',
+  printNote:'Dieses Motiv ist auch als hochwertiger Druck erhältlich.',printAsk:'Anfrage per E-Mail',printSubj:'Druckanfrage',mailSubj:'Anfrage über die Homepage',
+  like:'Gefällt mir',unlike:'Gefällt mir nicht mehr',likeFail:'Das hat gerade nicht geklappt. Bitte später noch einmal versuchen.',protected:'Die Bilder sind urheberrechtlich geschützt.',
+  tStart:'Astro-, Natur- & Landschaftsfotografie',tAstro:'Astrofotografie',tNatur:'Natur- & Landschaftsfotografie',tAbout:'Über mich',tLegal:'Impressum & Datenschutz',
+  errTitle:'Inhalte nicht gefunden',errText:'Die Dateien im Ordner „daten“ konnten nicht geladen werden. Die Seite muss über einen Webserver aufgerufen werden (z. B. Cloudflare Pages), nicht per Doppelklick auf die Datei.',
+  locale:'de-DE'},
+ en:{navAstro:'Astro',navNatur:'Nature & Landscape',navAbout:'About',navLegal:'Legal notice & Privacy',welcome:'Welcome',
+  astroTitle:'Astro',astroKicker:'Night sky',naturTitle:'Nature & Landscape',naturKicker:'Outdoors',
+  images:n=>`${n} ${n===1?'image':'images'}`,latestOn:d=>`latest ${d}`,soon:'Coming soon',view:'View',latest:'Latest images',recentlyAdded:'recently added',
+  gallery:'Gallery',all:'All',newBadge:'New',emptyCat:'The first images will appear here soon.',open:t=>`Open ${t}`,
+  portrait:'Portrait',gear:'Equipment',writeMail:'Send an email',contact:'Contact',aboutFallback:'About me',legalKicker:'Legal',legalNote:'The legal notice and privacy policy are provided in German.',
+  ftrNote:a=>`All images are also available as prints – just send an enquiry to ${a}.`,copyright:'All images protected by copyright.',
+  dialog:'Image viewer',zoomTitle:'View at original size (click into the image)',fs:'Full screen',fsTitle:'Full screen (F)',close:'Close',closeTitle:'Close (Esc)',
+  prev:'Previous image',next:'Next image',details:'Details & image data',detailsTitle:'Description and image data (I)',closeDetails:'Close details',
+  hint:'Keyboard: ← → browse · click image = 100 % · F = full screen · I = details · Esc = close',
+  secShot:'Capture',date:'Date',place:'Location',secGear:'Equipment',telescope:'Telescope',camera:'Camera',misc:'Other',lens:'Lens',
+  secExpo:'Exposure',filter:'Filter',frames:'Frames',gain:'Gain',time:'Time',total:'Total',secSettings:'Settings',
+  focal:'Focal length',aperture:'Aperture',shutter:'Shutter speed',iso:'ISO',expoShort:'Exposure',
+  printNote:'This image is also available as a high-quality print.',printAsk:'Enquire by email',printSubj:'Print request',mailSubj:'Enquiry via website',
+  like:'Like',unlike:'Unlike',likeFail:'That didn’t work just now. Please try again later.',protected:'The images are protected by copyright.',
+  tStart:'Astro, Nature & Landscape Photography',tAstro:'Astrophotography',tNatur:'Nature & Landscape Photography',tAbout:'About',tLegal:'Legal notice & Privacy',
+  errTitle:'Content not found',errText:'The content files could not be loaded.',
+  locale:'en-GB'}
+};
+let LANG=(()=>{try{const s=localStorage.getItem('lw-lang');if(s==='de'||s==='en')return s}catch(_){}
+  const l=(navigator.languages&&navigator.languages[0])||navigator.language||'de';return /^de\b/i.test(l)?'de':'en'})();
+const T_=(k,...a)=>t(k,...a);
+const t=(k,...a)=>{const v=(T[LANG]&&T[LANG][k]!==undefined)?T[LANG][k]:T.de[k];return typeof v==='function'?v(...a):v};
+function applyI18n(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>el.title=t(el.dataset.i18nTitle));
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.i18nAria)));
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>el.alt=t(el.dataset.i18nAlt));
+  document.querySelectorAll('.lang button').forEach(b=>{const on=b.dataset.lang===LANG;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+  const ln=document.getElementById('legalNote');if(ln)ln.style.display=t('legalNote')?'':'none';
+}
+function setLang(l){
+  if(l===LANG)return;LANG=l;try{localStorage.setItem('lw-lang',l)}catch(_){}
+  applyI18n();if(CONFIG.name){applySettings()}
+  const y=scrollY;route(true);scrollTo(0,y);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('.lang button');if(b)setLang(b.dataset.lang)});
 /* =========================================================
    Alle Inhalte kommen aus daten/fotos.json und
    daten/einstellungen.json und werden in der Verwaltung
@@ -422,8 +487,8 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
    ========================================================= */
 let CONFIG = {}, PHOTOS = [];
 const CATS = {
-  astro: { title:'Astro', kicker:'Nachthimmel', lead:'' },
-  natur: { title:'Natur & Landschaft', kicker:'Draußen', lead:'' },
+  astro: { get title(){return t('astroTitle')}, get kicker(){return t('astroKicker')}, lead:'' },
+  natur: { get title(){return t('naturTitle')}, get kicker(){return t('naturKicker')}, lead:'' },
 };
 
 /* Platzhalter-Motive für Einträge ohne Bild */
@@ -463,19 +528,20 @@ async function load(){
     });
     PHOTOS.sort((a,b)=>b.datum.localeCompare(a.datum));
     CATS.astro.lead=e.astro_text||''; CATS.natur.lead=e.natur_text||'';
+    applyI18n();
     applySettings();
     await loadLikes();
     route();
   }catch(err){
     console.error(err);
-    document.querySelector('main').innerHTML='<div class="wrap phead"><h1>Inhalte nicht gefunden</h1><p class="lead">Die Dateien im Ordner „daten“ konnten nicht geladen werden. Die Seite muss über einen Webserver aufgerufen werden (z. B. Cloudflare Pages), nicht per Doppelklick auf die Datei.</p></div>';
+    document.querySelector('main').innerHTML=`<div class="wrap phead"><h1>${t('errTitle')}</h1><p class="lead">${t('errText')}</p></div>`;
   }
 }
 
 /* ========================================================= */
 const $ = s => document.querySelector(s);
 const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmt = d => new Date(d+'T12:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'long',year:'numeric'});
+const fmt = d => new Date(d+'T12:00:00').toLocaleDateString(t('locale'),{day:'numeric',month:'long',year:'numeric'});
 const eur = v => v.toLocaleString('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
 const get = id => PHOTOS.find(p=>p.id===id);
 const byCat = k => PHOTOS.filter(p=>p.kat===k);
@@ -557,16 +623,16 @@ function src(p){
 const mailto=subj=>`mailto:${CONFIG.email}?subject=${encodeURIComponent(subj)}`;
 function applySettings(){
   try{const ld={'@context':'https://schema.org','@type':'WebSite',name:[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' '),description:CONFIG.seo_beschreibung||'',inLanguage:'de',url:location.origin+'/'};
-    const el=document.createElement('script');el.type='application/ld+json';el.textContent=JSON.stringify(ld);document.head.appendChild(el)}catch(_){}
-  $('#mailBtn').href=mailto('Anfrage über die Homepage');
-  $('#ftrNote').innerHTML=CONFIG.email?`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an <a href="${mailto('Druckanfrage')}">${esc(CONFIG.email)}</a>.`:'';
+    let el=document.getElementById('ldjson');if(!el){el=document.createElement('script');el.id='ldjson';el.type='application/ld+json'}el.textContent=JSON.stringify(ld);document.head.appendChild(el)}catch(_){}
+  $('#mailBtn').href=mailto(t('mailSubj'));
+  $('#ftrNote').innerHTML=CONFIG.email?t('ftrNote',`<a href="${mailto(t('printSubj'))}">${esc(CONFIG.email)}</a>`):'';
   const logoHtml=`${esc(CONFIG.name)} <span>${esc(CONFIG.zusatz)}</span>`;
   $('#logo').innerHTML=logoHtml;$('#logo2').innerHTML=logoHtml;
   ['#igLink','#igLink2'].forEach(s=>$(s).href=CONFIG.instagram||'#');
   $('#mailText').textContent=CONFIG.email||'';$('#mailText2').textContent=CONFIG.email||'';
-  $('#copy').textContent=`© ${new Date().getFullYear()} ${CONFIG.name||''} ${CONFIG.zusatz||''} · Alle Bilder urheberrechtlich geschützt.`;
+  $('#copy').textContent=`© ${new Date().getFullYear()} ${CONFIG.name||''} ${CONFIG.zusatz||''} · ${t('copyright')}`;
   $('#quoteText').textContent=CONFIG.startseite_text||'';
-  $('#aboutTitle').textContent=CONFIG.ueber_titel||'Über mich';
+  $('#aboutTitle').textContent=LANG==='de'?(CONFIG.ueber_titel||t('aboutFallback')):t('aboutFallback');
   $('#aboutText').innerHTML=String(CONFIG.ueber_text||'').split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
   $('#gearList').innerHTML=(CONFIG.ausruestung||[]).filter(Boolean).map(g=>`<li>${esc(g)}</li>`).join('');
   $('#impText').textContent=CONFIG.impressum||'';
@@ -586,7 +652,7 @@ async function loadLikes(){
 function showLike(p){
   const b=$('#lbLike');b.hidden=!likesOn;if(!likesOn)return;
   const id=likeId(p),on=liked.has(id);
-  b.classList.toggle('liked',on);b.setAttribute('aria-pressed',on);b.title=on?'Gefällt mir nicht mehr':'Gefällt mir';
+  b.classList.toggle('liked',on);b.setAttribute('aria-pressed',on);b.title=on?t('unlike'):t('like');
   $('#lbLikeN').textContent=LIKES[id]||0;
 }
 async function toggleLike(){
@@ -597,27 +663,27 @@ async function toggleLike(){
   if(!on){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
   try{const r=await fetch('/api/likes',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id,d})});
     if(!r.ok)throw 0;const j=await r.json();LIKES[id]=j.n;showLike(p)}
-  catch(_){if(on)liked.add(id);else liked.delete(id);saveLiked();LIKES[id]=Math.max(0,(LIKES[id]||0)-d);showLike(p);toast('Das hat gerade nicht geklappt. Bitte später noch einmal versuchen.')}
+  catch(_){if(on)liked.add(id);else liked.delete(id);saveLiked();LIKES[id]=Math.max(0,(LIKES[id]||0)-d);showLike(p);toast(t('likeFail'))}
 }
 
-const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p.id}" aria-label="${esc(p.titel)} öffnen">${isNew?'<span class="new">Neu</span>':''}<img src="${src(p)}" alt="${esc(p.titel)}" loading="lazy"><span class="cap"><b>${esc(p.titel)}</b><small>${esc(p.ort)} · ${fmt(p.datum)}${likeBadge(p)}</small></span></div>`;
+const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p.id}" aria-label="${esc(t('open',p.titel))}">${isNew?`<span class="new">${t('newBadge')}</span>`:''}<img src="${src(p)}" alt="${esc(p.titel)}" loading="lazy"><span class="cap"><b>${esc(p.titel)}</b><small>${esc(p.ort)} · ${fmt(p.datum)}${likeBadge(p)}</small></span></div>`;
 
 function renderStart(){
-  $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${L.length} Bilder · zuletzt ${fmt(L[0].datum)}`:'Bald mehr'}</p><span class="go">Ansehen <i>→</i></span></div></a>`}).join('');
+  $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${t('images',L.length)} · ${t('latestOn',fmt(L[0].datum))}`:t('soon')}</p><span class="go">${t('view')} <i>→</i></span></div></a>`}).join('');
 }
 
 function renderCat(k){
   const el=document.querySelector(`[data-view="${k}"] .catwrap`),C=CATS[k],list=byCat(k),latest=list.slice(0,3);
   const years=[...new Set(list.map(p=>p.datum.slice(0,4)))];
-  if(!list.length){el.innerHTML=`<header class="phead"><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1><p class="lead">Hier erscheinen bald die ersten Bilder.</p></header>`;return}
+  if(!list.length){el.innerHTML=`<header class="phead"><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1><p class="lead">${t('emptyCat')}</p></header>`;return}
   el.innerHTML=`<header class="phead"><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1><p class="lead">${esc(C.lead)}</p></header>
-    <div class="sechead first"><h2 class="sec">Neueste Bilder</h2><span class="count">zuletzt hinzugefügt</span></div>
+    <div class="sechead first"><h2 class="sec">${t('latest')}</h2><span class="count">${t('recentlyAdded')}</span></div>
     <div class="latest" data-ids="${latest.map(p=>p.id)}">${latest.map((p,i)=>tile(p,i===0)).join('')}</div>
-    <div class="sechead"><h2 class="sec">Galerie <span class="count" style="font-family:var(--sans)">${list.length} Bilder</span></h2><div class="chips">${['Alle',...years].map((y,i)=>`<button class="chip${i?'':' on'}" data-y="${y}">${y}</button>`).join('')}</div></div>
+    <div class="sechead"><h2 class="sec">${t('gallery')} <span class="count" style="font-family:var(--sans)">${t('images',list.length)}</span></h2><div class="chips">${['all',...years].map((y,i)=>`<button class="chip${i?'':' on'}" data-y="${y}">${y==='all'?t('all'):y}</button>`).join('')}</div></div>
     <div class="masonry"></div>`;
   const m=el.querySelector('.masonry');
-  const fill=y=>{const L=y==='Alle'?list:list.filter(p=>p.datum.startsWith(y));m.innerHTML=L.map(p=>tile(p)).join('');m.dataset.ids=L.map(p=>p.id)};
-  fill('Alle');
+  const fill=y=>{const L=y==='all'?list:list.filter(p=>p.datum.startsWith(y));m.innerHTML=L.map(p=>tile(p)).join('');m.dataset.ids=L.map(p=>p.id)};
+  fill('all');
   el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{el.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));fill(b.dataset.y)});
 }
 
@@ -625,7 +691,7 @@ function renderCat(k){
 const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite(n)?n:0};
 const has=v=>v!==undefined&&v!==null&&String(v).trim()!=='';
 function dauer(s){s=Math.round(s);if(s<60)return s+' s';const h=Math.floor(s/3600),m=Math.round((s%3600)/60);return h?(m?`${h} h ${m} min`:`${h} h`):`${m} min`}
-const fmtS=s=>String(s).replace('.',',')+' s';
+const fmtS=s=>(LANG==='de'?String(s).replace('.',','):String(s))+' s';
 const FILTER=[['ha','H-Alpha','H-Alpha'],['oiii','OIII','OIII'],['duo','Duo-Narrowband','Duo-NB'],['rgb','RGB','RGB']];
 function belichtung(r){const rows=[];let tot=0;FILTER.forEach(([k,l])=>{const o=r[k]||{},a=num(o.anzahl),s=num(o.sekunden);if(a&&s){tot+=a*s;rows.push(`${l}: ${a} × ${fmtS(s)}${has(o.gain)?`, Gain ${String(o.gain).trim()}`:''} (${dauer(a*s)})`)}});return{rows,tot}}
 function metaHtml(p){
@@ -635,24 +701,24 @@ function metaHtml(p){
   const FIELDS=['teleskop','kamera','objektiv','brennweite','blende','verschlusszeit','iso','sonstiges','ha','oiii','duo','rgb'];
   const structured=FIELDS.some(k=>{const v=r[k];return v&&typeof v==='object'?has(v.anzahl)||has(v.sekunden):has(v)});
   const legacy='';
-  let html=sec('Aufnahme',kv([['Datum',fmt(p.datum)],['Ort',p.ort]]));
+  let html=sec(T_('secShot'),kv([[T_('date'),fmt(p.datum)],[T_('place'),p.ort]]));
   if(p.kat==='astro'){
-    html+=sec('Ausrüstung',kv([['Teleskop',t(r.teleskop)],['Kamera',t(r.kamera)],['Sonstiges',t(r.sonstiges)],['Technik',legacy]]));
+    html+=sec(T_('secGear'),kv([[T_('telescope'),t(r.teleskop)],[T_('camera'),t(r.kamera)],[T_('misc'),t(r.sonstiges)],['Technik',legacy]]));
     const list=FILTER.map(([k,l,s])=>{const o=r[k]||{},a=num(o.anzahl),sec=num(o.sekunden);return a&&sec?{l,s,a,sec,g:t(o.gain)}:null}).filter(Boolean);
     if(list.length){
       const tot=list.reduce((x,f)=>x+f.a*f.sec,0);
-      html+=sec('Belichtung',`<table class="expo"><thead><tr><th>Filter</th><th>Aufnahmen</th><th class="r">Gain</th><th class="r">Zeit</th></tr></thead><tbody>${
+      html+=sec(T_('secExpo'),`<table class="expo"><thead><tr><th>${T_('filter')}</th><th>${T_('frames')}</th><th class="r">${T_('gain')}</th><th class="r">${T_('time')}</th></tr></thead><tbody>${
         list.map(f=>`<tr><td title="${esc(f.l)}">${esc(f.s)}</td><td>${f.a} × ${fmtS(f.sec)}</td><td class="r">${f.g?esc(f.g.replace(/^-/,'−')):'–'}</td><td class="r">${dauer(f.a*f.sec)}</td></tr>`).join('')
-      }</tbody>${list.length>1?`<tfoot><tr><td colspan="3">Gesamt</td><td class="r tot">${dauer(tot)}</td></tr></tfoot>`:''}</table>`);
+      }</tbody>${list.length>1?`<tfoot><tr><td colspan="3">${T_('total')}</td><td class="r tot">${dauer(tot)}</td></tr></tfoot>`:''}</table>`);
     }
   }else{
-    html+=sec('Ausrüstung',kv([['Kamera',t(r.kamera)],['Objektiv',t(r.objektiv)],['Sonstiges',t(r.sonstiges)],['Technik',legacy]]));
+    html+=sec(T_('secGear'),kv([[T_('camera'),t(r.kamera)],[T_('lens'),t(r.objektiv)],[T_('misc'),t(r.sonstiges)],['Technik',legacy]]));
     const tiles=[];
-    if(num(r.brennweite))tiles.push(['Brennweite',num(r.brennweite)+' mm']);
-    if(has(r.blende)){const b=t(r.blende);tiles.push(['Blende',/^f/i.test(b)?b:'f/'+b])}
-    if(has(r.verschlusszeit)){const v=t(r.verschlusszeit);tiles.push(['Belichtungszeit',/s$/i.test(v)?v:v+' s'])}
-    if(num(r.iso))tiles.push(['ISO',String(num(r.iso))]);
-    if(tiles.length)html+=sec('Einstellungen',`<div class="tiles">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${esc(b)}</b></div>`).join('')}</div>`);
+    if(num(r.brennweite))tiles.push([T_('focal'),num(r.brennweite)+' mm']);
+    if(has(r.blende)){const b=t(r.blende);tiles.push([T_('aperture'),/^f/i.test(b)?b:'f/'+b])}
+    if(has(r.verschlusszeit)){const v=t(r.verschlusszeit);tiles.push([T_('shutter'),/s$/i.test(v)?v:v+' s'])}
+    if(num(r.iso))tiles.push([T_('iso'),String(num(r.iso))]);
+    if(tiles.length)html+=sec(T_('secSettings'),`<div class="tiles">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${esc(b)}</b></div>`).join('')}</div>`);
   }
   return html;
 }
@@ -685,11 +751,11 @@ function showLB(){
   const cat=CATS[p.kat].title;$('#lbCat').textContent=cat;$('#lbCat2').textContent=cat;
   $('#lbTitle').textContent=p.titel;$('#lbTitle2').textContent=p.titel;
   const tot=p.kat==='astro'?belichtung(p.raw||{}).tot:0;
-  $('#lbSub').textContent=[p.ort,fmt(p.datum),tot?'Belichtung '+dauer(tot):''].filter(Boolean).join(' · ');
+  $('#lbSub').textContent=[p.ort,fmt(p.datum),tot?t('expoShort')+' '+dauer(tot):''].filter(Boolean).join(' · ');
   $('#lbText').innerHTML=textHtml(p.text);
   $('#lbInfo').classList.toggle('notext',!String(p.text||'').trim());
   $('#lbSub2').textContent=$('#lbSub').textContent;
-  $('#lbPrint').innerHTML=CONFIG.email?`${esc(CONFIG.druck_hinweis||'Dieses Motiv ist auch als hochwertiger Druck erhältlich.')} <a href="${mailto('Druckanfrage: '+p.titel)}">Anfrage per E-Mail</a>`:'';
+  $('#lbPrint').innerHTML=CONFIG.email?`${esc(LANG==='de'?(CONFIG.druck_hinweis||t('printNote')):t('printNote'))} <a href="${mailto(t('printSubj')+': '+p.titel)}">${t('printAsk')}</a>`:'';
   $('#lbPrint').style.display=CONFIG.email?'':'none';
   showLike(p);
   $('#lbMeta').innerHTML=metaHtml(p);
@@ -798,30 +864,30 @@ document.addEventListener('keydown',e=>{
 /* ---------- Bildschutz (erschwert Speichern per Rechtsklick/Ziehen) ---------- */
 let toastT;
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600)}
-document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG'){e.preventDefault();toast('Die Bilder sind urheberrechtlich geschützt.')}});
+document.addEventListener('contextmenu',e=>{if(e.target.tagName==='IMG'){e.preventDefault();toast(t('protected'))}});
 document.addEventListener('dragstart',e=>{if(e.target.tagName==='IMG')e.preventDefault()});
 
 /* ---------- Navigation ---------- */
 const VIEWS=['start','astro','natur','ueber','impressum'];
 function setMeta(h){
   const site=[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' ');
-  const t={start:'Astro-, Natur- & Landschaftsfotografie',astro:'Astrofotografie',natur:'Natur- & Landschaftsfotografie',ueber:'Über mich',impressum:'Impressum & Datenschutz'}[h]||'';
-  document.title=h==='start'?`${site} – ${t}`:`${t} – ${site}`;
+  const tt={start:t('tStart'),astro:t('tAstro'),natur:t('tNatur'),ueber:t('tAbout'),impressum:t('tLegal')}[h]||'';
+  document.title=h==='start'?`${site} – ${tt}`:`${tt} – ${site}`;
   const d=h==='astro'?CATS.astro.lead:h==='natur'?CATS.natur.lead:CONFIG.seo_beschreibung;
   if(d)document.querySelector('meta[name=description]').setAttribute('content',d);
 }
-function route(){
+function route(keep){
   let h=location.hash.slice(1);if(!VIEWS.includes(h))h='start';
-  closeLB();
+  if(!keep)closeLB();
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.dataset.view===h));
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+h));
   if(CONFIG.name)setMeta(h);
   if(h==='start')renderStart();
   if(CATS[h])renderCat(h);
   if(h==='ueber'){const ap=byCat('natur')[0]||PHOTOS[0];const u=CONFIG.ueber_bild||(ap&&src(ap));if(u)$('#aboutImg').src=u}
-  scrollTo(0,0);
+  if(!keep)scrollTo(0,0);
 }
-addEventListener('hashchange',route);
+addEventListener('hashchange',()=>route());
 load();
 </script>
 </body>
