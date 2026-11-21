@@ -219,6 +219,18 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .ftr-note a{color:var(--gold)}
 .ftr small{color:#666a72;font-size:.78rem;width:100%}
 
+
+/* ===== Startseite Desktop: Abstand & Rahmen-Effekt ===== */
+@media(min-width:761px){
+  .split{gap:clamp(1rem,2vw,1.75rem);padding:clamp(1rem,2vw,1.75rem);min-height:calc(100vh - 68px)}
+  .panel{border-radius:3px;box-shadow:0 20px 50px rgba(0,0,0,.45);transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s}
+  .panel::before{content:"";position:absolute;inset:18px;z-index:0;border:1px solid rgba(255,255,255,.16);pointer-events:none;transition:inset .7s cubic-bezier(.2,.7,.2,1),border-color .7s}
+  .panel>div{position:relative;z-index:1}
+  .panel:hover{transform:translateY(-6px);box-shadow:0 34px 70px rgba(0,0,0,.6)}
+  .panel:hover::before{inset:30px;border-color:rgba(214,168,92,.7)}
+  .panel{padding:clamp(2.2rem,4.5vw,4rem)}
+}
+
 /* ===== Einfaches Layout für Handys ===== */
 @media(max-width:760px){
   /* Startseite: Bild oben, Text darunter */
