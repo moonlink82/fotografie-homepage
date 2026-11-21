@@ -256,6 +256,27 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   .lb.idle .lb-ui{opacity:1;pointer-events:auto}
   .lb.idle{cursor:auto}
 }
+
+/* ===== Handy quer: Bild bildschirmfüllend, nur kleine Buttons ===== */
+@media (orientation:landscape) and (max-height:520px){
+  .lb.on{display:block}
+  .lb-stage{position:absolute;inset:0;padding:0;display:flex}
+  .lb-stage img{max-width:100%;max-height:100%}
+  .lb-top{order:0;position:absolute;top:0;left:auto;right:0;background:none;padding:.5rem .6rem;pointer-events:none}
+  .lb-top>*{pointer-events:auto}
+  .lb-count,#lbZoom{display:none}
+  .ic .lbl{display:none}
+  .ic:not(.info-btn){padding:0;width:40px;height:40px}
+  .lb-nav{display:none}
+  .lb-bar{position:absolute;left:auto;right:0;bottom:0;background:none;border:0;padding:.6rem;flex-direction:row;pointer-events:none}
+  .lb-bar>div:first-child{display:none}
+  .lb-actions{pointer-events:auto}
+  .lb-actions .info-btn,.info-btn{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;background:rgba(214,168,92,.92)}
+  .info-btn .lbl2{display:none}
+  .info-btn .i{width:auto;height:auto;background:none;color:#15120c;font-size:1.25rem}
+  .lb.idle .lb-ui{opacity:1;pointer-events:auto}
+  .lb.zoom .lb-stage{display:block}
+}
 </style>
 </head>
 <body>
