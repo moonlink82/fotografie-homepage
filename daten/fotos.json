@@ -2,6 +2,67 @@
   "fotos": [
     {
       "kategorie": "astro",
+      "bild": "/bilder/LBN 742.webp",
+      "titel": "LBN 742 / Sh2-216 – der nächste planetarische Nebel",
+      "datum": "2025-11-21",
+      "ort": "Mochau",
+      "beschreibung": "LBN 742 / Sh2-216 – der nächste planetarische Nebel\n\nDieser zarte Nebel im Sternbild Perseus ist der Überrest eines sterbenden Sterns. Vor langer Zeit hat ein sonnenähnlicher Stern am Ende seines Lebens seine äußeren Gashüllen abgestoßen. Übrig blieb ein Weißer Zwerg, dessen Strahlung das Gas bis heute zum Leuchten bringt. Mit rund 420 Lichtjahren Entfernung ist Sh2-216 der nächste bekannte planetarische Nebel überhaupt. Ein Blick in die Zukunft: So ähnlich wird auch unsere Sonne in einigen Milliarden Jahren enden.\n\nWissenswertes über Sh2-216\n\nUralt: Mit einem geschätzten Alter von rund 600.000 Jahren gehört der Nebel zu den ältesten bekannten planetarischen Nebeln. Das Gas hat sich in dieser Zeit weit ausgedehnt und ist entsprechend lichtschwach geworden.\nRiesig am Himmel: Er erscheint mehr als dreimal so breit wie der Vollmond. Tatsächlich misst er etwa 12 Lichtjahre im Durchmesser.\nGegenwind im All: Der Nebel bewegt sich durch das dünne Gas zwischen den Sternen. An seiner Vorderkante wird das Gas zusammengedrückt und leuchtet heller. Das ist der helle Bogen am linken Bildrand.\nDer verrutschte Stern: Das interstellare Gas hat den Nebel abgebremst, während der Weiße Zwerg einfach weitergezogen ist. Deshalb steht der Zentralstern heute nicht mehr in der Mitte seines eigenen Nebels.\nLange verkannt: Zunächst hielt man das Objekt für eine gewöhnliche Wasserstoffwolke. Erst 1981 erkannte man anhand seines Lichts, dass es sich um einen planetarischen Nebel handelt.",
+      "teleskop": "Skywatcher 150p",
+      "kamera": "ZWO ASI 2600 MC Duo Air",
+      "ha": null,
+      "oiii": null,
+      "duo": {
+        "anzahl": 136,
+        "sekunden": 900,
+        "gain": 200
+      },
+      "rgb": {
+        "anzahl": 54,
+        "sekunden": 600,
+        "gain": 101
+      },
+      "sonstiges": ""
+    },
+    {
+      "kategorie": "astro",
+      "bild": "/bilder/Herznebel IC 1805.webp",
+      "titel": "Herznebel – IC 1805",
+      "datum": "2024-04-06",
+      "ort": "Mochau",
+      "beschreibung": "Herznebel – IC 1805\n\nDer Herznebel ist ein riesiger leuchtender Gasnebel im Sternbild Kassiopeia. Seinen Namen verdankt er seiner Form, die mit etwas Fantasie an ein Herz erinnert. In seiner Mitte sitzt ein junger Sternhaufen. Dessen heiße, massereiche Sterne bringen das umgebende Gas zum Leuchten und haben mit ihrer Strahlung und ihren Sternwinden einen großen Hohlraum in die Wolke geblasen. An den Rändern türmen sich dunkle Staubsäulen und filigrane Gasfinger, die von innen angestrahlt und langsam abgetragen werden.\n\nWissenswertes über den Herznebel\n\nEntfernung: Der Nebel liegt rund 7.500 Lichtjahre von uns entfernt, im Perseus-Arm der Milchstraße.\nGewaltige Größe: Er ist etwa 200 Lichtjahre groß. Am Himmel nimmt er eine Fläche ein, die mehreren Vollmonden nebeneinander entspricht, ist aber so lichtschwach, dass er mit bloßem Auge unsichtbar bleibt.\nDas Herz im Herzen: Der Sternhaufen im Zentrum heißt Melotte 15. Er ist erst wenige Millionen Jahre alt und enthält einige Sterne, die ein Vielfaches der Masse unserer Sonne besitzen.\nHerz und Seele: Direkt neben dem Herznebel liegt der Seelennebel IC 1848. Zusammen werden die beiden oft „Herz und Seele“ genannt und gehören zu den beliebtesten Motiven der Astrofotografie am Herbst- und Winterhimmel.\nSternentstehung live: In den dichten Staubsäulen am Rand bilden sich bis heute neue Sterne. Der Nebel ist also eine aktive Sternenwiege.",
+      "teleskop": "Skywatcher 150p",
+      "kamera": "",
+      "ha": null,
+      "oiii": null,
+      "duo": null,
+      "rgb": null,
+      "sonstiges": ""
+    },
+    {
+      "kategorie": "astro",
+      "bild": "/bilder/Affenkopfnebel ngc 2175.webp",
+      "titel": "Affenkopfnebel – NGC 2174/2175",
+      "datum": "2024-02-29",
+      "ort": "Mochau",
+      "beschreibung": "Mit etwas Fantasie erkennt man in diesem roten Gasnebel den Kopf eines Affen im Profil: die runde Stirn, das dunkle Auge, die Schnauze und das Kinn. Deshalb heißt er „Affenkopfnebel“. Er liegt im Sternbild Orion, nahe der Grenze zu den Zwillingen. Das Gas wird von jungen, heißen Sternen in seinem Inneren zum Leuchten gebracht, dunkle Staubfäden ziehen sich wie feine Adern durch die Wolke. Links am Rand schimmert bläulich etwas Reflexionsnebel, in dem Staub das Licht naher Sterne zurückwirft.\n\nWissenswertes über den Affenkopfnebel\n\nZwei Nummern, ein Objekt: Die Bezeichnung NGC 2174 steht für den Gasnebel, NGC 2175 für den jungen Sternhaufen darin. Weil beides zusammengehört, werden die Namen oft gemeinsam verwendet.\nEntfernung: Der Nebel ist rund 6.400 Lichtjahre von uns entfernt.\nEine Sternenwiege: In der Gaswolke entstehen bis heute neue Sterne. Die bereits geborenen, massereichen Sterne blasen mit ihrer Strahlung und ihren Sternwinden das Gas allmählich fort und formen dabei die Strukturen, die wir im Bild sehen.\nEin Hubble-Star: Zum 24. Geburtstag des Weltraumteleskops Hubble im Jahr 2014 wurde ein Ausschnitt des Affenkopfnebels als offizielles Jubiläumsbild veröffentlicht, aufgenommen im Infrarotlicht.\nDas Rot des Wasserstoffs: Die rote Farbe stammt von Wasserstoff, der von den heißen Sternen angeregt wird. Er macht den größten Teil des Gases aus.",
+      "teleskop": "Skywatcher 200pds",
+      "kamera": "ZWO ASI 294 MC",
+      "ha": null,
+      "oiii": null,
+      "duo": {
+        "anzahl": 45,
+        "sekunden": 600,
+        "gain": 200
+      },
+      "rgb": {
+        "anzahl": 23,
+        "sekunden": 600,
+        "gain": 121
+      },
+      "sonstiges": ""
+    },
+    {
+      "kategorie": "astro",
       "bild": "/bilder/Sh2-232_150p_23.03.2026.webp",
       "titel": "Nebelfamilie im Fuhrmann",
       "datum": "2026-03-23",
