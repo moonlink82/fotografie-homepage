@@ -10,6 +10,8 @@
 <meta property="og:title" content="Astro-, Natur- & Landschaftsfotografie">
 <meta property="og:description" content="Galerie mit Milchstraße, Nebeln, Galaxien und stillen Landschaften.">
 <meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://lichtweite.photos/">
+<link rel="canonical" href="https://lichtweite.photos/">
 <style>
 @font-face{font-family:'Inter';font-weight:300;font-style:normal;font-display:swap;src:url(fonts/inter-light.woff) format('woff')}
 @font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-regular.woff) format('woff')}
@@ -523,7 +525,7 @@ function metaHtml(p){
   const sec=(h,body)=>body?`<section><h4>${h}</h4>${body}</section>`:'';
   const FIELDS=['teleskop','kamera','objektiv','brennweite','blende','verschlusszeit','iso','sonstiges','ha','oiii','duo','rgb'];
   const structured=FIELDS.some(k=>{const v=r[k];return v&&typeof v==='object'?has(v.anzahl)||has(v.sekunden):has(v)});
-  const legacy=structured?'':t(r.technik);
+  const legacy='';
   let html=sec('Aufnahme',kv([['Datum',fmt(p.datum)],['Ort',p.ort]]));
   if(p.kat==='astro'){
     html+=sec('Ausrüstung',kv([['Teleskop',t(r.teleskop)],['Kamera',t(r.kamera)],['Sonstiges',t(r.sonstiges)],['Technik',legacy]]));
