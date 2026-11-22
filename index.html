@@ -129,7 +129,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .lb.zoom .lb-stage.drag{cursor:grabbing}
 .lb.zoom .lb-stage img{max-width:none;max-height:none;margin:auto;cursor:inherit}
 .lb-ui{transition:opacity .45s}
-.lb.idle .lb-ui{opacity:0;pointer-events:none}
+.lb.idle .lb-ui{opacity:0}
 .lb.idle{cursor:none}
 .lb-top{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem 2.5rem;background:linear-gradient(rgba(0,0,0,.6),transparent);pointer-events:none}
 .lb-top>*{pointer-events:auto}
@@ -912,7 +912,7 @@ async function step(d,fromDx=0){
 }
 
 /* Steuerelemente ausblenden, wenn die Maus ruht (nur Desktop) */
-function wake(){lb.classList.remove('idle');clearTimeout(idleT);if(canHover)idleT=setTimeout(()=>{if(!lb.classList.contains('info'))lb.classList.add('idle')},2600)}
+function wake(){lb.classList.remove('idle');clearTimeout(idleT);if(canHover)idleT=setTimeout(()=>{if(!lb.classList.contains('info')&&!lb.querySelector('.lb-ui:hover'))lb.classList.add('idle')},2600)}
 lb.addEventListener('mousemove',wake);
 
 /* 100 %-Ansicht mit Verschieben */
@@ -926,7 +926,7 @@ addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=
 addEventListener('pointerup',()=>{drag=null;stage.classList.remove('drag')});
 stage.addEventListener('click',e=>{
   if(lb.classList.contains('zoom')){if(!moved)unzoom();moved=false;return}
-  if(e.target!==lbImg){closeLB();return}
+  if(e.target!==lbImg){if(lb.classList.contains('idle')){wake();return}closeLB();return}
   if(!canHover)return;
   const r=lbImg.getBoundingClientRect();zoomAt((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
 });
