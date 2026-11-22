@@ -255,6 +255,17 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   .panel{padding:clamp(2.2rem,4.5vw,4rem)}
 }
 
+
+/* ===== Kategorieseiten: kompakter Kopf, Bilder schneller sichtbar ===== */
+.cathead{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem 3rem;flex-wrap:wrap;padding:clamp(1.6rem,3.5vw,2.6rem) 0 clamp(1.2rem,2.5vw,1.8rem);border-bottom:1px solid var(--line)}
+.cathead h1{font-size:clamp(2.2rem,4.2vw,3.4rem)}
+.cathead .kicker{margin-bottom:.35rem}
+.cathead .lead{margin:0;max-width:52ch;font-size:.98rem;padding-bottom:.35rem}
+.sechead.compact{margin:clamp(1.2rem,2.5vw,1.8rem) 0 1rem}
+.sechead.compact .sec{font-size:clamp(1.3rem,2vw,1.7rem)}
+.latest{height:clamp(380px,calc(100vh - 300px),760px)}
+@media(max-width:760px){.cathead{display:block}.cathead .lead{margin-top:.8rem}.latest{height:auto}}
+
 /* ===== Einfaches Layout für Handys ===== */
 @media(max-width:760px){
   /* Startseite: Bild oben, Text darunter */
@@ -697,9 +708,9 @@ function renderStart(){
 function renderCat(k){
   const el=document.querySelector(`[data-view="${k}"] .catwrap`),C=CATS[k],list=byCat(k),latest=list.slice(0,3);
   const years=[...new Set(list.map(p=>p.datum.slice(0,4)))];
-  if(!list.length){el.innerHTML=`<header class="phead"><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1><p class="lead">${t('emptyCat')}</p></header>`;return}
-  el.innerHTML=`<header class="phead"><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1><p class="lead">${esc(C.lead)}</p></header>
-    <div class="sechead first"><h2 class="sec">${t('latest')}</h2><span class="count">${t('recentlyAdded')}</span></div>
+  if(!list.length){el.innerHTML=`<header class="cathead"><div><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1></div><p class="lead">${t('emptyCat')}</p></header>`;return}
+  el.innerHTML=`<header class="cathead"><div><p class="kicker">${C.kicker}</p><h1>${esc(C.title)}</h1></div><p class="lead">${esc(C.lead)}</p></header>
+    <div class="sechead first compact"><h2 class="sec">${t('latest')}</h2><span class="count">${t('recentlyAdded')}</span></div>
     <div class="latest" data-ids="${latest.map(p=>p.id)}">${latest.map((p,i)=>tile(p,i===0)).join('')}</div>
     <div class="sechead"><h2 class="sec">${t('gallery')} <span class="count" style="font-family:var(--sans)">${t('images',list.length)}</span></h2><div class="chips">${['all',...years].map((y,i)=>`<button class="chip${i?'':' on'}" data-y="${y}">${y==='all'?t('all'):y}</button>`).join('')}</div></div>
     <div class="masonry"></div>`;
