@@ -42,7 +42,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lang button{color:var(--muted);font-size:.72rem;letter-spacing:.14em;padding:.3rem .35rem;border-bottom:1px solid transparent;transition:color .2s}
 .lang button:hover{color:var(--text)}
 .lang button.on{color:var(--gold);border-color:var(--gold)}
-@media(max-width:680px){.lang{position:absolute;top:1.05rem;right:1rem;margin:0;padding-left:0;border-left:0}}
+@media(max-width:680px){.lang{position:absolute;top:.95rem;right:.8rem;margin:0;padding-left:0;border-left:0}.logo{font-size:clamp(1.1rem,5.4vw,1.45rem);max-width:calc(100% - 5.2rem);white-space:normal;line-height:1.2}.nav{gap:1.1rem;font-size:.7rem;letter-spacing:.1em}}
 @media(max-width:680px){.hdr{flex-direction:column;align-items:flex-start;gap:.35rem;padding-bottom:.6rem}.nav{width:100%}}
 
 /* Views */
@@ -524,7 +524,10 @@ async function load(){
     const cnt={astro:0,natur:0};
     PHOTOS=(f.fotos||[]).filter(p=>p&&p.titel&&CATS[p.kategorie]).map((p,i)=>{
       const k=p.kategorie,ph=PRESETS[k][cnt[k]++%PRESETS[k].length];
-      return {id:'f'+i,kat:k,titel:p.titel,datum:normDate(p.datum),ort:p.ort||'',technik:p.technik||'',raw:p,text:p.beschreibung||'',src:p.bild||'',ph,hoch:!!ph.hoch};
+      const has_=v=>typeof v==='string'&&v.trim()!=='';
+      return {id:'f'+i,kat:k,datum:normDate(p.datum),ort:p.ort||'',technik:p.technik||'',raw:p,src:p.bild||'',ph,hoch:!!ph.hoch,
+        get titel(){return LANG==='en'&&has_(p.titel_en)?p.titel_en.trim():p.titel},
+        get text(){return LANG==='en'&&has_(p.beschreibung_en)?p.beschreibung_en:(p.beschreibung||'')}};
     });
     PHOTOS.sort((a,b)=>b.datum.localeCompare(a.datum));
     CATS.astro.lead=e.astro_text||''; CATS.natur.lead=e.natur_text||'';
@@ -644,7 +647,7 @@ addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>10),
 let LIKES={},likesOn=false,liked=new Set();
 try{liked=new Set(JSON.parse(localStorage.getItem('lw-liked')||'[]'))}catch(_){}
 const saveLiked=()=>{try{localStorage.setItem('lw-liked',JSON.stringify([...liked]))}catch(_){}};
-function likeId(p){const k=(p.raw&&p.raw.bild)||(p.titel+'|'+p.datum);let h=0x811c9dc5;for(const c of k){h^=c.codePointAt(0);h=Math.imul(h,0x01000193)>>>0}return 'b'+h.toString(36)}
+function likeId(p){const k=(p.raw&&p.raw.bild)||((p.raw?p.raw.titel:p.titel)+'|'+p.datum);let h=0x811c9dc5;for(const c of k){h^=c.codePointAt(0);h=Math.imul(h,0x01000193)>>>0}return 'b'+h.toString(36)}
 const likeBadge=p=>likesOn&&LIKES[likeId(p)]?`<span class="lk">♥ ${LIKES[likeId(p)]}</span>`:'';
 async function loadLikes(){
   try{const r=await fetch('/api/likes',{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();if(typeof j!=='object'||!j)throw 0;LIKES=j;likesOn=true}catch(_){likesOn=false}
