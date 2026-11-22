@@ -108,26 +108,65 @@ collections:
     label: Einstellungen
     files:
       - name: einstellungen
-        label: Seiteninhalte & Preise
+        label: Seiteninhalte
         file: daten/einstellungen.json
         fields:
+          # --- Allgemein ---
           - { name: name, label: "Name / Marke (Logo)", widget: string }
           - { name: zusatz, label: "Zusatz im Logo", widget: string, required: false }
           - { name: email, label: "E-Mail-Adresse (Kontakt & Druckanfragen)", widget: string }
           - { name: instagram, label: "Instagram-Link", widget: string, required: false }
-          - { name: seo_beschreibung, label: "Kurzbeschreibung für Google (ca. 150 Zeichen)", widget: text, required: false, hint: "Erscheint in den Google-Suchergebnissen unter dem Titel. Wichtige Begriffe nennen, z. B. Astrofotografie, Region." }
+
+          # --- Google ---
+          - { name: seo_beschreibung, label: "Kurzbeschreibung für Google (ca. 150 Zeichen)", widget: text, required: false, hint: "Erscheint in den Google-Suchergebnissen unter dem Titel." }
+          - { name: seo_beschreibung_en, label: "Kurzbeschreibung für Google – Englisch (optional)", widget: text, required: false }
+
+          # --- Startseite & Kategorien ---
           - { name: startseite_text, label: "Text auf der Startseite", widget: text, required: false }
+          - { name: startseite_text_en, label: "Text auf der Startseite – Englisch (optional)", widget: text, required: false }
           - { name: astro_text, label: "Einleitung Astro", widget: text, required: false }
+          - { name: astro_text_en, label: "Einleitung Astro – Englisch (optional)", widget: text, required: false }
           - { name: natur_text, label: "Einleitung Natur & Landschaft", widget: text, required: false }
+          - { name: natur_text_en, label: "Einleitung Natur & Landschaft – Englisch (optional)", widget: text, required: false }
+
+          # --- Über mich ---
+          - { name: ueber_bild, label: "Über mich – Bild", widget: image, required: false, hint: "z. B. ein Porträt von dir oder dein Lieblingsfoto. Leer lassen = das neueste Naturfoto wird angezeigt." }
           - { name: ueber_titel, label: "Über mich – Überschrift", widget: string, required: false }
+          - { name: ueber_titel_en, label: "Über mich – Überschrift – Englisch (optional)", widget: string, required: false }
           - { name: ueber_text, label: "Über mich – Text (Leerzeile = neuer Absatz)", widget: text, required: false }
-          - { name: ueber_bild, label: "Über mich – Porträtfoto", widget: image, required: false }
-          - name: ausruestung
-            label: Ausrüstung
+          - { name: ueber_text_en, label: "Über mich – Text – Englisch (optional)", widget: text, required: false }
+
+          # --- Ausrüstung & Software ---
+          - name: astro_ausruestung
+            label: "Astro – Ausrüstung"
+            label_singular: Eintrag
+            widget: list
+            required: false
+            hint: "Ein Gerät pro Eintrag, z. B. „SkyWatcher EQ6-R“"
+            field: { name: eintrag, label: Eintrag, widget: string }
+          - name: astro_software
+            label: "Astro – Software"
             label_singular: Eintrag
             widget: list
             required: false
             field: { name: eintrag, label: Eintrag, widget: string }
-          - { name: druck_hinweis, label: "Hinweis auf Drucke (in der Bildansicht)", widget: text, required: false, hint: "Erscheint in den Details jedes Bildes, darunter steht automatisch ein Link „Anfrage per E-Mail“." }
+          - name: natur_ausruestung
+            label: "Natur & Landschaft – Ausrüstung"
+            label_singular: Eintrag
+            widget: list
+            required: false
+            field: { name: eintrag, label: Eintrag, widget: string }
+          - name: natur_software
+            label: "Natur & Landschaft – Software"
+            label_singular: Eintrag
+            widget: list
+            required: false
+            field: { name: eintrag, label: Eintrag, widget: string }
+
+          # --- Drucke ---
+          - { name: druck_hinweis, label: "Hinweis auf Drucke (in der Bildansicht)", widget: text, required: false, hint: "Darunter steht automatisch ein Link „Anfrage per E-Mail“." }
+          - { name: druck_hinweis_en, label: "Hinweis auf Drucke – Englisch (optional)", widget: text, required: false }
+
+          # --- Rechtliches (nur Deutsch) ---
           - { name: impressum, label: "Impressum (Name, Anschrift)", widget: text }
           - { name: datenschutz, label: "Datenschutzerklärung", widget: text }
