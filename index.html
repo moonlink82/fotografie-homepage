@@ -81,6 +81,14 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .intro{padding:clamp(4rem,9vw,7rem) 0;text-align:center}
 .quote{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3.2vw,2.5rem);line-height:1.3;max-width:30ch;margin:0 auto}
 .band{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center;padding-bottom:clamp(4rem,9vw,7rem)}
+.print-band{padding-top:clamp(1rem,3vw,2rem)}
+.print-band .btn{margin-top:1.8rem}
+.print-band .lead{max-width:48ch}
+.print-link{display:inline-flex;align-items:center;gap:.55rem;margin-top:.85rem;padding:.5rem 1rem .5rem .8rem;font-size:.9rem;font-weight:500;color:#e9c27f;letter-spacing:.02em;border:1px solid rgba(214,168,92,.6);border-radius:99px;background:rgba(214,168,92,.1);transition:background .2s,border-color .2s,color .2s}
+.lb-bar .print-link{display:flex;width:max-content;max-width:100%}
+.print-link:hover{background:rgba(214,168,92,.2);border-color:var(--gold);color:#f3d29a}
+.print-link svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7}
+@media(max-width:860px){.band{grid-template-columns:1fr}}
 .frame{background:#1b1d22;padding:clamp(1.5rem,4vw,3.5rem);box-shadow:inset 0 0 80px rgba(0,0,0,.5)}
 .frame img{width:100%;border:clamp(8px,1.4vw,16px) solid #f2efe8;box-shadow:0 25px 50px rgba(0,0,0,.55)}
 @media(max-width:860px){.band{grid-template-columns:1fr}}
@@ -363,6 +371,15 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <p class="kicker" data-i18n="welcome">Willkommen</p>
       <p class="quote" id="quoteText"></p>
     </div>
+    <div class="wrap band print-band" id="printBand">
+      <div>
+        <p class="kicker" data-i18n="pbKicker">Fine-Art-Drucke</p>
+        <h2 class="sec" data-i18n="pbTitle">Ein Stück Nachthimmel für deine Wand</h2>
+        <p class="lead" data-i18n="pbText">Alle Motive gibt es auch als hochwertigen Druck, in verschiedenen Größen und Materialien. Schreib mir einfach, welches Bild dir gefällt – Format und Material stimmen wir gemeinsam ab.</p>
+        <a class="btn" id="pbBtn" href="#" data-i18n="pbBtn">Druck anfragen</a>
+      </div>
+      <div class="frame"><img id="pbImg" alt=""></div>
+    </div>
   </section>
 
   <!-- KATEGORIEN -->
@@ -432,6 +449,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
       <p class="kicker" id="lbCat"></p>
       <h2 id="lbTitle"></h2>
       <small id="lbSub"></small>
+      <a class="print-link" id="lbPrintLink" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><rect x="7" y="8" width="10" height="8"/></svg><span data-i18n="printLink">Auch als Druck erhältlich – jetzt anfragen</span></a>
     </div>
     <div class="lb-actions">
       <button class="ic like-btn" id="lbLike" type="button" aria-pressed="false" title="Gefällt mir" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 8 3.3 4.5 6.9 4.5c2 0 3.7 1.1 4.6 2.7h1c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.6 3.5 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/></svg><span id="lbLikeN">0</span></button>
@@ -466,6 +484,7 @@ const T={
   astroTitle:'Astro',astroKicker:'Nachthimmel',naturTitle:'Natur & Landschaft',naturKicker:'Draußen',
   images:n=>`${n} Bilder`,latestOn:d=>`zuletzt ${d}`,soon:'Bald mehr',view:'Ansehen',latest:'Neueste Bilder',recentlyAdded:'zuletzt hinzugefügt',
   gallery:'Galerie',all:'Alle',newBadge:'Neu',emptyCat:'Hier erscheinen bald die ersten Bilder.',open:t=>`${t} öffnen`,
+  pbKicker:'Fine-Art-Drucke',pbTitle:'Ein Stück Nachthimmel für deine Wand',pbText:'Alle Motive gibt es auch als hochwertigen Druck, in verschiedenen Größen und Materialien. Schreib mir einfach, welches Bild dir gefällt – Format und Material stimmen wir gemeinsam ab.',pbBtn:'Druck anfragen',printLink:'Auch als Druck erhältlich – jetzt anfragen',
   portrait:'Porträt',gear:'Ausrüstung',gearTitle:'Ausrüstung & Software',gearHw:'Ausrüstung',writeMail:'E-Mail schreiben',contact:'Kontakt',aboutFallback:'Über mich',legalKicker:'Rechtliches',legalNote:'',
   ftrNote:a=>`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an ${a}.`,copyright:'Alle Bilder urheberrechtlich geschützt.',
   dialog:'Bildansicht',zoomTitle:'In Originalgröße ansehen (Klick ins Bild)',fs:'Vollbild',fsTitle:'Vollbild (F)',close:'Schließen',closeTitle:'Schließen (Esc)',
@@ -483,6 +502,7 @@ const T={
   astroTitle:'Astro',astroKicker:'Night sky',naturTitle:'Nature & Landscape',naturKicker:'Outdoors',
   images:n=>`${n} ${n===1?'image':'images'}`,latestOn:d=>`latest ${d}`,soon:'Coming soon',view:'View',latest:'Latest images',recentlyAdded:'recently added',
   gallery:'Gallery',all:'All',newBadge:'New',emptyCat:'The first images will appear here soon.',open:t=>`Open ${t}`,
+  pbKicker:'Fine art prints',pbTitle:'A piece of the night sky for your wall',pbText:'All images are also available as high-quality prints, in various sizes and materials. Just tell me which image you like – we will choose the size and material together.',pbBtn:'Request a print',printLink:'Also available as a print – enquire now',
   portrait:'Portrait',gear:'Equipment',gearTitle:'Equipment & Software',gearHw:'Equipment',writeMail:'Send an email',contact:'Contact',aboutFallback:'About me',legalKicker:'Legal',legalNote:'The legal notice and privacy policy are provided in German.',
   ftrNote:a=>`All images are also available as prints – just send an enquiry to ${a}.`,copyright:'All images protected by copyright.',
   dialog:'Image viewer',zoomTitle:'View at original size (click into the image)',fs:'Full screen',fsTitle:'Full screen (F)',close:'Close',closeTitle:'Close (Esc)',
@@ -719,6 +739,9 @@ async function toggleLike(){
 const tile=(p,isNew)=>`<div class="tile" role="button" tabindex="0" data-id="${p.id}" aria-label="${esc(t('open',p.titel))}">${isNew?`<span class="new">${t('newBadge')}</span>`:''}<img src="${src(p)}" alt="${esc(p.titel)}" loading="lazy"><span class="cap"><b>${esc(p.titel)}</b><small>${esc(p.ort)} · ${fmt(p.datum)}${likeBadge(p)}</small></span></div>`;
 
 function renderStart(){
+  const band=$('#printBand');band.style.display=CONFIG.email?'':'none';
+  const ap=byCat('astro'),bp=ap[1]||ap[0]||PHOTOS[0];if(bp)$('#pbImg').src=src(bp);
+  $('#pbBtn').href=mailto(t('printSubj'));
   $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${t('images',L.length)} · ${t('latestOn',fmt(L[0].datum))}`:t('soon')}</p><span class="go">${t('view')} <i>→</i></span></div></a>`}).join('');
 }
 
@@ -816,6 +839,7 @@ function showLB(){
   $('#lbSub2').textContent=$('#lbSub').textContent;
   $('#lbPrint').innerHTML=CONFIG.email?`${esc(loc('druck_hinweis')||t('printNote'))} <a href="${mailto(t('printSubj')+': '+p.titel)}">${t('printAsk')}</a>`:'';
   $('#lbPrint').style.display=CONFIG.email?'':'none';
+  const pl=$('#lbPrintLink');pl.style.display=CONFIG.email?'':'none';pl.href=mailto(t('printSubj')+': '+p.titel);
   showLike(p);
   $('#lbMeta').innerHTML=metaHtml(p);
   $('#lbCount').textContent=lbList.length>1?`${lbI+1} / ${lbList.length}`:'';
