@@ -855,7 +855,7 @@ async function step(d,fromDx=0){
   busy=true;
   const img=lbImg,W=stage.clientWidth||innerWidth,txt=document.querySelector('.lb-bar>div');
   /* Desktop (Pfeile/Tastatur): eleganter Überblend-Effekt statt Schieben */
-  if(!fromDx&&canHover&&!reduceMotion){
+  if(!fromDx&&canHover){
     let ghost=null;
     try{
       const n=get(lbList[(lbI+d+lbList.length)%lbList.length]);
@@ -871,12 +871,12 @@ async function step(d,fromDx=0){
       try{await img.decode()}catch(_){}
       img.style.opacity='';
       const ease='cubic-bezier(.22,.61,.36,1)';
-      ghost.animate([{opacity:1,transform:'none',filter:'blur(0) brightness(1)'},
-        {opacity:0,transform:`translateX(${-d*18}px) scale(1.025)`,filter:'blur(4px) brightness(.85)'}],
+      ghost.animate([reduceMotion?{opacity:1}:{opacity:1,transform:'none',filter:'blur(0) brightness(1)'},
+        reduceMotion?{opacity:0}:{opacity:0,transform:`translateX(${-d*18}px) scale(1.025)`,filter:'blur(4px) brightness(.85)'}],
         {duration:700,easing:ease,fill:'forwards'});
       if(txt)txt.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:600,delay:150,easing:'ease-out',fill:'backwards'});
-      await img.animate([{opacity:0,transform:`translateX(${d*18}px) scale(.985)`,filter:'blur(3px)'},
-        {opacity:1,transform:'none',filter:'blur(0)'}],{duration:800,easing:ease}).finished;
+      await img.animate([reduceMotion?{opacity:0}:{opacity:0,transform:`translateX(${d*18}px) scale(.985)`,filter:'blur(3px)'},
+        reduceMotion?{opacity:1}:{opacity:1,transform:'none',filter:'blur(0)'}],{duration:800,easing:ease}).finished;
     }finally{
       if(ghost)ghost.remove();
       img.style.opacity='';img.getAnimations().forEach(a=>a.cancel());
