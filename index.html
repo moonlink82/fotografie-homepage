@@ -266,6 +266,23 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .latest{height:clamp(380px,calc(100vh - 300px),760px)}
 @media(max-width:760px){.cathead{display:block}.cathead .lead{margin-top:.8rem}.latest{height:auto}}
 
+
+/* ===== Galerie: elegantere Kacheln ===== */
+.masonry{column-gap:clamp(12px,1.4vw,20px)}
+.masonry .tile{margin-bottom:clamp(12px,1.4vw,20px);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .6s cubic-bezier(.2,.7,.2,1),box-shadow .6s,opacity .8s ease}
+.masonry .tile::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid rgba(255,255,255,.07);pointer-events:none;transition:border-color .5s}
+.masonry .tile img{transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .6s;filter:brightness(.94) saturate(.96)}
+.masonry .tile:hover{transform:translateY(-5px);box-shadow:0 22px 50px rgba(0,0,0,.55)}
+.masonry .tile:hover::after{border-color:rgba(214,168,92,.55)}
+.masonry .tile:hover img{transform:scale(1.05);filter:brightness(1.04) saturate(1.05)}
+.masonry .cap{padding:3.4rem 1.1rem 1rem;background:linear-gradient(to top,rgba(5,6,8,.88),rgba(5,6,8,.35) 55%,transparent)}
+.masonry .cap b{transform:translateY(8px);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.masonry .tile:hover .cap b{transform:none}
+.masonry .tile.pre{opacity:0;transform:translateY(24px) scale(.98)}
+.latest .tile{border-radius:8px}
+@media(max-width:760px){.masonry .tile{border-radius:6px;box-shadow:none}.latest .tile img{border-radius:6px}.latest .tile{border-radius:0}}
+@media(prefers-reduced-motion:reduce){.masonry .tile.pre{opacity:1;transform:none}}
+
 /* ===== Einfaches Layout für Handys ===== */
 @media(max-width:760px){
   /* Startseite: Bild oben, Text darunter */
@@ -705,6 +722,15 @@ function renderStart(){
   $('#split').innerHTML=Object.entries(CATS).map(([k,C])=>{const L=byCat(k);return `<a class="panel" href="#${k}">${L[0]?`<img src="${src(L[0])}" alt="">`:''}<div><p class="kicker">${C.kicker}</p><h2>${esc(C.title)}</h2><p class="pmeta">${L.length?`${t('images',L.length)} · ${t('latestOn',fmt(L[0].datum))}`:t('soon')}</p><span class="go">${t('view')} <i>→</i></span></div></a>`}).join('');
 }
 
+/* Kacheln beim Scrollen sanft einblenden */
+let revealObs=null;
+function reveal(box){
+  const tiles=[...box.querySelectorAll('.tile')];
+  if(!('IntersectionObserver' in window)||reduceMotion)return;
+  if(!revealObs)revealObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target;revealObs.unobserve(t);requestAnimationFrame(()=>t.classList.remove('pre'))}}),{rootMargin:'0px 0px -6% 0px'});
+  tiles.forEach((t,i)=>{t.classList.add('pre');t.style.transitionDelay=(i%4)*70+'ms';revealObs.observe(t);
+    t.addEventListener('transitionend',()=>{t.style.transitionDelay=''},{once:true})});
+}
 function renderCat(k){
   const el=document.querySelector(`[data-view="${k}"] .catwrap`),C=CATS[k],list=byCat(k),latest=list.slice(0,3);
   const years=[...new Set(list.map(p=>p.datum.slice(0,4)))];
@@ -715,7 +741,7 @@ function renderCat(k){
     <div class="sechead"><h2 class="sec">${t('gallery')} <span class="count" style="font-family:var(--sans)">${t('images',list.length)}</span></h2><div class="chips">${['all',...years].map((y,i)=>`<button class="chip${i?'':' on'}" data-y="${y}">${y==='all'?t('all'):y}</button>`).join('')}</div></div>
     <div class="masonry"></div>`;
   const m=el.querySelector('.masonry');
-  const fill=y=>{const L=y==='all'?list:list.filter(p=>p.datum.startsWith(y));m.innerHTML=L.map(p=>tile(p)).join('');m.dataset.ids=L.map(p=>p.id)};
+  const fill=y=>{const L=y==='all'?list:list.filter(p=>p.datum.startsWith(y));m.innerHTML=L.map(p=>tile(p)).join('');m.dataset.ids=L.map(p=>p.id);reveal(m)};
   fill('all');
   el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{el.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));fill(b.dataset.y)});
 }
