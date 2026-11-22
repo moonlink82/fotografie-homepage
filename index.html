@@ -215,6 +215,11 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .about p{color:#c9c6bf;margin-top:1rem;max-width:58ch}
 .about h3{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin-top:2rem}
 .gear{list-style:none;margin-top:.6rem;display:grid;gap:.3rem;color:var(--muted);font-size:.92rem}
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:.9rem}
+.gear-card{background:var(--bg2);border:1px solid var(--line);padding:1.1rem 1.2rem 1.2rem}
+.gear-card h4{font-family:var(--serif);font-weight:500;font-size:1.25rem;margin-bottom:.4rem}
+.gear-card h5{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin:.9rem 0 .35rem}
+.gear-card .gear{margin-top:0}
 .gear li::before{content:"— ";color:var(--gold)}
 .about .actions{margin-top:2rem}
 @media(max-width:860px){.about{grid-template-columns:1fr}}
@@ -340,8 +345,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
         <p class="kicker" data-i18n="navAbout">Über mich</p>
         <h1 id="aboutTitle"></h1>
         <div id="aboutText"></div>
-        <h3 data-i18n="gear">Ausrüstung</h3>
-        <ul class="gear" id="gearList"></ul>
+                <div id="gearBox"></div>
         <div class="actions">
           <a class="btn" id="mailBtn" href="#" data-i18n="writeMail">E-Mail schreiben</a>
           <a class="btn ghost" id="igLink" href="#">Instagram</a>
@@ -430,7 +434,7 @@ const T={
   astroTitle:'Astro',astroKicker:'Nachthimmel',naturTitle:'Natur & Landschaft',naturKicker:'Draußen',
   images:n=>`${n} Bilder`,latestOn:d=>`zuletzt ${d}`,soon:'Bald mehr',view:'Ansehen',latest:'Neueste Bilder',recentlyAdded:'zuletzt hinzugefügt',
   gallery:'Galerie',all:'Alle',newBadge:'Neu',emptyCat:'Hier erscheinen bald die ersten Bilder.',open:t=>`${t} öffnen`,
-  portrait:'Porträt',gear:'Ausrüstung',writeMail:'E-Mail schreiben',contact:'Kontakt',aboutFallback:'Über mich',legalKicker:'Rechtliches',legalNote:'',
+  portrait:'Porträt',gear:'Ausrüstung',gearTitle:'Ausrüstung & Software',gearHw:'Ausrüstung',writeMail:'E-Mail schreiben',contact:'Kontakt',aboutFallback:'Über mich',legalKicker:'Rechtliches',legalNote:'',
   ftrNote:a=>`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an ${a}.`,copyright:'Alle Bilder urheberrechtlich geschützt.',
   dialog:'Bildansicht',zoomTitle:'In Originalgröße ansehen (Klick ins Bild)',fs:'Vollbild',fsTitle:'Vollbild (F)',close:'Schließen',closeTitle:'Schließen (Esc)',
   prev:'Vorheriges Bild',next:'Nächstes Bild',details:'Details & Aufnahmedaten',detailsTitle:'Beschreibung und Aufnahmedaten (I)',closeDetails:'Details schließen',
@@ -447,7 +451,7 @@ const T={
   astroTitle:'Astro',astroKicker:'Night sky',naturTitle:'Nature & Landscape',naturKicker:'Outdoors',
   images:n=>`${n} ${n===1?'image':'images'}`,latestOn:d=>`latest ${d}`,soon:'Coming soon',view:'View',latest:'Latest images',recentlyAdded:'recently added',
   gallery:'Gallery',all:'All',newBadge:'New',emptyCat:'The first images will appear here soon.',open:t=>`Open ${t}`,
-  portrait:'Portrait',gear:'Equipment',writeMail:'Send an email',contact:'Contact',aboutFallback:'About me',legalKicker:'Legal',legalNote:'The legal notice and privacy policy are provided in German.',
+  portrait:'Portrait',gear:'Equipment',gearTitle:'Equipment & Software',gearHw:'Equipment',writeMail:'Send an email',contact:'Contact',aboutFallback:'About me',legalKicker:'Legal',legalNote:'The legal notice and privacy policy are provided in German.',
   ftrNote:a=>`All images are also available as prints – just send an enquiry to ${a}.`,copyright:'All images protected by copyright.',
   dialog:'Image viewer',zoomTitle:'View at original size (click into the image)',fs:'Full screen',fsTitle:'Full screen (F)',close:'Close',closeTitle:'Close (Esc)',
   prev:'Previous image',next:'Next image',details:'Details & image data',detailsTitle:'Description and image data (I)',closeDetails:'Close details',
@@ -464,6 +468,8 @@ const T={
 let LANG=(()=>{try{const s=localStorage.getItem('lw-lang');if(s==='de'||s==='en')return s}catch(_){}
   const l=(navigator.languages&&navigator.languages[0])||navigator.language||'de';return /^de\b/i.test(l)?'de':'en'})();
 const T_=(k,...a)=>t(k,...a);
+/* Einstellungstext in der aktuellen Sprache (englisches Feld *_en, sonst deutsch) */
+const loc=k=>{const en=CONFIG[k+'_en'];if(LANG==='en'&&typeof en==='string'&&en.trim())return en;return CONFIG[k]||''};
 const t=(k,...a)=>{const v=(T[LANG]&&T[LANG][k]!==undefined)?T[LANG][k]:T.de[k];return typeof v==='function'?v(...a):v};
 function applyI18n(){
   document.documentElement.lang=LANG;
@@ -487,8 +493,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('.lang button');i
    ========================================================= */
 let CONFIG = {}, PHOTOS = [];
 const CATS = {
-  astro: { get title(){return t('astroTitle')}, get kicker(){return t('astroKicker')}, lead:'' },
-  natur: { get title(){return t('naturTitle')}, get kicker(){return t('naturKicker')}, lead:'' },
+  astro: { get title(){return t('astroTitle')}, get kicker(){return t('astroKicker')}, get lead(){return loc('astro_text')} },
+  natur: { get title(){return t('naturTitle')}, get kicker(){return t('naturKicker')}, get lead(){return loc('natur_text')} },
 };
 
 /* Platzhalter-Motive für Einträge ohne Bild */
@@ -530,7 +536,6 @@ async function load(){
         get text(){return LANG==='en'&&has_(p.beschreibung_en)?p.beschreibung_en:(p.beschreibung||'')}};
     });
     PHOTOS.sort((a,b)=>b.datum.localeCompare(a.datum));
-    CATS.astro.lead=e.astro_text||''; CATS.natur.lead=e.natur_text||'';
     applyI18n();
     applySettings();
     await loadLikes();
@@ -623,9 +628,19 @@ function src(p){
 }
 
 /* ---------- Grundgerüst ---------- */
+/* Ausrüstung & Software, getrennt nach Astro und Natur/Landschaft */
+function gearHtml(){
+  const L=k=>(Array.isArray(CONFIG[k])?CONFIG[k]:[]).map(x=>typeof x==='string'?x:(x&&x.eintrag)||'').filter(x=>x.trim());
+  const ul=a=>`<ul class="gear">${a.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>`;
+  const card=(title,hw,sw)=>(hw.length||sw.length)?`<div class="gear-card"><h4>${title}</h4>${hw.length?`<h5>${t('gearHw')}</h5>${ul(hw)}`:''}${sw.length?`<h5>Software</h5>${ul(sw)}`:''}</div>`:'';
+  const cards=card(t('astroTitle'),L('astro_ausruestung'),L('astro_software'))+card(t('naturTitle'),L('natur_ausruestung'),L('natur_software'));
+  if(cards)return `<h3>${t('gearTitle')}</h3><div class="gear-grid">${cards}</div>`;
+  const old=L('ausruestung');
+  return old.length?`<h3>${t('gear')}</h3>${ul(old)}`:'';
+}
 const mailto=subj=>`mailto:${CONFIG.email}?subject=${encodeURIComponent(subj)}`;
 function applySettings(){
-  try{const ld={'@context':'https://schema.org','@type':'WebSite',name:[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' '),description:CONFIG.seo_beschreibung||'',inLanguage:'de',url:location.origin+'/'};
+  try{const ld={'@context':'https://schema.org','@type':'WebSite',name:[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' '),description:loc('seo_beschreibung'),inLanguage:LANG,url:location.origin+'/'};
     let el=document.getElementById('ldjson');if(!el){el=document.createElement('script');el.id='ldjson';el.type='application/ld+json'}el.textContent=JSON.stringify(ld);document.head.appendChild(el)}catch(_){}
   $('#mailBtn').href=mailto(t('mailSubj'));
   $('#ftrNote').innerHTML=CONFIG.email?t('ftrNote',`<a href="${mailto(t('printSubj'))}">${esc(CONFIG.email)}</a>`):'';
@@ -634,10 +649,10 @@ function applySettings(){
   ['#igLink','#igLink2'].forEach(s=>$(s).href=CONFIG.instagram||'#');
   $('#mailText').textContent=CONFIG.email||'';$('#mailText2').textContent=CONFIG.email||'';
   $('#copy').textContent=`© ${new Date().getFullYear()} ${CONFIG.name||''} ${CONFIG.zusatz||''} · ${t('copyright')}`;
-  $('#quoteText').textContent=CONFIG.startseite_text||'';
-  $('#aboutTitle').textContent=LANG==='de'?(CONFIG.ueber_titel||t('aboutFallback')):t('aboutFallback');
-  $('#aboutText').innerHTML=String(CONFIG.ueber_text||'').split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
-  $('#gearList').innerHTML=(CONFIG.ausruestung||[]).filter(Boolean).map(g=>`<li>${esc(g)}</li>`).join('');
+  $('#quoteText').textContent=loc('startseite_text');
+  $('#aboutTitle').textContent=loc('ueber_titel')||t('aboutFallback');
+  $('#aboutText').innerHTML=String(loc('ueber_text')).split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
+  $('#gearBox').innerHTML=gearHtml();
   $('#impText').textContent=CONFIG.impressum||'';
   $('#dsText').innerHTML=textHtml(CONFIG.datenschutz,false);
 }
@@ -758,7 +773,7 @@ function showLB(){
   $('#lbText').innerHTML=textHtml(p.text);
   $('#lbInfo').classList.toggle('notext',!String(p.text||'').trim());
   $('#lbSub2').textContent=$('#lbSub').textContent;
-  $('#lbPrint').innerHTML=CONFIG.email?`${esc(LANG==='de'?(CONFIG.druck_hinweis||t('printNote')):t('printNote'))} <a href="${mailto(t('printSubj')+': '+p.titel)}">${t('printAsk')}</a>`:'';
+  $('#lbPrint').innerHTML=CONFIG.email?`${esc(loc('druck_hinweis')||t('printNote'))} <a href="${mailto(t('printSubj')+': '+p.titel)}">${t('printAsk')}</a>`:'';
   $('#lbPrint').style.display=CONFIG.email?'':'none';
   showLike(p);
   $('#lbMeta').innerHTML=metaHtml(p);
@@ -876,7 +891,7 @@ function setMeta(h){
   const site=[CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' ');
   const tt={start:t('tStart'),astro:t('tAstro'),natur:t('tNatur'),ueber:t('tAbout'),impressum:t('tLegal')}[h]||'';
   document.title=h==='start'?`${site} – ${tt}`:`${tt} – ${site}`;
-  const d=h==='astro'?CATS.astro.lead:h==='natur'?CATS.natur.lead:CONFIG.seo_beschreibung;
+  const d=h==='astro'?CATS.astro.lead:h==='natur'?CATS.natur.lead:loc('seo_beschreibung');
   if(d)document.querySelector('meta[name=description]').setAttribute('content',d);
 }
 function route(keep){
