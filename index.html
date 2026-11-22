@@ -123,6 +123,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .lb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:clamp(.4rem,1.2vw,1rem);overflow:hidden}
 .lb-stage img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;-webkit-user-drag:none;will-change:transform,opacity}
 .lb.nozoom .lb-stage img{cursor:default}
+.lb-stage img.lb-ghost{position:absolute;max-width:none;max-height:none;object-fit:contain;pointer-events:none;z-index:1}
 .lb.zoom .lb-stage{display:block;padding:0;overflow:auto;cursor:grab;scrollbar-width:none}
 .lb.zoom .lb-stage::-webkit-scrollbar{display:none}
 .lb.zoom .lb-stage.drag{cursor:grabbing}
@@ -853,6 +854,36 @@ async function step(d,fromDx=0){
   if(lbList.length<2||busy)return;
   busy=true;
   const img=lbImg,W=stage.clientWidth||innerWidth,txt=document.querySelector('.lb-bar>div');
+  /* Desktop (Pfeile/Tastatur): eleganter Überblend-Effekt statt Schieben */
+  if(!fromDx&&canHover&&!reduceMotion){
+    let ghost=null;
+    try{
+      const n=get(lbList[(lbI+d+lbList.length)%lbList.length]);
+      const pre=new Image();pre.src=src(n);
+      await Promise.race([pre.decode().catch(()=>{}),new Promise(r=>setTimeout(r,1500))]);
+      const r=img.getBoundingClientRect(),sr=stage.getBoundingClientRect();
+      ghost=img.cloneNode();ghost.removeAttribute('id');ghost.className='lb-ghost';
+      Object.assign(ghost.style,{left:(r.left-sr.left)+'px',top:(r.top-sr.top)+'px',width:r.width+'px',height:r.height+'px'});
+      stage.appendChild(ghost);
+      img.style.opacity='0';
+      lbI=(lbI+d+lbList.length)%lbList.length;
+      showLB();
+      try{await img.decode()}catch(_){}
+      img.style.opacity='';
+      const ease='cubic-bezier(.22,.61,.36,1)';
+      ghost.animate([{opacity:1,transform:'none',filter:'blur(0) brightness(1)'},
+        {opacity:0,transform:`translateX(${-d*18}px) scale(1.025)`,filter:'blur(4px) brightness(.85)'}],
+        {duration:700,easing:ease,fill:'forwards'});
+      if(txt)txt.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:600,delay:150,easing:'ease-out',fill:'backwards'});
+      await img.animate([{opacity:0,transform:`translateX(${d*18}px) scale(.985)`,filter:'blur(3px)'},
+        {opacity:1,transform:'none',filter:'blur(0)'}],{duration:800,easing:ease}).finished;
+    }finally{
+      if(ghost)ghost.remove();
+      img.style.opacity='';img.getAnimations().forEach(a=>a.cancel());
+      busy=false;
+    }
+    return;
+  }
   try{
     if(!reduceMotion){
       const from=fromDx?`translateX(${fromDx}px)`:'none';
