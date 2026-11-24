@@ -85,8 +85,23 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 .print-band .btn{margin-top:1.8rem}
 .print-band .lead{max-width:48ch}
 .print-link{display:inline-flex;align-items:center;gap:.55rem;margin-top:.85rem;padding:.5rem 1rem .5rem .8rem;font-size:.9rem;font-weight:500;color:#e9c27f;letter-spacing:.02em;border:1px solid rgba(214,168,92,.6);border-radius:99px;background:rgba(214,168,92,.1);transition:background .2s,border-color .2s,color .2s}
-.lb-bar .print-link{display:flex;width:max-content;max-width:100%}
+.lb-bar .print-link{display:flex;width:fit-content;max-width:100%}
+.lb-bar>*{min-width:0;max-width:100%}
+.lb-bar h2{overflow-wrap:break-word;hyphens:auto}
+.lb-actions{min-width:0}
+.lb-actions .info-btn{min-width:0;overflow:hidden}
+.info-btn .lbl2,.info-btn .lbl3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info-btn .lbl3{display:none}
+@media(max-width:480px){.info-btn .lbl2{display:none}.info-btn .lbl3{display:inline}.lb-bar .print-link{font-size:.84rem}}
 .print-link:hover{background:rgba(214,168,92,.2);border-color:var(--gold);color:#f3d29a}
+.share-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share-pop{position:fixed;z-index:1000;min-width:230px;padding:.45rem;background:#15171c;border:1px solid rgba(255,255,255,.14);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.55);display:none}
+.share-pop.on{display:block;animation:popin .18s ease-out}
+@keyframes popin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.share-pop p{padding:.45rem .7rem .55rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.share-pop a,.share-pop button{display:flex;align-items:center;gap:.7rem;width:100%;padding:.62rem .7rem;border-radius:9px;color:#e8e5df;font-size:.92rem;text-align:left;background:none;border:0;cursor:pointer;font-family:inherit}
+.share-pop a:hover,.share-pop button:hover{background:rgba(255,255,255,.07)}
+.share-pop svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
 .print-link svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7}
 @media(max-width:860px){.band{grid-template-columns:1fr}}
 .frame{background:#1b1d22;padding:clamp(1.5rem,4vw,3.5rem);box-shadow:inset 0 0 80px rgba(0,0,0,.5)}
@@ -154,7 +169,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 @media(max-width:760px){.latest .tile:not(:first-child) .cap{padding:2rem .7rem .65rem}.latest .tile:not(:first-child) .cap b{font-size:1rem;overflow-wrap:anywhere;hyphens:auto}.latest .tile:not(:first-child) .cap small{font-size:.68rem}}
 @media(max-width:600px){.masonry{columns:2;column-gap:8px}.masonry .tile{margin-bottom:8px}}
 .tile img,.lb-stage img,.pick img,.panel img,.about-img img{-webkit-touch-callout:none;-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
-.toast{position:fixed;left:50%;bottom:2rem;z-index:200;transform:translate(-50%,20px);background:#1b1d22;border:1px solid var(--line);color:var(--text);padding:.75rem 1.2rem;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.toast{max-width:calc(100vw - 2rem);text-align:center;position:fixed;left:50%;bottom:2rem;z-index:200;transform:translate(-50%,20px);background:#1b1d22;border:1px solid var(--line);color:var(--text);padding:.75rem 1.2rem;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .like-btn{height:46px;padding:0 1rem;gap:.5rem;font-size:.9rem;font-variant-numeric:tabular-nums}
 .like-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .25s}
@@ -345,7 +360,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
   .lb-bar>div:first-child{display:none}
   .lb-actions{pointer-events:auto}
   .lb-actions .info-btn,.info-btn{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;background:rgba(214,168,92,.92)}
-  .info-btn .lbl2{display:none}
+  .info-btn .lbl2,.info-btn .lbl3{display:none}
   .info-btn .i{width:auto;height:auto;background:none;color:#15120c;font-size:1.25rem}
   .lb.idle .lb-ui{opacity:1;pointer-events:auto}
   .lb.zoom .lb-stage{display:block}
@@ -454,7 +469,8 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
     </div>
     <div class="lb-actions">
       <button class="ic like-btn" id="lbLike" type="button" aria-pressed="false" title="Gefällt mir" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.4-9.3C1.3 8 3.3 4.5 6.9 4.5c2 0 3.7 1.1 4.6 2.7h1c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.6 3.5 4.3 6.7-1.9 4.7-9.4 9.3-9.4 9.3z"/></svg><span id="lbLikeN">0</span></button>
-      <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)" data-i18n-title="detailsTitle"><span class="i">i</span> <span class="lbl2" data-i18n="details">Details &amp; Aufnahmedaten</span></button>
+      <button class="ic share-btn" id="lbShare" type="button" title="Bild teilen" aria-label="Bild teilen" data-i18n-title="shareTitle" data-i18n-aria="shareTitle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg><span class="lbl" data-i18n="share">Teilen</span></button>
+      <button class="ic info-btn" id="lbInfoBtn" title="Beschreibung und Aufnahmedaten (I)" data-i18n-title="detailsTitle"><span class="i">i</span> <span class="lbl2" data-i18n="details">Details &amp; Aufnahmedaten</span><span class="lbl3" data-i18n="detailsShort">Details</span></button>
     </div>
   </div>
   <aside class="lb-info" id="lbInfo">
@@ -474,6 +490,15 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.8rem);l
 </div>
 
 <div class="toast" id="toast" role="status"></div>
+<div class="share-pop" id="sharePop" role="menu">
+  <p data-i18n="shareHead">Bild teilen</p>
+  <button type="button" data-share="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span data-i18n="shareCopy">Link kopieren</span></button>
+  <a data-share="wa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/></svg>WhatsApp</a>
+  <button type="button" data-share="ig"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg>Instagram</button>
+  <a data-share="fb" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg>Facebook</a>
+  <a data-share="pin" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M11 8.5c3-1 5.5.5 5 3.2-.4 2.2-2.6 3.3-4.3 2.4M11.6 10l-2.4 10"/></svg>Pinterest</a>
+  <a data-share="mail"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>E-Mail</a>
+</div>
 
 <script>
 
@@ -489,7 +514,7 @@ const T={
   portrait:'Porträt',gear:'Ausrüstung',gearTitle:'Ausrüstung & Software',gearHw:'Ausrüstung',writeMail:'E-Mail schreiben',contact:'Kontakt',aboutFallback:'Über mich',legalKicker:'Rechtliches',legalNote:'',
   ftrNote:a=>`Alle Motive sind auch als Druck erhältlich, Anfragen gern per E-Mail an ${a}.`,copyright:'Alle Bilder urheberrechtlich geschützt.',
   dialog:'Bildansicht',zoomTitle:'In Originalgröße ansehen (Klick ins Bild)',fs:'Vollbild',fsTitle:'Vollbild (F)',close:'Schließen',closeTitle:'Schließen (Esc)',
-  prev:'Vorheriges Bild',next:'Nächstes Bild',details:'Details & Aufnahmedaten',detailsTitle:'Beschreibung und Aufnahmedaten (I)',closeDetails:'Details schließen',
+  prev:'Vorheriges Bild',next:'Nächstes Bild',details:'Details & Aufnahmedaten',detailsShort:'Details',share:'Teilen',shareTitle:'Bild teilen',shareHead:'Bild teilen',shareCopy:'Link kopieren',shareCopied:'Link kopiert – du kannst ihn jetzt einfügen',shareText:'Schau dir dieses Foto an:',shareIg:'Link kopiert – in Instagram einfach in eine Nachricht oder Story einfügen',detailsTitle:'Beschreibung und Aufnahmedaten (I)',closeDetails:'Details schließen',
   hint:'Tastatur: ← → blättern · Klick ins Bild = 100 % · F = Vollbild · I = Details · Esc = schließen',
   secShot:'Aufnahme',date:'Datum',place:'Ort',secGear:'Ausrüstung',telescope:'Teleskop',camera:'Kamera',misc:'Sonstiges',lens:'Objektiv',
   secExpo:'Belichtung',filter:'Filter',frames:'Aufnahmen',gain:'Gain',time:'Zeit',total:'Gesamt',secSettings:'Einstellungen',
@@ -507,7 +532,7 @@ const T={
   portrait:'Portrait',gear:'Equipment',gearTitle:'Equipment & Software',gearHw:'Equipment',writeMail:'Send an email',contact:'Contact',aboutFallback:'About me',legalKicker:'Legal',legalNote:'The legal notice and privacy policy are provided in German.',
   ftrNote:a=>`All images are also available as prints – just send an enquiry to ${a}.`,copyright:'All images protected by copyright.',
   dialog:'Image viewer',zoomTitle:'View at original size (click into the image)',fs:'Full screen',fsTitle:'Full screen (F)',close:'Close',closeTitle:'Close (Esc)',
-  prev:'Previous image',next:'Next image',details:'Details & image data',detailsTitle:'Description and image data (I)',closeDetails:'Close details',
+  prev:'Previous image',next:'Next image',details:'Details & image data',detailsShort:'Details',share:'Share',shareTitle:'Share image',shareHead:'Share image',shareCopy:'Copy link',shareCopied:'Link copied – you can paste it now',shareText:'Have a look at this photo:',shareIg:'Link copied – just paste it into an Instagram message or story',detailsTitle:'Description and image data (I)',closeDetails:'Close details',
   hint:'Keyboard: ← → browse · click image = 100 % · F = full screen · I = details · Esc = close',
   secShot:'Capture',date:'Date',place:'Location',secGear:'Equipment',telescope:'Telescope',camera:'Camera',misc:'Other',lens:'Lens',
   secExpo:'Exposure',filter:'Filter',frames:'Frames',gain:'Gain',time:'Time',total:'Total',secSettings:'Settings',
@@ -592,7 +617,9 @@ async function load(){
     applyI18n();
     applySettings();
     await loadLikes();
-    route();
+    const dm=location.pathname.match(/^\/foto\/([a-z0-9]+)/);
+    if(dm){const dp=PHOTOS.find(x=>likeId(x)===dm[1]);history.replaceState(null,'','/'+(dp?'#'+dp.kat:''));route();if(dp)openLB(dp.id,byCat(dp.kat).map(x=>x.id))}
+    else route();
   }catch(err){
     console.error(err);
     document.querySelector('main').innerHTML=`<div class="wrap phead"><h1>${t('errTitle')}</h1><p class="lead">${t('errText')}</p></div>`;
@@ -827,9 +854,9 @@ const lb=$('#lb'),stage=$('#lbStage'),lbImg=$('#lbImg');
 const canHover=matchMedia('(hover:hover)').matches;
 let nudged=false;
 function openLB(id,ids){if(!nudged){nudged=true;const b=$('#lbInfoBtn');b.classList.add('nudge');setTimeout(()=>b.classList.remove('nudge'),3400)}lbList=ids;lbI=Math.max(0,ids.indexOf(id));showLB();lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';wake()}
-function closeLB(){if(!lb.classList.contains('on'))return;lb.classList.remove('on','zoom','info','idle');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
+function closeLB(){closeShare();if(!lb.classList.contains('on'))return;lb.classList.remove('on','zoom','info','idle');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
 function showLB(){
-  unzoom();const p=get(lbList[lbI]);
+  closeShare();unzoom();const p=get(lbList[lbI]);
   lbImg.src=src(p);lbImg.alt=p.titel;
   const cat=CATS[p.kat].title;$('#lbCat').textContent=cat;$('#lbCat2').textContent=cat;
   $('#lbTitle').textContent=p.titel;$('#lbTitle2').textContent=p.titel;
@@ -974,6 +1001,39 @@ document.addEventListener('keydown',e=>{
   if(lb.classList.contains('on')){wake();const k=e.key;if(k==='Escape'){if(lb.classList.contains('zoom'))unzoom();else if(lb.classList.contains('info'))toggleInfo();else closeLB()}if(k==='ArrowLeft')step(-1);if(k==='ArrowRight')step(1);if(k==='f'||k==='F')toggleFs();if(k==='i'||k==='I')toggleInfo();return}
   const t=e.target.closest&&e.target.closest('[role=button]');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click()}
 });
+
+/* ---------- Teilen ---------- */
+const sharePop=$('#sharePop');
+function shareInfo(){const p=get(lbList[lbI]);const url=location.origin+'/foto/'+likeId(p);
+  return {p,url,title:p.titel+' – '+([CONFIG.name,CONFIG.zusatz].filter(Boolean).join(' ')||'Lichtweite Fotografie')}}
+function closeShare(){sharePop.classList.remove('on')}
+$('#lbShare').addEventListener('click',async e=>{
+  e.stopPropagation();wake();
+  const {p,url,title}=shareInfo();
+  if(navigator.share&&!canHover){try{await navigator.share({title,text:t('shareText')+' '+p.titel,url})}catch(_){}return}
+  if(sharePop.classList.contains('on')){closeShare();return}
+  const enc=encodeURIComponent,img=new URL(src(p),location.href).href;
+  sharePop.querySelector('[data-share=wa]').href='https://wa.me/?text='+enc(t('shareText')+' '+p.titel+' '+url);
+  sharePop.querySelector('[data-share=fb]').href='https://www.facebook.com/sharer/sharer.php?u='+enc(url);
+  sharePop.querySelector('[data-share=pin]').href='https://pinterest.com/pin/create/button/?url='+enc(url)+'&media='+enc(img)+'&description='+enc(title);
+  sharePop.querySelector('[data-share=mail]').href='mailto:?subject='+enc(title)+'&body='+enc(t('shareText')+'\n'+url);
+  sharePop.classList.add('on');
+  const r=e.currentTarget.getBoundingClientRect(),w=sharePop.offsetWidth,h=sharePop.offsetHeight;
+  sharePop.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';
+  sharePop.style.top=Math.max(8,r.top-h-10)+'px';
+});
+sharePop.addEventListener('click',async e=>{
+  e.stopPropagation();
+  const b=e.target.closest('[data-share]');if(!b)return;
+  const kind=b.dataset.share;
+  if(kind==='copy'||kind==='ig'){const {url}=shareInfo();
+    try{await navigator.clipboard.writeText(url)}catch(_){const i=document.createElement('textarea');i.value=url;document.body.appendChild(i);i.select();document.execCommand('copy');i.remove()}
+    if(kind==='ig'){toast(t('shareIg'));window.open('https://www.instagram.com/direct/inbox/','_blank','noopener')}
+    else toast(t('shareCopied'))}
+  setTimeout(closeShare,50);
+});
+document.addEventListener('click',e=>{if(sharePop.classList.contains('on')&&!e.target.closest('#sharePop,#lbShare')){closeShare();e.stopPropagation();e.preventDefault()}},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sharePop.classList.contains('on')){closeShare();e.stopImmediatePropagation()}},true);
 
 /* ---------- Bildschutz (erschwert Speichern per Rechtsklick/Ziehen) ---------- */
 let toastT;
